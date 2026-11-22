@@ -1,0 +1,92 @@
+{
+ "key_terms": [
+  "SDLC|software development life cycle",
+  "requirements",
+  "functional|non-functional",
+  "waterfall",
+  "agile",
+  "agile manifesto",
+  "iterative|iteration",
+  "scrum",
+  "product owner",
+  "scrum master",
+  "development team",
+  "product backlog",
+  "sprint backlog",
+  "increment",
+  "sprint",
+  "sprint planning",
+  "daily scrum",
+  "sprint review",
+  "sprint retrospective",
+  "unit testing",
+  "integration testing",
+  "system testing",
+  "acceptance testing",
+  "black-box testing",
+  "white-box testing",
+  "regression testing",
+  "version control",
+  "git",
+  "branch",
+  "commit",
+  "code review",
+  "continuous integration|CI",
+  "continuous delivery",
+  "continuous deployment",
+  "technical debt",
+  "refactoring"
+ ],
+ "must_cover": [
+  [
+   "sequence",
+   "sequential"
+  ],
+  [
+   "late"
+  ],
+  [
+   "manifesto",
+   "individuals and interactions"
+  ],
+  [
+   "product owner",
+   "backlog"
+  ],
+  [
+   "15-minute",
+   "daily scrum"
+  ],
+  [
+   "retrospective"
+  ],
+  [
+   "unit"
+  ],
+  [
+   "black-box"
+  ],
+  [
+   "regression"
+  ],
+  [
+   "automated build"
+  ],
+  [
+   "technical debt"
+  ],
+  [
+   "refactor"
+  ]
+ ],
+ "out_of_scope": [
+  "kanban",
+  "extreme programming",
+  "devops",
+  "microservices",
+  "spiral model",
+  "v-model",
+  "pair programming",
+  "test-driven"
+ ]
+}

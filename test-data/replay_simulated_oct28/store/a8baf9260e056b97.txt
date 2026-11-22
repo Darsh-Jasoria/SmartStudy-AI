@@ -1,0 +1,18 @@
+{"summary": "The CPU scheduler picks which ready process runs next, and the dispatcher hands over the CPU through a context switch. Preemptive scheduling can take the CPU from a running process, while non-preemptive scheduling lets it run until it blocks or finishes. FCFS is simple but suffers from the convoy effect. SJF gives the minimum average waiting time but needs a burst-length prediction and can starve long processes. Round Robin gives each process a fixed time quantum, and priority scheduling can use aging to solve starvation. Turnaround, waiting and response time are the key metrics.",
+"key_terms": [
+{"term": "CPU scheduler", "definition": "The CPU scheduler picks which process in the ready queue runs next.", "evidence": "The CPU scheduler picks which process in the ready queue runs next."},
+{"term": "Dispatcher", "definition": "The dispatcher hands the CPU to the chosen process through a context switch.", "evidence": "The dispatcher then hands the CPU to that process through a context switch."},
+{"term": "Preemptive scheduling", "definition": "Preemptive scheduling can take the CPU away from a running process.", "evidence": "Preemptive scheduling can take the CPU away from a running process"},
+{"term": "Convoy effect", "definition": "The convoy effect is when short processes wait behind one long process.", "evidence": "It is simple but suffers from the convoy effect, where short processes wait behind one long process."},
+{"term": "Round Robin (RR)", "definition": "Round Robin gives each process a fixed time quantum and then moves it to the back of the ready queue.", "evidence": "Round Robin (RR): each process gets a fixed time quantum and then goes to the back of the ready queue."},
+{"term": "Aging", "definition": "Aging gradually increases the priority of waiting processes.", "evidence": "Starvation can be solved by aging, which gradually increases the priority of waiting processes."},
+{"term": "Turnaround time", "definition": "Turnaround time is completion time minus arrival time.", "evidence": "turnaround time = completion time - arrival time"}
+],
+"questions": [
+{"type": "mcq", "question": "Which scheduling algorithm suffers from the convoy effect?", "options": ["Shortest Job First", "First-Come First-Served (FCFS)", "Round Robin", "Priority scheduling"], "answer": "First-Come First-Served (FCFS)", "evidence": "It is simple but suffers from the convoy effect, where short processes wait behind one long process."},
+{"type": "short", "question": "What problem can Shortest Job First cause for long processes?", "options": null, "answer": "It can starve long processes.", "evidence": "but needs a prediction of burst length and can starve long processes."},
+{"type": "true_false", "question": "Round Robin behaves like FCFS when the time quantum is very small.", "options": null, "answer": "False", "evidence": "If the quantum is very large, RR behaves like FCFS; if it is very small, context-switch overhead dominates."},
+{"type": "mcq", "question": "What does aging solve in priority scheduling?", "options": ["Context-switch overhead", "Starvation", "Burst length prediction", "Non-preemptive blocking"], "answer": "Starvation", "evidence": "Starvation can be solved by aging, which gradually increases the priority of waiting processes."},
+{"type": "short", "question": "How is waiting time calculated?", "options": null, "answer": "Waiting time = turnaround time - burst time.", "evidence": "waiting time = turnaround time - burst time"}
+],
+"warnings": []}

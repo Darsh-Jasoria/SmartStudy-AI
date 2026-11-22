@@ -1,0 +1,22 @@
+{
+  "summary": "Lecture 11 covers database normalization, the process of organizing tables to reduce redundancy and avoid update, insertion and deletion anomalies. A functional dependency X -> Y means each value of X determines exactly one value of Y. The normal forms build on each other: 1NF requires atomic values and no repeating groups; 2NF requires 1NF plus no partial dependency on part of a composite key; 3NF requires 2NF plus no transitive dependency between non-key attributes; and BCNF requires that the left side of every functional dependency be a superkey. A transitive dependency is resolved by splitting the table, as in Student and Department. Denormalization deliberately reintroduces redundancy to speed up reads, at the cost of more complex updates.",
+  "key_terms": [
+    {"term": "Normalization", "definition": "Organizing tables to reduce redundancy and avoid update, insertion and deletion anomalies."},
+    {"term": "Functional dependency (X -> Y)", "definition": "A relationship in which each value of X determines exactly one value of Y."},
+    {"term": "First Normal Form (1NF)", "definition": "Every column holds atomic values and there are no repeating groups."},
+    {"term": "Second Normal Form (2NF)", "definition": "The table is in 1NF and no non-key attribute depends on only part of a composite primary key."},
+    {"term": "Third Normal Form (3NF)", "definition": "The table is in 2NF and no non-key attribute depends on another non-key attribute."},
+    {"term": "Boyce-Codd Normal Form (BCNF)", "definition": "A stricter form in which, for every functional dependency X -> Y, X is a superkey."},
+    {"term": "Transitive dependency", "definition": "A case where a non-key attribute depends on another non-key attribute, which 3NF removes."},
+    {"term": "Superkey", "definition": "A set of attributes that uniquely identifies each row in a table."},
+    {"term": "Denormalization", "definition": "Deliberately adding redundancy back into a database to speed up reads, at the cost of more complex updates."}
+  ],
+  "questions": [
+    {"question": "What is a functional dependency X -> Y?", "answer": "A relationship in which each value of X determines exactly one value of Y."},
+    {"question": "What does 1NF require?", "answer": "Every column holds atomic (indivisible) values and there are no repeating groups."},
+    {"question": "What extra condition does 2NF add beyond 1NF?", "answer": "No non-key attribute depends on only part of a composite primary key, so there is no partial dependency."},
+    {"question": "In the Student(StudentID, Name, DeptID, DeptName) example, why is the table not in 3NF, and how is it fixed?", "answer": "DeptName depends on DeptID, which is a non-key attribute, so there is a transitive dependency. Splitting the data into Student and Department tables fixes it."},
+    {"question": "What is the stricter condition BCNF places on functional dependencies?", "answer": "For every functional dependency X -> Y, X must be a superkey."},
+    {"question": "Why would a designer use denormalization?", "answer": "To add redundancy on purpose and speed up reads, accepting that updates become more complex."}
+  ]
+}

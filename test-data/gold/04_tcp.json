@@ -1,0 +1,3 @@
+{"key_terms": ["TCP", "three-way handshake|handshake", "SYN", "SYN-ACK", "sequence number", "acknowledgement|ack", "flow control", "advertised window|receiver window|rwnd", "congestion control", "slow start", "congestion window|cwnd", "ssthresh|slow-start threshold", "congestion avoidance", "four-way teardown|connection teardown|fin"],
+ "must_cover": [["syn-ack", "syn ack"], ["sequence number"], ["advertised window", "rwnd", "receiver"], ["doubl"], ["ssthresh", "threshold"], ["fin"], ["timeout"]],
+ "out_of_scope": ["tls", "bbr", "cubic", "selective acknowledgment", "fast retransmit", "nagle"]}

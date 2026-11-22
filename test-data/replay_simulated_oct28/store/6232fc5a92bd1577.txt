@@ -1,0 +1,21 @@
+{"summary": "Time complexity describes how running time grows with input size n, not the exact number of seconds. Big-O gives an upper bound: f(n) is O(g(n)) if constants c and n0 exist with f(n) <= c*g(n) for all n >= n0. Common classes are O(1), O(log n), O(n), O(n log n), O(n^2) and O(2^n), and constants and lower-order terms are dropped. Binary search on a sorted array is O(log n) because each step halves the range; linear search is O(n). Merge sort is O(n log n) in the worst case, and insertion sort is O(n^2) in the worst case but O(n) when already sorted. Big-Omega gives a lower bound and Big-Theta a tight bound. Space complexity measures extra memory used as a function of n.",
+ "key_terms": [
+  {"term": "Time complexity", "definition": "How running time grows with input size n, not the exact number of seconds.", "evidence": "Time complexity describes how running time grows with input size n, not the exact number of seconds."},
+  {"term": "Big-O", "definition": "An upper bound on growth: f(n) is O(g(n)) if constants c and n0 exist with f(n) <= c*g(n) for all n >= n0.", "evidence": "f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0"},
+  {"term": "Big-Omega", "definition": "A bound that gives a lower bound on growth.", "evidence": "Big-Omega gives a lower bound"},
+  {"term": "Big-Theta", "definition": "A tight bound, meaning both an upper and a lower bound.", "evidence": "Big-Theta gives a tight bound, meaning both upper and lower"},
+  {"term": "Space complexity", "definition": "A measure of the extra memory used, as a function of n.", "evidence": "Space complexity measures the extra memory used as a function of n."},
+  {"term": "Binary search", "definition": "A search on a sorted array that halves the search range at each step and runs in O(log n).", "evidence": "Binary search on a sorted array is O(log n) because each step halves the search range"},
+  {"term": "Merge sort", "definition": "A sorting algorithm that is O(n log n) in the worst case.", "evidence": "Merge sort is O(n log n) in the worst case."},
+  {"term": "Insertion sort", "definition": "A sorting algorithm that is O(n^2) in the worst case and O(n) when the array is already sorted.", "evidence": "Insertion sort is O(n^2) in the worst case but O(n) when the array is already sorted."}
+ ],
+ "questions": [
+  {"type": "mcq", "question": "Which algorithm runs in O(log n) time on a sorted array?", "options": ["Linear search", "Binary search", "Merge sort", "Insertion sort"], "answer": "Binary search", "evidence": "Binary search on a sorted array is O(log n)"},
+  {"type": "short", "question": "Why does binary search run in O(log n) time?", "options": null, "answer": "Each step halves the search range.", "evidence": "because each step halves the search range"},
+  {"type": "true_false", "question": "True or false: 3n^2 + 5n + 7 is O(n^2).", "options": null, "answer": "True", "evidence": "3n^2 + 5n + 7 is O(n^2)"},
+  {"type": "mcq", "question": "What is the worst-case time complexity of merge sort?", "options": ["O(n)", "O(n log n)", "O(n^2)", "O(2^n)"], "answer": "O(n log n)", "evidence": "Merge sort is O(n log n) in the worst case"},
+  {"type": "short", "question": "What is the time complexity of insertion sort when the array is already sorted?", "options": null, "answer": "O(n)", "evidence": "but O(n) when the array is already sorted"},
+  {"type": "true_false", "question": "True or false: Big-Theta gives only an upper bound.", "options": null, "answer": "False", "evidence": "Big-Theta gives a tight bound, meaning both upper and lower"},
+  {"type": "mcq", "question": "What does space complexity measure?", "options": ["Exact running time in seconds", "Extra memory used as a function of n", "Number of comparisons", "A lower bound on growth"], "answer": "Extra memory used as a function of n", "evidence": "Space complexity measures the extra memory used as a function of n."}
+ ],
+ "warnings": []}

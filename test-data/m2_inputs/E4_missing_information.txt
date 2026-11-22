@@ -1,0 +1,5 @@
+Sorting algorithms (incomplete slides)
+Bubble sort repeatedly compares adjacent elements and swaps them if they are in the wrong order. After each pass the largest remaining element moves to the end of the list.
+Selection sort repeatedly selects the smallest remaining element and places it at the front of the unsorted part.
+The time complexity of each algorithm is given on slide 7 (slide missing from this file).
+Stable sorting keeps equal elements in their original relative order.

@@ -1,0 +1,9 @@
+Lecture 11: Database Normalization
+- Normalization organizes tables to reduce redundancy and to avoid update, insertion and deletion anomalies.
+- A functional dependency X -> Y means each value of X determines exactly one value of Y.
+- First Normal Form (1NF): every column holds atomic (indivisible) values and there are no repeating groups.
+- Second Normal Form (2NF): the table is in 1NF and no non-key attribute depends on only part of a composite primary key, so there is no partial dependency.
+- Third Normal Form (3NF): the table is in 2NF and no non-key attribute depends on another non-key attribute, so there is no transitive dependency.
+- BCNF is stricter: for every functional dependency X -> Y, X must be a superkey.
+- Example: Student(StudentID, Name, DeptID, DeptName). DeptName depends on DeptID, which is not the key, so this is a transitive dependency; split the data into Student and Department tables.
+- Denormalization deliberately adds redundancy back to speed up reads, at the cost of more complex updates.

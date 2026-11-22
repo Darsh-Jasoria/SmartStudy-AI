@@ -1,0 +1,86 @@
+{
+ "key_terms": [
+  "logical address|virtual address",
+  "memory management unit|MMU",
+  "base register|limit register",
+  "address binding",
+  "first-fit",
+  "best-fit",
+  "worst-fit",
+  "external fragmentation",
+  "internal fragmentation",
+  "compaction",
+  "paging",
+  "frame",
+  "page table",
+  "page offset|offset",
+  "TLB|translation look-aside buffer",
+  "effective access time",
+  "multi-level page table|hierarchical paging",
+  "segmentation",
+  "segment table",
+  "virtual memory",
+  "demand paging",
+  "page fault",
+  "locality of reference",
+  "FIFO",
+  "optimal",
+  "LRU|least recently used",
+  "Belady's anomaly",
+  "thrashing",
+  "working set|working-set model",
+  "valid-invalid bit"
+ ],
+ "must_cover": [
+  [
+   "external fragmentation"
+  ],
+  [
+   "internal fragmentation"
+  ],
+  [
+   "compaction"
+  ],
+  [
+   "hit ratio"
+  ],
+  [
+   "130 ns",
+   "130"
+  ],
+  [
+   "belady"
+  ],
+  [
+   "multi-level",
+   "hierarchical"
+  ],
+  [
+   "locality"
+  ],
+  [
+   "page fault"
+  ],
+  [
+   "working set",
+   "working-set"
+  ],
+  [
+   "execution-time",
+   "execution time"
+  ],
+  [
+   "limit register",
+   "limit"
+  ]
+ ],
+ "out_of_scope": [
+  "buddy system",
+  "slab allocator",
+  "copy-on-write",
+  "inverted page table",
+  "huge pages",
+  "numa",
+  "second-chance"
+ ]
+}

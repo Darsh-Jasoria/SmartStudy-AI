@@ -1,0 +1,26 @@
+{
+  "summary": "Lecture 7 covers CPU scheduling. The scheduler picks which ready process runs next, and the dispatcher hands over the CPU through a context switch. Preemptive scheduling can take the CPU from a running process, while non-preemptive scheduling lets it run until it blocks or finishes. First-Come First-Served is simple but suffers the convoy effect. Shortest Job First gives the minimum average waiting time but needs burst prediction and can starve long processes. Round Robin gives each process a fixed time quantum; a very large quantum behaves like FCFS and a very small one is dominated by context-switch overhead. Priority scheduling can cause starvation, which aging solves by gradually raising the priority of waiting processes. Key metrics are turnaround time (completion minus arrival), waiting time (turnaround minus burst) and response time (first run minus arrival).",
+  "key_terms": [
+    {"term": "CPU scheduler", "definition": "The component that picks which process in the ready queue runs next."},
+    {"term": "Dispatcher", "definition": "The component that hands the CPU to the selected process through a context switch."},
+    {"term": "Preemptive scheduling", "definition": "Scheduling that can take the CPU away from a running process."},
+    {"term": "Non-preemptive scheduling", "definition": "Scheduling that lets a process run until it blocks or finishes."},
+    {"term": "First-Come First-Served (FCFS)", "definition": "Scheduling that runs processes in arrival order; it suffers the convoy effect."},
+    {"term": "Convoy effect", "definition": "The situation in which short processes wait behind one long process under FCFS."},
+    {"term": "Shortest Job First (SJF)", "definition": "Scheduling that runs the process with the smallest next CPU burst; it minimises average waiting time but can starve long processes."},
+    {"term": "Round Robin (RR)", "definition": "Scheduling in which each process gets a fixed time quantum and then goes to the back of the ready queue."},
+    {"term": "Time quantum", "definition": "The fixed amount of CPU time a process gets in Round Robin before it is preempted."},
+    {"term": "Aging", "definition": "Gradually increasing the priority of waiting processes to prevent starvation."},
+    {"term": "Turnaround time", "definition": "Completion time minus arrival time."},
+    {"term": "Waiting time", "definition": "Turnaround time minus burst time."},
+    {"term": "Response time", "definition": "First run time minus arrival time."}
+  ],
+  "questions": [
+    {"question": "What is the difference between preemptive and non-preemptive scheduling?", "answer": "Preemptive scheduling can take the CPU away from a running process. Non-preemptive scheduling lets a process run until it blocks or finishes."},
+    {"question": "What is the convoy effect?", "answer": "Under FCFS, short processes wait behind one long process."},
+    {"question": "Why can SJF starve long processes?", "answer": "It always runs the process with the smallest next CPU burst, so long processes can keep being passed over."},
+    {"question": "What happens in Round Robin if the time quantum is very large or very small?", "answer": "A very large quantum makes RR behave like FCFS. A very small quantum makes context-switch overhead dominate."},
+    {"question": "How does aging solve starvation in priority scheduling?", "answer": "It gradually increases the priority of waiting processes."},
+    {"question": "A process arrives at time 0, completes at time 10, and has a burst time of 6. What is its turnaround time and waiting time?", "answer": "Turnaround time is 10 and waiting time is 4."}
+  ]
+}

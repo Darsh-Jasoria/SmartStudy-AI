@@ -1,0 +1,7 @@
+# v1 Zero-shot prompt
+===== SYSTEM PROMPT =====
+
+===== USER PROMPT TEMPLATE =====
+Make a study pack from these lecture notes: a summary, key terms and practice questions with answers. Return JSON with keys "summary", "key_terms" (list of {"term","definition"}) and "questions" (list of {"question","answer"}).
+
+{notes}

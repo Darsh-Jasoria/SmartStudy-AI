@@ -1,0 +1,17 @@
+{"summary": "Time complexity describes how running time grows with input size n, not the exact number of seconds. Big-O gives an upper bound on growth, and common classes increase from O(1) constant through O(log n), O(n), O(n log n) and O(n^2) to O(2^n) exponential. Constants and lower-order terms are dropped. Binary search is O(log n) because each step halves the search range, and linear search is O(n). Merge sort is O(n log n) in the worst case, while insertion sort is O(n^2) in the worst case but O(n) on sorted input. Big-Omega gives a lower bound and Big-Theta a tight bound. Space complexity measures extra memory as a function of n.",
+"key_terms": [
+{"term": "Time complexity", "definition": "Time complexity describes how running time grows with input size n, not the exact number of seconds.", "evidence": "Time complexity describes how running time grows with input size n, not the exact number of seconds."},
+{"term": "Big-O", "definition": "Big-O gives an upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0.", "evidence": "Big-O gives an upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0."},
+{"term": "Binary search", "definition": "Binary search on a sorted array is O(log n) because each step halves the search range.", "evidence": "Binary search on a sorted array is O(log n) because each step halves the search range."},
+{"term": "Big-Omega", "definition": "Big-Omega gives a lower bound.", "evidence": "Big-Omega gives a lower bound and Big-Theta gives a tight bound, meaning both upper and lower."},
+{"term": "Big-Theta", "definition": "Big-Theta gives a tight bound, meaning both upper and lower.", "evidence": "Big-Omega gives a lower bound and Big-Theta gives a tight bound, meaning both upper and lower."},
+{"term": "Space complexity", "definition": "Space complexity measures the extra memory used as a function of n.", "evidence": "Space complexity measures the extra memory used as a function of n."}
+],
+"questions": [
+{"type": "mcq", "question": "What is the time complexity of linear search?", "options": ["O(1)", "O(log n)", "O(n)", "O(n^2)"], "answer": "O(n)", "evidence": "Linear search is O(n)."},
+{"type": "short", "question": "Why is binary search O(log n)?", "options": null, "answer": "Each step halves the search range.", "evidence": "Binary search on a sorted array is O(log n) because each step halves the search range."},
+{"type": "true_false", "question": "Insertion sort is O(n) in the worst case.", "options": null, "answer": "False", "evidence": "Insertion sort is O(n^2) in the worst case but O(n) when the array is already sorted."},
+{"type": "mcq", "question": "Which bound is described as tight, meaning both upper and lower?", "options": ["Big-O", "Big-Omega", "Big-Theta", "Space complexity"], "answer": "Big-Theta", "evidence": "Big-Omega gives a lower bound and Big-Theta gives a tight bound, meaning both upper and lower."},
+{"type": "short", "question": "What is the Big-O class of 3n^2 + 5n + 7?", "options": null, "answer": "O(n^2)", "evidence": "Drop constants and lower-order terms: 3n^2 + 5n + 7 is O(n^2)."}
+],
+"warnings": []}

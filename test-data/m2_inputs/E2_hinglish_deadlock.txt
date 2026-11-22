@@ -1,0 +1,8 @@
+Deadlock (Operating Systems, Hinglish notes)
+Deadlock tab hota hai jab do ya zyada processes ek dusre ke resources ka wait karte rehte hain aur koi bhi aage nahi badh paata.
+Deadlock ke liye chaar conditions ek saath true honi chahiye: mutual exclusion, hold and wait, no preemption aur circular wait.
+Mutual exclusion ka matlab hai ki ek resource ek time par sirf ek process use kar sakta hai.
+Hold and wait mein process ek resource pakad ke rakhta hai aur doosre resource ka wait karta hai.
+Circular wait mein processes ek chain banate hain, jahan har process agle process ke resource ka wait karta hai.
+Deadlock prevention ka tareeka hai in chaar conditions mein se kam se kam ek ko todna, jaise saare resources ek saath maangna.
+Resource allocation graph mein cycle ho to deadlock ka khatra hota hai.

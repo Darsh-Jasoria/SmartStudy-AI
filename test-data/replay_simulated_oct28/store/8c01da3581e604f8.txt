@@ -1,0 +1,21 @@
+{
+  "summary": "Lecture 5 covers gradient descent, an optimization method that minimises a loss function L(w) by repeatedly moving the parameters w opposite to the gradient. The update rule is w_new = w_old - alpha * dL/dw, where alpha is the learning rate. A learning rate that is too small makes convergence slow, and one that is too large can overshoot and diverge. Batch gradient descent uses the whole training set per step and is stable but slow on large data. Stochastic gradient descent uses one example per update, which is fast and noisy, and the noise can help escape shallow local minima. Mini-batch gradient descent uses a small batch, such as 32 or 64 examples, and is the usual practice. For convex losses such as mean squared error in linear regression, gradient descent with a suitable learning rate reaches the global minimum. Feature scaling such as standardisation speeds convergence, and an epoch is one full pass through the training data.",
+  "key_terms": [
+    {"term": "Gradient descent", "definition": "An optimization method that minimises a loss function by repeatedly moving the parameters opposite to the gradient."},
+    {"term": "Learning rate (alpha)", "definition": "The step-size factor in the update rule that controls how far each update moves the parameters."},
+    {"term": "Batch gradient descent", "definition": "Gradient descent that computes the gradient on the whole training set at each step."},
+    {"term": "Stochastic gradient descent (SGD)", "definition": "Gradient descent that uses one training example per update."},
+    {"term": "Mini-batch gradient descent", "definition": "Gradient descent that uses a small batch of examples, such as 32 or 64, per update."},
+    {"term": "Convex loss", "definition": "A loss function with a single global minimum, for which gradient descent with a suitable learning rate reaches that minimum."},
+    {"term": "Feature scaling", "definition": "Transforming features, for example by standardisation, so the loss surface is rounder and converges faster."},
+    {"term": "Epoch", "definition": "One full pass through the training data."}
+  ],
+  "questions": [
+    {"question": "What is the gradient descent update rule?", "answer": "w_new = w_old - alpha * dL/dw, where alpha is the learning rate."},
+    {"question": "What happens if the learning rate is too large?", "answer": "The updates can overshoot the minimum and diverge."},
+    {"question": "How does batch gradient descent differ from stochastic gradient descent?", "answer": "Batch gradient descent uses the whole training set per step and is stable but slow on large data. SGD uses one example per update and is fast but noisy."},
+    {"question": "Which variant is the usual choice in practice, and why?", "answer": "Mini-batch gradient descent, which uses a small batch such as 32 or 64 examples."},
+    {"question": "Why does feature scaling help gradient descent?", "answer": "It makes the loss surface rounder, which speeds up convergence."},
+    {"question": "What is an epoch?", "answer": "One full pass through the training data."}
+  ]
+}

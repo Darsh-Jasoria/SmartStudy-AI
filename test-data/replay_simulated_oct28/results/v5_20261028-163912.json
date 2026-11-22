@@ -1,0 +1,1608 @@
+{
+ "version": "v5",
+ "runs": 1,
+ "metrics": {
+  "term_recall": 0.723,
+  "coverage": 0.878,
+  "term_halluc": 0.017,
+  "ungrounded_q": 0.0,
+  "answer_support": 0.956,
+  "outside_know": 0,
+  "constraints": 0.889,
+  "json_fail": 0
+ },
+ "groups": {
+  "short": {
+   "n_notes": 6,
+   "metrics": {
+    "term_recall": 0.684,
+    "coverage": 1.0,
+    "term_halluc": 0.02,
+    "ungrounded_q": 0.0,
+    "answer_support": 0.933,
+    "outside_know": 0,
+    "constraints": 0.833,
+    "json_fail": 0
+   }
+  },
+  "long": {
+   "n_notes": 3,
+   "metrics": {
+    "term_recall": 0.753,
+    "coverage": 0.75,
+    "term_halluc": 0.015,
+    "ungrounded_q": 0.0,
+    "answer_support": 1.0,
+    "outside_know": 0,
+    "constraints": 1.0,
+    "json_fail": 0
+   }
+  }
+ },
+ "metrics_per_run": [
+  {
+   "term_recall": 0.723,
+   "coverage": 0.878,
+   "term_halluc": 0.017,
+   "ungrounded_q": 0.0,
+   "answer_support": 0.956,
+   "outside_know": 0,
+   "constraints": 0.889,
+   "json_fail": 0
+  }
+ ],
+ "detail": [
+  {
+   "run": 0,
+   "case": "01_cpu_scheduling",
+   "score": {
+    "terms_found": 10,
+    "terms_gold": 15,
+    "cov": 7,
+    "cov_gold": 7,
+    "n_terms": 10,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 1,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "The scheduler picks the next ready process and the dispatcher switches the CPU to it via a context switch. Preemptive scheduling can take the CPU from a running process; non-preemptive does not. FCFS runs processes in arrival order but suffers the convoy effect. SJF minimises average waiting time but needs burst prediction and can starve long processes. Round Robin gives each process a fixed quantum, then requeues it; large quanta act like FCFS, tiny ones add overhead. Priority scheduling runs the highest priority first; aging solves starvation. Metrics: turnaround, waiting and response time.",
+    "key_terms": [
+     {
+      "term": "CPU scheduler",
+      "definition": "The component that picks which process in the ready queue runs next.",
+      "evidence": "The CPU scheduler picks which process in the ready queue runs next.",
+      "grounded": true
+     },
+     {
+      "term": "Dispatcher",
+      "definition": "The component that hands the CPU to the chosen process through a context switch.",
+      "evidence": "The dispatcher then hands the CPU to that process through a context switch.",
+      "grounded": true
+     },
+     {
+      "term": "Preemptive scheduling",
+      "definition": "Scheduling that can take the CPU away from a running process.",
+      "evidence": "Preemptive scheduling can take the CPU away from a running process",
+      "grounded": true
+     },
+     {
+      "term": "First-Come First-Served (FCFS)",
+      "definition": "A method in which processes run in arrival order; it is simple but suffers the convoy effect.",
+      "evidence": "processes run in arrival order",
+      "grounded": true
+     },
+     {
+      "term": "Convoy effect",
+      "definition": "The problem where short processes wait behind one long process under FCFS.",
+      "evidence": "where short processes wait behind one long process",
+      "grounded": true
+     },
+     {
+      "term": "Shortest Job First (SJF)",
+      "definition": "A method that runs the process with the smallest next CPU burst.",
+      "evidence": "runs the process with the smallest next CPU burst",
+      "grounded": true
+     },
+     {
+      "term": "Round Robin (RR)",
+      "definition": "A method in which each process gets a fixed time quantum and then goes to the back of the ready queue.",
+      "evidence": "each process gets a fixed time quantum and then goes to the back of the ready queue",
+      "grounded": true
+     },
+     {
+      "term": "Aging",
+      "definition": "Gradually increasing the priority of waiting processes to solve starvation.",
+      "evidence": "aging, which gradually increases the priority of waiting processes",
+      "grounded": true
+     },
+     {
+      "term": "Turnaround time",
+      "definition": "Completion time minus arrival time.",
+      "evidence": "turnaround time = completion time - arrival time",
+      "grounded": true
+     },
+     {
+      "term": "Waiting time",
+      "definition": "Turnaround time minus burst time.",
+      "evidence": "waiting time = turnaround time - burst time",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "Which scheduling method runs the process with the smallest next CPU burst?",
+      "options": [
+       "First-Come First-Served (FCFS)",
+       "Shortest Job First (SJF)",
+       "Round Robin (RR)",
+       "Priority scheduling"
+      ],
+      "answer": "Shortest Job First (SJF)",
+      "evidence": "runs the process with the smallest next CPU burst",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "What happens to a process in Round Robin when its time quantum expires?",
+      "options": null,
+      "answer": "It goes to the back of the ready queue.",
+      "evidence": "each process gets a fixed time quantum and then goes to the back of the ready queue",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: non-preemptive scheduling can take the CPU away from a running process.",
+      "options": null,
+      "answer": "False",
+      "evidence": "non-preemptive scheduling lets it run until it blocks or finishes",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "Which technique solves starvation in priority scheduling?",
+      "options": [
+       "Convoy effect",
+       "Aging",
+       "Context switching",
+       "Burst prediction"
+      ],
+      "answer": "Aging",
+      "evidence": "Starvation can be solved by aging",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "How is waiting time calculated?",
+      "options": null,
+      "answer": "Turnaround time minus burst time.",
+      "evidence": "waiting time = turnaround time - burst time",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: shorten"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"Scheduler and dispatcher\", \"main_points\": [\"scheduler picks next process from ready queue\", \"dispatcher hands the CPU via context switch\"]}, {\"title\": \"Preemptive vs non-preemptive scheduling\", \"main_points\": [\"preemptive can take CPU from a running process\", \"non-preemptive runs until it blocks or finishes\"]}, {\"title\": \"First-Come First-Served\", \"main_points\": [\"processes run in arrival order\", \"simple\", \"convoy effect: short processes wait behind a long one\"]}, {\"title\": \"Shortest Job First\", \"main_points\": [\"runs smallest next CPU burst\", \"minimum average waiting time\", \"needs prediction of burst length\", \"can starve long processes\"]}, {\"title\": \"Round Robin\", \"main_points\": [\"fixed time quantum\", \"process goes to back of ready queue\", \"large quantum behaves like FCFS\", \"very small quantum makes context-switch overhead dominate\"]}, {\"title\": \"Priority scheduling\", \"main_points\": [\"runs highest-priority process first\", \"starvation solved by aging\", \"aging gradually increases priority of waiting processes\"]}, {\"title\": \"Scheduling metrics\", \"main_points\": [\"turnaround time = completion time - arrival time\", \"waiting time = turnaround time - burst time\", \"response time = first run time - arrival time\"]}]}\n",
+     "raw_generate": "{\"summary\": \"The scheduler picks the next ready process and the dispatcher switches the CPU to it via a context switch. Preemptive scheduling can take the CPU from a running process; non-preemptive scheduling does not. FCFS runs processes in arrival order but suffers the convoy effect. SJF gives minimum average waiting time but needs burst prediction and can starve long processes. Round Robin gives each process a fixed quantum and sends it to the back of the ready queue; large quanta act like FCFS and tiny ones add overhead. Priority scheduling runs the highest priority first, and aging solves starvation. Metrics are turnaround, waiting and response time.\",\n \"key_terms\": [\n  {\"term\": \"CPU scheduler\", \"definition\": \"The component that picks which process in the ready queue runs next.\", \"evidence\": \"The CPU scheduler picks which process in the ready queue runs next.\"},\n  {\"term\": \"Dispatcher\", \"definition\": \"The component that hands the CPU to the chosen process through a context switch.\", \"evidence\": \"The dispatcher then hands the CPU to that process through a context switch.\"},\n  {\"term\": \"Preemptive scheduling\", \"definition\": \"Scheduling that can take the CPU away from a running process.\", \"evidence\": \"Preemptive scheduling can take the CPU away from a running process\"},\n  {\"term\": \"First-Come First-Served (FCFS)\", \"definition\": \"A method in which processes run in arrival order; it is simple but suffers the convoy effect.\", \"evidence\": \"processes run in arrival order\"},\n  {\"term\": \"Convoy effect\", \"definition\": \"The problem where short processes wait behind one long process under FCFS.\", \"evidence\": \"where short processes wait behind one long process\"},\n  {\"term\": \"Shortest Job First (SJF)\", \"definition\": \"A method that runs the process with the smallest next CPU burst.\", \"evidence\": \"runs the process with the smallest next CPU burst\"},\n  {\"term\": \"Round Robin (RR)\", \"definition\": \"A method in which each process gets a fixed time quantum and then goes to the back of the ready queue.\", \"evidence\": \"each process gets a fixed time quantum and then goes to the back of the ready queue\"},\n  {\"term\": \"Aging\", \"definition\": \"Gradually increasing the priority of waiting processes to solve starvation.\", \"evidence\": \"aging, which gradually increases the priority of waiting processes\"},\n  {\"term\": \"Turnaround time\", \"definition\": \"Completion time minus arrival time.\", \"evidence\": \"turnaround time = completion time - arrival time\"},\n  {\"term\": \"Waiting time\", \"definition\": \"Turnaround time minus burst time.\", \"evidence\": \"waiting time = turnaround time - burst time\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"Which scheduling method runs the process with the smallest next CPU burst?\", \"options\": [\"First-Come First-Served (FCFS)\", \"Shortest Job First (SJF)\", \"Round Robin (RR)\", \"Priority scheduling\"], \"answer\": \"Shortest Job First (SJF)\", \"evidence\": \"runs the process with the smallest next CPU burst\"},\n  {\"type\": \"short\", \"question\": \"What happens to a process in Round Robin when its time quantum expires?\", \"options\": null, \"answer\": \"It goes to the back of the ready queue.\", \"evidence\": \"each process gets a fixed time quantum and then goes to the back of the ready queue\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: non-preemptive scheduling can take the CPU away from a running process.\", \"options\": null, \"answer\": \"False\", \"evidence\": \"non-preemptive scheduling lets it run until it blocks or finishes\"},\n  {\"type\": \"mcq\", \"question\": \"Which technique solves starvation in priority scheduling?\", \"options\": [\"Convoy effect\", \"Aging\", \"Context switching\", \"Burst prediction\"], \"answer\": \"Aging\", \"evidence\": \"Starvation can be solved by aging\"},\n  {\"type\": \"short\", \"question\": \"How is waiting time calculated?\", \"options\": null, \"answer\": \"Turnaround time minus burst time.\", \"evidence\": \"waiting time = turnaround time - burst time\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: under FCFS, short processes can wait behind one long process.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"where short processes wait behind one long process\"},\n  {\"type\": \"mcq\", \"question\": \"If the quantum in Round Robin is very large, the algorithm behaves most like which method?\", \"options\": [\"Shortest Job First (SJF)\", \"First-Come First-Served (FCFS)\", \"Priority scheduling\", \"Dispatcher\"], \"answer\": \"First-Come First-Served (FCFS)\", \"evidence\": \"If the quantum is very large, RR behaves like FCFS\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"Notes say SJF runs the process with the smallest next CPU burst.\", \"answer\": \"Shortest Job First (SJF)\"}, {\"id\": 1, \"valid\": true, \"reason\": \"Notes say in Round Robin a process goes to the back of the ready queue when its quantum expires.\", \"answer\": \"It goes to the back of the ready queue.\"}, {\"id\": 2, \"valid\": true, \"reason\": \"Notes say preemptive scheduling can take the CPU away; non-preemptive scheduling does not, so the statement is false.\", \"answer\": \"False\"}, {\"id\": 3, \"valid\": true, \"reason\": \"Notes say aging solves starvation in priority scheduling.\", \"answer\": \"Aging\"}, {\"id\": 4, \"valid\": true, \"reason\": \"Notes define waiting time as turnaround time minus burst time.\", \"answer\": \"Turnaround time minus burst time.\"}, {\"id\": 5, \"valid\": true, \"reason\": \"Notes say under FCFS short processes wait behind one long process (convoy effect).\", \"answer\": \"True\"}, {\"id\": 6, \"valid\": true, \"reason\": \"Notes say a very large Round Robin quantum behaves like FCFS.\", \"answer\": \"First-Come First-Served (FCFS)\"}]}",
+     "dropped": [],
+     "summary_words_before": 105,
+     "raw_shorten": "{\"summary\": \"The scheduler picks the next ready process and the dispatcher switches the CPU to it via a context switch. Preemptive scheduling can take the CPU from a running process; non-preemptive does not. FCFS runs processes in arrival order but suffers the convoy effect. SJF minimises average waiting time but needs burst prediction and can starve long processes. Round Robin gives each process a fixed quantum, then requeues it; large quanta act like FCFS, tiny ones add overhead. Priority scheduling runs the highest priority first; aging solves starvation. Metrics: turnaround, waiting and response time.\"}"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "02_big_o",
+   "score": {
+    "terms_found": 8,
+    "terms_gold": 13,
+    "cov": 6,
+    "cov_gold": 6,
+    "n_terms": 8,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 3,
+    "leaked": 0,
+    "constraints_ok": 1,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "Time complexity describes how running time grows with input size n. Big-O gives an upper bound: f(n) is O(g(n)) if f(n) <= c*g(n) for all n >= n0 for some constants c, n0. Common classes: O(1), O(log n), O(n), O(n log n), O(n^2), O(2^n). Constants and lower-order terms are dropped. Binary search is O(log n) because each step halves the range; linear search is O(n). Merge sort is O(n log n) worst case; insertion sort is O(n^2) worst case but O(n) when sorted. Big-Omega is a lower bound; Big-Theta is tight. Space complexity measures extra memory use.",
+    "key_terms": [
+     {
+      "term": "Time complexity",
+      "definition": "How running time grows with input size n, not the exact number of seconds.",
+      "evidence": "Time complexity describes how running time grows with input size n, not the exact number of seconds.",
+      "grounded": true
+     },
+     {
+      "term": "Big-O",
+      "definition": "An upper bound on growth: f(n) is O(g(n)) if constants c and n0 exist with f(n) <= c*g(n) for all n >= n0.",
+      "evidence": "f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0",
+      "grounded": true
+     },
+     {
+      "term": "Big-Omega",
+      "definition": "A bound that gives a lower bound on growth.",
+      "evidence": "Big-Omega gives a lower bound",
+      "grounded": true
+     },
+     {
+      "term": "Big-Theta",
+      "definition": "A tight bound, meaning both an upper and a lower bound.",
+      "evidence": "Big-Theta gives a tight bound, meaning both upper and lower",
+      "grounded": true
+     },
+     {
+      "term": "Space complexity",
+      "definition": "A measure of the extra memory used, as a function of n.",
+      "evidence": "Space complexity measures the extra memory used as a function of n.",
+      "grounded": true
+     },
+     {
+      "term": "Binary search",
+      "definition": "A search on a sorted array that halves the search range at each step and runs in O(log n).",
+      "evidence": "Binary search on a sorted array is O(log n) because each step halves the search range",
+      "grounded": true
+     },
+     {
+      "term": "Merge sort",
+      "definition": "A sorting algorithm that is O(n log n) in the worst case.",
+      "evidence": "Merge sort is O(n log n) in the worst case.",
+      "grounded": true
+     },
+     {
+      "term": "Insertion sort",
+      "definition": "A sorting algorithm that is O(n^2) in the worst case and O(n) when the array is already sorted.",
+      "evidence": "Insertion sort is O(n^2) in the worst case but O(n) when the array is already sorted.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "Which algorithm runs in O(log n) time on a sorted array?",
+      "options": [
+       "Linear search",
+       "Binary search",
+       "Merge sort",
+       "Insertion sort"
+      ],
+      "answer": "Binary search",
+      "evidence": "Binary search on a sorted array is O(log n)",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Why does binary search run in O(log n) time?",
+      "options": null,
+      "answer": "Each step halves the search range.",
+      "evidence": "because each step halves the search range",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: 3n^2 + 5n + 7 is O(n^2).",
+      "options": null,
+      "answer": "True",
+      "evidence": "3n^2 + 5n + 7 is O(n^2)",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "What is the worst-case time complexity of merge sort?",
+      "options": [
+       "O(n)",
+       "O(n log n)",
+       "O(n^2)",
+       "O(2^n)"
+      ],
+      "answer": "O(n log n)",
+      "evidence": "Merge sort is O(n log n) in the worst case",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "What is the time complexity of insertion sort when the array is already sorted?",
+      "options": null,
+      "answer": "O(n)",
+      "evidence": "but O(n) when the array is already sorted",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: shorten"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"Time complexity\", \"main_points\": [\"running time growth with input size n\", \"not the exact number of seconds\"]}, {\"title\": \"Big-O upper bound\", \"main_points\": [\"gives an upper bound on growth\", \"f(n) <= c*g(n) for all n >= n0\", \"constants c and n0\"]}, {\"title\": \"Common complexity classes\", \"main_points\": [\"O(1) constant\", \"O(log n) logarithmic\", \"O(n) linear\", \"O(n log n)\", \"O(n^2) quadratic\", \"O(2^n) exponential\"]}, {\"title\": \"Simplifying growth terms\", \"main_points\": [\"drop constants\", \"drop lower-order terms\", \"3n^2 + 5n + 7 is O(n^2)\"]}, {\"title\": \"Searching examples\", \"main_points\": [\"binary search on sorted array is O(log n)\", \"each step halves the search range\", \"linear search is O(n)\"]}, {\"title\": \"Sorting examples\", \"main_points\": [\"merge sort is O(n log n) in the worst case\", \"insertion sort is O(n^2) in the worst case\", \"insertion sort is O(n) when already sorted\"]}, {\"title\": \"Other bounds\", \"main_points\": [\"Big-Omega gives a lower bound\", \"Big-Theta gives a tight bound\", \"Big-Theta means both upper and lower\"]}, {\"title\": \"Space complexity\", \"main_points\": [\"measures extra memory used\", \"function of n\"]}]}\n",
+     "raw_generate": "{\"summary\": \"Time complexity describes how running time grows with input size n, not the exact number of seconds. Big-O gives an upper bound: f(n) is O(g(n)) if constants c and n0 exist with f(n) <= c*g(n) for all n >= n0. Common classes are O(1), O(log n), O(n), O(n log n), O(n^2) and O(2^n), and constants and lower-order terms are dropped. Binary search on a sorted array is O(log n) because each step halves the range; linear search is O(n). Merge sort is O(n log n) in the worst case, and insertion sort is O(n^2) in the worst case but O(n) when already sorted. Big-Omega gives a lower bound and Big-Theta a tight bound. Space complexity measures extra memory used as a function of n.\",\n \"key_terms\": [\n  {\"term\": \"Time complexity\", \"definition\": \"How running time grows with input size n, not the exact number of seconds.\", \"evidence\": \"Time complexity describes how running time grows with input size n, not the exact number of seconds.\"},\n  {\"term\": \"Big-O\", \"definition\": \"An upper bound on growth: f(n) is O(g(n)) if constants c and n0 exist with f(n) <= c*g(n) for all n >= n0.\", \"evidence\": \"f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0\"},\n  {\"term\": \"Big-Omega\", \"definition\": \"A bound that gives a lower bound on growth.\", \"evidence\": \"Big-Omega gives a lower bound\"},\n  {\"term\": \"Big-Theta\", \"definition\": \"A tight bound, meaning both an upper and a lower bound.\", \"evidence\": \"Big-Theta gives a tight bound, meaning both upper and lower\"},\n  {\"term\": \"Space complexity\", \"definition\": \"A measure of the extra memory used, as a function of n.\", \"evidence\": \"Space complexity measures the extra memory used as a function of n.\"},\n  {\"term\": \"Binary search\", \"definition\": \"A search on a sorted array that halves the search range at each step and runs in O(log n).\", \"evidence\": \"Binary search on a sorted array is O(log n) because each step halves the search range\"},\n  {\"term\": \"Merge sort\", \"definition\": \"A sorting algorithm that is O(n log n) in the worst case.\", \"evidence\": \"Merge sort is O(n log n) in the worst case.\"},\n  {\"term\": \"Insertion sort\", \"definition\": \"A sorting algorithm that is O(n^2) in the worst case and O(n) when the array is already sorted.\", \"evidence\": \"Insertion sort is O(n^2) in the worst case but O(n) when the array is already sorted.\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"Which algorithm runs in O(log n) time on a sorted array?\", \"options\": [\"Linear search\", \"Binary search\", \"Merge sort\", \"Insertion sort\"], \"answer\": \"Binary search\", \"evidence\": \"Binary search on a sorted array is O(log n)\"},\n  {\"type\": \"short\", \"question\": \"Why does binary search run in O(log n) time?\", \"options\": null, \"answer\": \"Each step halves the search range.\", \"evidence\": \"because each step halves the search range\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: 3n^2 + 5n + 7 is O(n^2).\", \"options\": null, \"answer\": \"True\", \"evidence\": \"3n^2 + 5n + 7 is O(n^2)\"},\n  {\"type\": \"mcq\", \"question\": \"What is the worst-case time complexity of merge sort?\", \"options\": [\"O(n)\", \"O(n log n)\", \"O(n^2)\", \"O(2^n)\"], \"answer\": \"O(n log n)\", \"evidence\": \"Merge sort is O(n log n) in the worst case\"},\n  {\"type\": \"short\", \"question\": \"What is the time complexity of insertion sort when the array is already sorted?\", \"options\": null, \"answer\": \"O(n)\", \"evidence\": \"but O(n) when the array is already sorted\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: Big-Theta gives only an upper bound.\", \"options\": null, \"answer\": \"False\", \"evidence\": \"Big-Theta gives a tight bound, meaning both upper and lower\"},\n  {\"type\": \"mcq\", \"question\": \"What does space complexity measure?\", \"options\": [\"Exact running time in seconds\", \"Extra memory used as a function of n\", \"Number of comparisons\", \"A lower bound on growth\"], \"answer\": \"Extra memory used as a function of n\", \"evidence\": \"Space complexity measures the extra memory used as a function of n.\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"Notes say binary search on a sorted array is O(log n) because each step halves the search range.\", \"answer\": \"Binary search\"}, {\"id\": 1, \"valid\": true, \"reason\": \"Notes say binary search is O(log n) because each step halves the search range.\", \"answer\": \"Each step halves the search range.\"}, {\"id\": 2, \"valid\": true, \"reason\": \"Notes say 3n^2 + 5n + 7 is O(n^2) by dropping constants and lower-order terms.\", \"answer\": \"True\"}, {\"id\": 3, \"valid\": true, \"reason\": \"Notes say merge sort is O(n log n) in the worst case.\", \"answer\": \"O(n log n)\"}, {\"id\": 4, \"valid\": true, \"reason\": \"Notes say insertion sort is O(n) when the array is already sorted.\", \"answer\": \"O(n)\"}, {\"id\": 5, \"valid\": true, \"reason\": \"Notes say Big-Theta gives a tight bound meaning both upper and lower, so the statement is false.\", \"answer\": \"False\"}, {\"id\": 6, \"valid\": true, \"reason\": \"Notes say space complexity measures the extra memory used as a function of n.\", \"answer\": \"Extra memory used as a function of n\"}]}",
+     "dropped": [],
+     "summary_words_before": 124,
+     "raw_shorten": "{\"summary\": \"Time complexity describes how running time grows with input size n. Big-O gives an upper bound: f(n) is O(g(n)) if f(n) <= c*g(n) for all n >= n0 for some constants c, n0. Common classes: O(1), O(log n), O(n), O(n log n), O(n^2), O(2^n). Constants and lower-order terms are dropped. Binary search is O(log n) because each step halves the range; linear search is O(n). Merge sort is O(n log n) worst case; insertion sort is O(n^2) worst case but O(n) when sorted. Big-Omega is a lower bound; Big-Theta is tight. Space complexity measures extra memory use.\"}"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "03_normalization",
+   "score": {
+    "terms_found": 8,
+    "terms_gold": 13,
+    "cov": 6,
+    "cov_gold": 6,
+    "n_terms": 8,
+    "halluc": 1,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 1,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "Normalization organizes tables to reduce redundancy and avoid update, insertion and deletion anomalies. A functional dependency X -> Y means each value of X determines exactly one value of Y. 1NF requires atomic values with no repeating groups. 2NF removes partial dependencies on part of a composite key; 3NF removes transitive dependencies between non-key attributes. BCNF is stricter: for every X -> Y, X must be a superkey. The worked example splits data into Student and Department tables because DeptName depends on DeptID. Denormalization adds redundancy back to speed reads, at the cost of complex updates.",
+    "key_terms": [
+     {
+      "term": "Normalization",
+      "definition": "Organizing tables to reduce redundancy and avoid update, insertion and deletion anomalies.",
+      "evidence": "Normalization organizes tables to reduce redundancy and to avoid update, insertion and deletion anomalies.",
+      "grounded": true
+     },
+     {
+      "term": "Functional dependency",
+      "definition": "A relationship X -> Y in which each value of X determines exactly one value of Y.",
+      "evidence": "A functional dependency X -> Y means each value of X determines exactly one value of Y.",
+      "grounded": true
+     },
+     {
+      "term": "First Normal Form (1NF)",
+      "definition": "A form in which every column holds atomic values and there are no repeating groups.",
+      "evidence": "every column holds atomic (indivisible) values and there are no repeating groups",
+      "grounded": true
+     },
+     {
+      "term": "Second Normal Form (2NF)",
+      "definition": "A table in 1NF in which no non-key attribute depends on only part of a composite primary key.",
+      "evidence": "no non-key attribute depends on only part of a composite primary key, so there is no partial dependency",
+      "grounded": true
+     },
+     {
+      "term": "Third Normal Form (3NF)",
+      "definition": "A table in 2NF in which no non-key attribute depends on another non-key attribute.",
+      "evidence": "no non-key attribute depends on another non-key attribute, so there is no transitive dependency",
+      "grounded": true
+     },
+     {
+      "term": "Boyce-Codd Normal Form (BCNF)",
+      "definition": "A stricter form in which, for every functional dependency X -> Y, X must be a superkey.",
+      "evidence": "for every functional dependency X -> Y, X must be a superkey",
+      "grounded": true
+     },
+     {
+      "term": "Transitive dependency",
+      "definition": "A dependency of a non-key attribute on another non-key attribute, such as DeptName on DeptID in the Student example.",
+      "evidence": "DeptName depends on DeptID, which is not the key, so this is a transitive dependency",
+      "grounded": true
+     },
+     {
+      "term": "Denormalization",
+      "definition": "Deliberately adding redundancy back to speed up reads, at the cost of more complex updates.",
+      "evidence": "Denormalization deliberately adds redundancy back to speed up reads, at the cost of more complex updates.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "Which normal form requires that every column holds atomic values with no repeating groups?",
+      "options": [
+       "First Normal Form (1NF)",
+       "Second Normal Form (2NF)",
+       "Third Normal Form (3NF)",
+       "BCNF"
+      ],
+      "answer": "First Normal Form (1NF)",
+      "evidence": "every column holds atomic (indivisible) values and there are no repeating groups",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Why is DeptName moved into a separate Department table in the Student example?",
+      "options": null,
+      "answer": "Because DeptName depends on DeptID, which is not the key, a transitive dependency.",
+      "evidence": "DeptName depends on DeptID, which is not the key, so this is a transitive dependency",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: denormalization reduces the complexity of updates.",
+      "options": null,
+      "answer": "False",
+      "evidence": "at the cost of more complex updates",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "Under BCNF, what must X be for every functional dependency X -> Y?",
+      "options": [
+       "A non-key attribute",
+       "A superkey",
+       "A foreign key",
+       "An atomic value"
+      ],
+      "answer": "A superkey",
+      "evidence": "for every functional dependency X -> Y, X must be a superkey",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "What does the functional dependency X -> Y mean?",
+      "options": null,
+      "answer": "Each value of X determines exactly one value of Y.",
+      "evidence": "A functional dependency X -> Y means each value of X determines exactly one value of Y",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: shorten"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"Purpose of normalization\", \"main_points\": [\"organizes tables to reduce redundancy\", \"avoids update, insertion and deletion anomalies\"]}, {\"title\": \"Functional dependencies\", \"main_points\": [\"X -> Y means each value of X determines exactly one value of Y\"]}, {\"title\": \"First Normal Form\", \"main_points\": [\"every column holds atomic values\", \"no repeating groups\"]}, {\"title\": \"Second Normal Form\", \"main_points\": [\"table is in 1NF\", \"no non-key attribute depends on part of a composite primary key\", \"no partial dependency\"]}, {\"title\": \"Third Normal Form\", \"main_points\": [\"table is in 2NF\", \"no non-key attribute depends on another non-key attribute\", \"no transitive dependency\"]}, {\"title\": \"Boyce-Codd Normal Form\", \"main_points\": [\"stricter than 3NF\", \"for every X -> Y, X must be a superkey\"]}, {\"title\": \"Worked example\", \"main_points\": [\"Student(StudentID, Name, DeptID, DeptName)\", \"DeptName depends on DeptID, a transitive dependency\", \"split into Student and Department tables\"]}, {\"title\": \"Denormalization\", \"main_points\": [\"deliberately adds redundancy back\", \"speeds up reads\", \"makes updates more complex\"]}]}\n",
+     "raw_generate": "{\"summary\": \"Normalization organizes tables to reduce redundancy and avoid update, insertion and deletion anomalies. A functional dependency X -> Y means each value of X determines exactly one value of Y. 1NF requires atomic values with no repeating groups. 2NF removes partial dependencies on part of a composite key, and 3NF removes transitive dependencies between non-key attributes. BCNF is stricter: for every X -> Y, X must be a superkey. In the worked example, DeptName depends on DeptID, so the data is split into Student and Department tables. Denormalization adds redundancy back to speed up reads, at the cost of more complex updates.\",\n \"key_terms\": [\n  {\"term\": \"Normalization\", \"definition\": \"Organizing tables to reduce redundancy and avoid update, insertion and deletion anomalies.\", \"evidence\": \"Normalization organizes tables to reduce redundancy and to avoid update, insertion and deletion anomalies.\"},\n  {\"term\": \"Functional dependency\", \"definition\": \"A relationship X -> Y in which each value of X determines exactly one value of Y.\", \"evidence\": \"A functional dependency X -> Y means each value of X determines exactly one value of Y.\"},\n  {\"term\": \"First Normal Form (1NF)\", \"definition\": \"A form in which every column holds atomic values and there are no repeating groups.\", \"evidence\": \"every column holds atomic (indivisible) values and there are no repeating groups\"},\n  {\"term\": \"Second Normal Form (2NF)\", \"definition\": \"A table in 1NF in which no non-key attribute depends on only part of a composite primary key.\", \"evidence\": \"no non-key attribute depends on only part of a composite primary key, so there is no partial dependency\"},\n  {\"term\": \"Third Normal Form (3NF)\", \"definition\": \"A table in 2NF in which no non-key attribute depends on another non-key attribute.\", \"evidence\": \"no non-key attribute depends on another non-key attribute, so there is no transitive dependency\"},\n  {\"term\": \"Boyce-Codd Normal Form (BCNF)\", \"definition\": \"A stricter form in which, for every functional dependency X -> Y, X must be a superkey.\", \"evidence\": \"for every functional dependency X -> Y, X must be a superkey\"},\n  {\"term\": \"Transitive dependency\", \"definition\": \"A dependency of a non-key attribute on another non-key attribute, such as DeptName on DeptID in the Student example.\", \"evidence\": \"DeptName depends on DeptID, which is not the key, so this is a transitive dependency\"},\n  {\"term\": \"Denormalization\", \"definition\": \"Deliberately adding redundancy back to speed up reads, at the cost of more complex updates.\", \"evidence\": \"Denormalization deliberately adds redundancy back to speed up reads, at the cost of more complex updates.\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"Which normal form requires that every column holds atomic values with no repeating groups?\", \"options\": [\"First Normal Form (1NF)\", \"Second Normal Form (2NF)\", \"Third Normal Form (3NF)\", \"BCNF\"], \"answer\": \"First Normal Form (1NF)\", \"evidence\": \"every column holds atomic (indivisible) values and there are no repeating groups\"},\n  {\"type\": \"short\", \"question\": \"Why is DeptName moved into a separate Department table in the Student example?\", \"options\": null, \"answer\": \"Because DeptName depends on DeptID, which is not the key, a transitive dependency.\", \"evidence\": \"DeptName depends on DeptID, which is not the key, so this is a transitive dependency\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: denormalization reduces the complexity of updates.\", \"options\": null, \"answer\": \"False\", \"evidence\": \"at the cost of more complex updates\"},\n  {\"type\": \"mcq\", \"question\": \"Under BCNF, what must X be for every functional dependency X -> Y?\", \"options\": [\"A non-key attribute\", \"A superkey\", \"A foreign key\", \"An atomic value\"], \"answer\": \"A superkey\", \"evidence\": \"for every functional dependency X -> Y, X must be a superkey\"},\n  {\"type\": \"short\", \"question\": \"What does the functional dependency X -> Y mean?\", \"options\": null, \"answer\": \"Each value of X determines exactly one value of Y.\", \"evidence\": \"A functional dependency X -> Y means each value of X determines exactly one value of Y\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: 2NF removes partial dependencies on part of a composite primary key.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"no non-key attribute depends on only part of a composite primary key\"},\n  {\"type\": \"mcq\", \"question\": \"What is the main purpose of normalization?\", \"options\": [\"To add redundancy for faster reads\", \"To reduce redundancy and avoid anomalies\", \"To store values as repeating groups\", \"To remove functional dependencies\"], \"answer\": \"To reduce redundancy and avoid anomalies\", \"evidence\": \"Normalization organizes tables to reduce redundancy and to avoid update, insertion and deletion anomalies.\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"Notes say 1NF requires every column to hold atomic values with no repeating groups.\", \"answer\": \"First Normal Form (1NF)\"}, {\"id\": 1, \"valid\": true, \"reason\": \"Notes say DeptName depends on DeptID, which is not the key, a transitive dependency, so it is split into a Department table.\", \"answer\": \"Because DeptName depends on DeptID, which is not the key, a transitive dependency.\"}, {\"id\": 2, \"valid\": true, \"reason\": \"Notes say denormalization adds redundancy and makes updates more complex, so the statement is false.\", \"answer\": \"False\"}, {\"id\": 3, \"valid\": true, \"reason\": \"Notes say under BCNF, for every functional dependency X -> Y, X must be a superkey.\", \"answer\": \"A superkey\"}, {\"id\": 4, \"valid\": true, \"reason\": \"Notes define X -> Y as each value of X determining exactly one value of Y.\", \"answer\": \"Each value of X determines exactly one value of Y.\"}, {\"id\": 5, \"valid\": true, \"reason\": \"Notes say 2NF means no non-key attribute depends on only part of a composite primary key.\", \"answer\": \"True\"}, {\"id\": 6, \"valid\": true, \"reason\": \"Notes say the main purpose of normalization is to reduce redundancy and avoid anomalies.\", \"answer\": \"To reduce redundancy and avoid anomalies\"}]}",
+     "dropped": [],
+     "summary_words_before": 102,
+     "raw_shorten": "{\"summary\": \"Normalization organizes tables to reduce redundancy and avoid update, insertion and deletion anomalies. A functional dependency X -> Y means each value of X determines exactly one value of Y. 1NF requires atomic values with no repeating groups. 2NF removes partial dependencies on part of a composite key; 3NF removes transitive dependencies between non-key attributes. BCNF is stricter: for every X -> Y, X must be a superkey. The worked example splits data into Student and Department tables because DeptName depends on DeptID. Denormalization adds redundancy back to speed reads, at the cost of complex updates.\"}"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "04_tcp",
+   "score": {
+    "terms_found": 9,
+    "terms_gold": 14,
+    "cov": 7,
+    "cov_gold": 7,
+    "n_terms": 9,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 1,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "TCP is a connection-oriented, reliable byte-stream protocol that provides ordered delivery and retransmits lost segments. A three-way handshake opens a connection; sequence numbers and ACKs let the receiver reorder data and detect loss. Flow control uses the advertised window (rwnd) so the sender does not overwhelm the receiver. Congestion control uses slow start, which roughly doubles cwnd each round trip until ssthresh, then congestion avoidance. A timeout sets ssthresh to half of cwnd and restarts slow start. Connections close with a four-way FIN and ACK teardown. UDP is connectionless with no delivery guarantee.",
+    "key_terms": [
+     {
+      "term": "TCP",
+      "definition": "A connection-oriented, reliable, byte-stream transport protocol that provides ordered delivery and retransmits lost segments.",
+      "evidence": "TCP is a connection-oriented, reliable, byte-stream transport protocol.",
+      "grounded": true
+     },
+     {
+      "term": "Three-way handshake",
+      "definition": "The SYN, SYN-ACK, ACK exchange used to establish a TCP connection.",
+      "evidence": "A connection is established with a three-way handshake: the client sends SYN, the server replies SYN-ACK, and the client replies ACK.",
+      "grounded": true
+     },
+     {
+      "term": "Sequence numbers",
+      "definition": "Labels for bytes that let the receiver reorder segments and detect loss.",
+      "evidence": "Sequence numbers label bytes so the receiver can reorder segments and detect loss",
+      "grounded": true
+     },
+     {
+      "term": "Advertised window (rwnd)",
+      "definition": "The receiver's advertised window used in flow control so the sender does not overwhelm its buffer.",
+      "evidence": "Flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer.",
+      "grounded": true
+     },
+     {
+      "term": "Congestion window (cwnd)",
+      "definition": "The sender's window that limits transmission to protect the network, starting small in slow start.",
+      "evidence": "Slow start begins with a small congestion window (cwnd)",
+      "grounded": true
+     },
+     {
+      "term": "Slow start",
+      "definition": "A phase in which cwnd roughly doubles every round trip until it reaches ssthresh.",
+      "evidence": "roughly doubles it every round trip until it reaches the slow-start threshold (ssthresh)",
+      "grounded": true
+     },
+     {
+      "term": "Congestion avoidance",
+      "definition": "A phase in which cwnd grows by about one segment per round trip after ssthresh is reached.",
+      "evidence": "then congestion avoidance increases cwnd by about one segment per round trip",
+      "grounded": true
+     },
+     {
+      "term": "Four-way teardown",
+      "definition": "Closing a connection with FIN and ACK segments exchanged in each direction.",
+      "evidence": "A connection is closed with FIN and ACK segments exchanged in each direction (four-way teardown).",
+      "grounded": true
+     },
+     {
+      "term": "UDP",
+      "definition": "A connectionless protocol that gives no delivery guarantee.",
+      "evidence": "UDP, by contrast, is connectionless and gives no delivery guarantee.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "Which TCP mechanism stops the sender from overwhelming the receiver's buffer?",
+      "options": [
+       "Slow start",
+       "Flow control using rwnd",
+       "Three-way handshake",
+       "Four-way teardown"
+      ],
+      "answer": "Flow control using rwnd",
+      "evidence": "Flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "What does TCP set ssthresh to when a timeout detects packet loss?",
+      "options": null,
+      "answer": "Half of cwnd.",
+      "evidence": "TCP sets ssthresh to half of cwnd and restarts slow start",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: UDP provides ordered delivery and retransmits lost segments.",
+      "options": null,
+      "answer": "False",
+      "evidence": "UDP, by contrast, is connectionless and gives no delivery guarantee.",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "How many messages make up the TCP connection establishment?",
+      "options": [
+       "Two",
+       "Three",
+       "Four",
+       "Five"
+      ],
+      "answer": "Three",
+      "evidence": "A connection is established with a three-way handshake",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "How much does cwnd grow per round trip during congestion avoidance?",
+      "options": null,
+      "answer": "About one segment per round trip.",
+      "evidence": "then congestion avoidance increases cwnd by about one segment per round trip",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: ok"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"TCP overview\", \"main_points\": [\"connection-oriented, reliable, byte-stream transport protocol\", \"provides ordered delivery\", \"retransmits lost segments\"]}, {\"title\": \"Connection establishment\", \"main_points\": [\"three-way handshake\", \"client sends SYN\", \"server replies SYN-ACK\", \"client replies ACK\"]}, {\"title\": \"Sequence numbers and acknowledgements\", \"main_points\": [\"sequence numbers label bytes\", \"receiver can reorder segments and detect loss\", \"ACKs tell sender what has been received\"]}, {\"title\": \"Flow control\", \"main_points\": [\"receiver's advertised window (rwnd)\", \"sender does not overwhelm receiver's buffer\"]}, {\"title\": \"Congestion control\", \"main_points\": [\"protects the network\", \"slow start begins with small cwnd\", \"cwnd roughly doubles each round trip until ssthresh\", \"congestion avoidance adds about one segment per round trip\"]}, {\"title\": \"Response to packet loss\", \"main_points\": [\"timeout detects loss\", \"ssthresh set to half of cwnd\", \"restart slow start\"]}, {\"title\": \"Connection teardown\", \"main_points\": [\"closed with FIN and ACK segments\", \"four-way teardown in each direction\"]}, {\"title\": \"UDP comparison\", \"main_points\": [\"UDP is connectionless\", \"no delivery guarantee\"]}]}\n",
+     "raw_generate": "{\"summary\": \"TCP is a connection-oriented, reliable byte-stream protocol that provides ordered delivery and retransmits lost segments. A three-way handshake opens a connection; sequence numbers and ACKs let the receiver reorder data and detect loss. Flow control uses the advertised window (rwnd) so the sender does not overwhelm the receiver. Congestion control uses slow start, which roughly doubles cwnd each round trip until ssthresh, then congestion avoidance. A timeout sets ssthresh to half of cwnd and restarts slow start. Connections close with a four-way FIN and ACK teardown. UDP is connectionless with no delivery guarantee.\",\n \"key_terms\": [\n  {\"term\": \"TCP\", \"definition\": \"A connection-oriented, reliable, byte-stream transport protocol that provides ordered delivery and retransmits lost segments.\", \"evidence\": \"TCP is a connection-oriented, reliable, byte-stream transport protocol.\"},\n  {\"term\": \"Three-way handshake\", \"definition\": \"The SYN, SYN-ACK, ACK exchange used to establish a TCP connection.\", \"evidence\": \"A connection is established with a three-way handshake: the client sends SYN, the server replies SYN-ACK, and the client replies ACK.\"},\n  {\"term\": \"Sequence numbers\", \"definition\": \"Labels for bytes that let the receiver reorder segments and detect loss.\", \"evidence\": \"Sequence numbers label bytes so the receiver can reorder segments and detect loss\"},\n  {\"term\": \"Advertised window (rwnd)\", \"definition\": \"The receiver's advertised window used in flow control so the sender does not overwhelm its buffer.\", \"evidence\": \"Flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer.\"},\n  {\"term\": \"Congestion window (cwnd)\", \"definition\": \"The sender's window that limits transmission to protect the network, starting small in slow start.\", \"evidence\": \"Slow start begins with a small congestion window (cwnd)\"},\n  {\"term\": \"Slow start\", \"definition\": \"A phase in which cwnd roughly doubles every round trip until it reaches ssthresh.\", \"evidence\": \"roughly doubles it every round trip until it reaches the slow-start threshold (ssthresh)\"},\n  {\"term\": \"Congestion avoidance\", \"definition\": \"A phase in which cwnd grows by about one segment per round trip after ssthresh is reached.\", \"evidence\": \"then congestion avoidance increases cwnd by about one segment per round trip\"},\n  {\"term\": \"Four-way teardown\", \"definition\": \"Closing a connection with FIN and ACK segments exchanged in each direction.\", \"evidence\": \"A connection is closed with FIN and ACK segments exchanged in each direction (four-way teardown).\"},\n  {\"term\": \"UDP\", \"definition\": \"A connectionless protocol that gives no delivery guarantee.\", \"evidence\": \"UDP, by contrast, is connectionless and gives no delivery guarantee.\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"Which TCP mechanism stops the sender from overwhelming the receiver's buffer?\", \"options\": [\"Slow start\", \"Flow control using rwnd\", \"Three-way handshake\", \"Four-way teardown\"], \"answer\": \"Flow control using rwnd\", \"evidence\": \"Flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer.\"},\n  {\"type\": \"short\", \"question\": \"What does TCP set ssthresh to when a timeout detects packet loss?\", \"options\": null, \"answer\": \"Half of cwnd.\", \"evidence\": \"TCP sets ssthresh to half of cwnd and restarts slow start\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: UDP provides ordered delivery and retransmits lost segments.\", \"options\": null, \"answer\": \"False\", \"evidence\": \"UDP, by contrast, is connectionless and gives no delivery guarantee.\"},\n  {\"type\": \"mcq\", \"question\": \"How many messages make up the TCP connection establishment?\", \"options\": [\"Two\", \"Three\", \"Four\", \"Five\"], \"answer\": \"Three\", \"evidence\": \"A connection is established with a three-way handshake\"},\n  {\"type\": \"short\", \"question\": \"How much does cwnd grow per round trip during congestion avoidance?\", \"options\": null, \"answer\": \"About one segment per round trip.\", \"evidence\": \"then congestion avoidance increases cwnd by about one segment per round trip\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: during slow start, cwnd roughly doubles each round trip.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"roughly doubles it every round trip\"},\n  {\"type\": \"mcq\", \"question\": \"Which segments are exchanged in each direction to close a TCP connection?\", \"options\": [\"SYN and SYN-ACK\", \"FIN and ACK\", \"RST and SYN\", \"PSH and URG\"], \"answer\": \"FIN and ACK\", \"evidence\": \"A connection is closed with FIN and ACK segments exchanged in each direction\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"Notes say flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer.\", \"answer\": \"Flow control using rwnd\"}, {\"id\": 1, \"valid\": true, \"reason\": \"Notes say that on a timeout-detected loss TCP sets ssthresh to half of cwnd.\", \"answer\": \"Half of cwnd.\"}, {\"id\": 2, \"valid\": true, \"reason\": \"Notes say UDP is connectionless and gives no delivery guarantee, so the statement is false.\", \"answer\": \"False\"}, {\"id\": 3, \"valid\": true, \"reason\": \"Notes describe the three-way handshake (SYN, SYN-ACK, ACK).\", \"answer\": \"Three\"}, {\"id\": 4, \"valid\": true, \"reason\": \"Notes say congestion avoidance increases cwnd by about one segment per round trip.\", \"answer\": \"About one segment per round trip.\"}, {\"id\": 5, \"valid\": true, \"reason\": \"Notes say slow start roughly doubles cwnd every round trip.\", \"answer\": \"True\"}, {\"id\": 6, \"valid\": true, \"reason\": \"Notes say a connection is closed with FIN and ACK segments exchanged in each direction.\", \"answer\": \"FIN and ACK\"}]}",
+     "dropped": [],
+     "summary_words_before": 93
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "05_gradient_descent",
+   "score": {
+    "terms_found": 9,
+    "terms_gold": 11,
+    "cov": 6,
+    "cov_gold": 6,
+    "n_terms": 8,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "Gradient descent minimises loss L(w) by moving parameters against the gradient: w_new = w_old - alpha * dL/dw, alpha being the learning rate. Too small a rate converges slowly; too large overshoots and diverges. Batch gradient descent uses the whole training set: stable but slow on large data. Stochastic gradient descent uses one example per update: fast and noisy, helping escape shallow local minima. Mini-batch uses small batches, the usual choice. For a convex loss such as mean squared error, a suitable rate reaches the global minimum. Feature scaling speeds convergence; an epoch is one full pass through the training data.",
+    "key_terms": [
+     {
+      "term": "Gradient descent",
+      "definition": "A method that minimises a loss function by repeatedly moving the parameters opposite to the gradient.",
+      "evidence": "Gradient descent minimises a loss function L(w) by repeatedly moving the parameters w in the direction opposite to the gradient.",
+      "grounded": true
+     },
+     {
+      "term": "Learning rate",
+      "definition": "The value alpha that scales how far each update moves the parameters.",
+      "evidence": "where alpha is the learning rate",
+      "grounded": true
+     },
+     {
+      "term": "Batch gradient descent",
+      "definition": "Gradient descent that computes the gradient on the whole training set at each step; stable but slow for large data.",
+      "evidence": "Batch gradient descent computes the gradient on the whole training set at each step",
+      "grounded": true
+     },
+     {
+      "term": "Stochastic gradient descent (SGD)",
+      "definition": "Gradient descent that uses one example per update; fast and noisy.",
+      "evidence": "Stochastic gradient descent (SGD) uses one example per update",
+      "grounded": true
+     },
+     {
+      "term": "Mini-batch gradient descent",
+      "definition": "Gradient descent that uses a small batch of examples per update and is the usual choice in practice.",
+      "evidence": "Mini-batch gradient descent uses a small batch (for example 32 or 64 examples)",
+      "grounded": true
+     },
+     {
+      "term": "Convex loss",
+      "definition": "A loss, such as mean squared error in linear regression, for which gradient descent with a suitable learning rate reaches the global minimum.",
+      "evidence": "For a convex loss such as mean squared error in linear regression, gradient descent with a suitable learning rate reaches the global minimum.",
+      "grounded": true
+     },
+     {
+      "term": "Feature scaling",
+      "definition": "Scaling such as standardisation that makes the loss surface rounder and speeds up convergence.",
+      "evidence": "Feature scaling (for example standardisation) makes the loss surface rounder and speeds up convergence.",
+      "grounded": true
+     },
+     {
+      "term": "Epoch",
+      "definition": "One full pass through the training data.",
+      "evidence": "An epoch is one full pass through the training data.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "Which gradient descent variant computes the gradient on the whole training set at each step?",
+      "options": [
+       "Stochastic gradient descent",
+       "Mini-batch gradient descent",
+       "Batch gradient descent",
+       "Epoch"
+      ],
+      "answer": "Batch gradient descent",
+      "evidence": "Batch gradient descent computes the gradient on the whole training set at each step",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "What happens if the learning rate is too large?",
+      "options": null,
+      "answer": "The updates can overshoot the minimum and diverge.",
+      "evidence": "if it is too large, the updates can overshoot the minimum and diverge",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: an epoch is one update step using a single example.",
+      "options": null,
+      "answer": "False",
+      "evidence": "An epoch is one full pass through the training data.",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "Which gradient descent variant is the usual choice in practice?",
+      "options": [
+       "Batch gradient descent",
+       "Stochastic gradient descent",
+       "Mini-batch gradient descent",
+       "Convex gradient descent"
+      ],
+      "answer": "Mini-batch gradient descent",
+      "evidence": "is the usual choice in practice",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "What does feature scaling such as standardisation do?",
+      "options": null,
+      "answer": "It makes the loss surface rounder and speeds up convergence.",
+      "evidence": "makes the loss surface rounder and speeds up convergence",
+      "grounded": true
+     }
+    ],
+    "warnings": [
+     "summary still over 100 words after one retry"
+    ],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: shorten"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"Gradient descent basics\", \"main_points\": [\"minimises a loss function L(w)\", \"moves parameters opposite to the gradient\"]}, {\"title\": \"Update rule\", \"main_points\": [\"w_new = w_old - alpha * dL/dw\", \"alpha is the learning rate\"]}, {\"title\": \"Effect of learning rate\", \"main_points\": [\"too small: convergence is slow\", \"too large: updates overshoot and diverge\"]}, {\"title\": \"Batch gradient descent\", \"main_points\": [\"gradient computed on whole training set\", \"stable but slow for large data\"]}, {\"title\": \"Stochastic gradient descent\", \"main_points\": [\"one example per update\", \"fast and noisy\", \"noise can help escape shallow local minima\"]}, {\"title\": \"Mini-batch gradient descent\", \"main_points\": [\"small batch, for example 32 or 64 examples\", \"usual choice in practice\"]}, {\"title\": \"Convex losses\", \"main_points\": [\"convex loss such as mean squared error in linear regression\", \"suitable learning rate reaches the global minimum\"]}, {\"title\": \"Feature scaling and epochs\", \"main_points\": [\"feature scaling such as standardisation\", \"makes loss surface rounder and speeds convergence\", \"epoch is one full pass through training data\"]}]}\n",
+     "raw_generate": "{\"summary\": \"Gradient descent minimises a loss L(w) by moving parameters opposite the gradient, using w_new = w_old - alpha * dL/dw, where alpha is the learning rate. A rate that is too small converges slowly; one that is too large can overshoot and diverge. Batch gradient descent uses the whole training set: stable but slow for large data. Stochastic gradient descent uses one example per update: fast and noisy, which can help escape shallow local minima. Mini-batch gradient descent uses small batches and is the usual choice in practice. For a convex loss such as mean squared error, a suitable learning rate reaches the global minimum. Feature scaling speeds convergence, and an epoch is one full pass through the training data.\",\n \"key_terms\": [\n  {\"term\": \"Gradient descent\", \"definition\": \"A method that minimises a loss function by repeatedly moving the parameters opposite to the gradient.\", \"evidence\": \"Gradient descent minimises a loss function L(w) by repeatedly moving the parameters w in the direction opposite to the gradient.\"},\n  {\"term\": \"Learning rate\", \"definition\": \"The value alpha that scales how far each update moves the parameters.\", \"evidence\": \"where alpha is the learning rate\"},\n  {\"term\": \"Batch gradient descent\", \"definition\": \"Gradient descent that computes the gradient on the whole training set at each step; stable but slow for large data.\", \"evidence\": \"Batch gradient descent computes the gradient on the whole training set at each step\"},\n  {\"term\": \"Stochastic gradient descent (SGD)\", \"definition\": \"Gradient descent that uses one example per update; fast and noisy.\", \"evidence\": \"Stochastic gradient descent (SGD) uses one example per update\"},\n  {\"term\": \"Mini-batch gradient descent\", \"definition\": \"Gradient descent that uses a small batch of examples per update and is the usual choice in practice.\", \"evidence\": \"Mini-batch gradient descent uses a small batch (for example 32 or 64 examples)\"},\n  {\"term\": \"Convex loss\", \"definition\": \"A loss, such as mean squared error in linear regression, for which gradient descent with a suitable learning rate reaches the global minimum.\", \"evidence\": \"For a convex loss such as mean squared error in linear regression, gradient descent with a suitable learning rate reaches the global minimum.\"},\n  {\"term\": \"Feature scaling\", \"definition\": \"Scaling such as standardisation that makes the loss surface rounder and speeds up convergence.\", \"evidence\": \"Feature scaling (for example standardisation) makes the loss surface rounder and speeds up convergence.\"},\n  {\"term\": \"Epoch\", \"definition\": \"One full pass through the training data.\", \"evidence\": \"An epoch is one full pass through the training data.\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"Which gradient descent variant computes the gradient on the whole training set at each step?\", \"options\": [\"Stochastic gradient descent\", \"Mini-batch gradient descent\", \"Batch gradient descent\", \"Epoch\"], \"answer\": \"Batch gradient descent\", \"evidence\": \"Batch gradient descent computes the gradient on the whole training set at each step\"},\n  {\"type\": \"short\", \"question\": \"What happens if the learning rate is too large?\", \"options\": null, \"answer\": \"The updates can overshoot the minimum and diverge.\", \"evidence\": \"if it is too large, the updates can overshoot the minimum and diverge\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: an epoch is one update step using a single example.\", \"options\": null, \"answer\": \"False\", \"evidence\": \"An epoch is one full pass through the training data.\"},\n  {\"type\": \"mcq\", \"question\": \"Which gradient descent variant is the usual choice in practice?\", \"options\": [\"Batch gradient descent\", \"Stochastic gradient descent\", \"Mini-batch gradient descent\", \"Convex gradient descent\"], \"answer\": \"Mini-batch gradient descent\", \"evidence\": \"is the usual choice in practice\"},\n  {\"type\": \"short\", \"question\": \"What does feature scaling such as standardisation do?\", \"options\": null, \"answer\": \"It makes the loss surface rounder and speeds up convergence.\", \"evidence\": \"makes the loss surface rounder and speeds up convergence\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: for a convex loss, gradient descent with a suitable learning rate reaches the global minimum.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"gradient descent with a suitable learning rate reaches the global minimum\"},\n  {\"type\": \"mcq\", \"question\": \"In the update rule w_new = w_old - alpha * dL/dw, what is alpha?\", \"options\": [\"Number of epochs\", \"Learning rate\", \"Batch size\", \"Loss value\"], \"answer\": \"Learning rate\", \"evidence\": \"where alpha is the learning rate\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"Notes say batch gradient descent computes the gradient on the whole training set at each step.\", \"answer\": \"Batch gradient descent\"}, {\"id\": 1, \"valid\": true, \"reason\": \"Notes say that if the learning rate is too large, updates can overshoot the minimum and diverge.\", \"answer\": \"The updates can overshoot the minimum and diverge.\"}, {\"id\": 2, \"valid\": true, \"reason\": \"Notes define an epoch as one full pass through the training data, not one update using a single example, so the statement is false.\", \"answer\": \"False\"}, {\"id\": 3, \"valid\": true, \"reason\": \"Notes say mini-batch gradient descent is the usual choice in practice.\", \"answer\": \"Mini-batch gradient descent\"}, {\"id\": 4, \"valid\": true, \"reason\": \"Notes say feature scaling makes the loss surface rounder and speeds up convergence.\", \"answer\": \"It makes the loss surface rounder and speeds up convergence.\"}, {\"id\": 5, \"valid\": true, \"reason\": \"Notes say for a convex loss, gradient descent with a suitable learning rate reaches the global minimum.\", \"answer\": \"True\"}, {\"id\": 6, \"valid\": true, \"reason\": \"Notes say alpha is the learning rate in the update rule.\", \"answer\": \"Learning rate\"}]}",
+     "dropped": [],
+     "summary_words_before": 120,
+     "raw_shorten": "{\"summary\": \"Gradient descent minimises loss L(w) by moving parameters against the gradient: w_new = w_old - alpha * dL/dw, alpha being the learning rate. Too small a rate converges slowly; too large overshoots and diverges. Batch gradient descent uses the whole training set: stable but slow on large data. Stochastic gradient descent uses one example per update: fast and noisy, helping escape shallow local minima. Mini-batch uses small batches, the usual choice. For a convex loss such as mean squared error, a suitable rate reaches the global minimum. Feature scaling speeds convergence; an epoch is one full pass through the training data.\"}"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "06_prompting_basics",
+   "score": {
+    "terms_found": 8,
+    "terms_gold": 10,
+    "cov": 6,
+    "cov_gold": 6,
+    "n_terms": 8,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 1,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "A prompt is the input given to a language model, and its wording strongly affects output quality. Zero-shot prompting gives an instruction alone; few-shot prompting adds input-output examples for the model to imitate. A good prompt states the role, task, context, constraints and required output format. Chain-of-thought prompting asks for step-by-step reasoning, which often improves arithmetic and logic. Grounding in provided documents and asking for quotes reduces hallucination. Temperature controls randomness, and prompt injection is untrusted text that tries to override developer instructions. Prompts should be tested on a fixed test set and versioned like code.",
+    "key_terms": [
+     {
+      "term": "Prompt",
+      "definition": "The input given to a language model.",
+      "evidence": "A prompt is the input given to a language model",
+      "grounded": true
+     },
+     {
+      "term": "Zero-shot prompting",
+      "definition": "Giving an instruction with no examples.",
+      "evidence": "Zero-shot prompting gives an instruction with no examples.",
+      "grounded": true
+     },
+     {
+      "term": "Few-shot prompting",
+      "definition": "Including a few input-output examples in the prompt so the model can imitate the pattern and format.",
+      "evidence": "Few-shot prompting includes a few input-output examples in the prompt so the model can imitate the pattern and the format.",
+      "grounded": true
+     },
+     {
+      "term": "Chain-of-thought prompting",
+      "definition": "Asking the model to reason step by step before answering.",
+      "evidence": "Chain-of-thought prompting asks the model to reason step by step before answering",
+      "grounded": true
+     },
+     {
+      "term": "Hallucination",
+      "definition": "Fluent but unsupported or false content produced by a model.",
+      "evidence": "Hallucination is when a model produces fluent but unsupported or false content.",
+      "grounded": true
+     },
+     {
+      "term": "Grounding",
+      "definition": "Basing the model's output on provided documents and asking it to quote its sources, which reduces hallucination.",
+      "evidence": "Grounding the model in provided documents and asking it to quote its sources reduces it.",
+      "grounded": true
+     },
+     {
+      "term": "Temperature",
+      "definition": "A setting that controls randomness: low gives more deterministic output and high gives more varied output.",
+      "evidence": "Temperature controls randomness",
+      "grounded": true
+     },
+     {
+      "term": "Prompt injection",
+      "definition": "Untrusted text in the input that tries to override the developer's instructions.",
+      "evidence": "Prompt injection is when untrusted text in the input tries to override the developer's instructions.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "Which prompting technique includes input-output examples in the prompt?",
+      "options": [
+       "Zero-shot prompting",
+       "Few-shot prompting",
+       "Chain-of-thought prompting",
+       "Temperature tuning"
+      ],
+      "answer": "Few-shot prompting",
+      "evidence": "Few-shot prompting includes a few input-output examples in the prompt",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "What does chain-of-thought prompting ask the model to do?",
+      "options": null,
+      "answer": "Reason step by step before answering.",
+      "evidence": "asks the model to reason step by step before answering",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: low temperature gives more varied output.",
+      "options": null,
+      "answer": "False",
+      "evidence": "low temperature gives more deterministic output",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "What is prompt injection?",
+      "options": [
+       "Adding examples to a prompt",
+       "Untrusted text that tries to override developer instructions",
+       "Setting temperature to zero",
+       "Chaining reasoning steps"
+      ],
+      "answer": "Untrusted text that tries to override developer instructions",
+      "evidence": "Prompt injection is when untrusted text in the input tries to override the developer's instructions.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Name two elements of a good prompt.",
+      "options": null,
+      "answer": "Any two of: role, task, context, constraints, required output format.",
+      "evidence": "A good prompt states the role, the task, the context, the constraints and the required output format.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: ok"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"Prompt basics\", \"main_points\": [\"prompt is the input given to a language model\", \"output quality depends strongly on how the prompt is written\"]}, {\"title\": \"Zero-shot and few-shot prompting\", \"main_points\": [\"zero-shot gives an instruction with no examples\", \"few-shot includes input-output examples\", \"model can imitate the pattern and format\"]}, {\"title\": \"Elements of a good prompt\", \"main_points\": [\"state the role\", \"state the task\", \"state the context\", \"state the constraints\", \"state the required output format\"]}, {\"title\": \"Chain-of-thought prompting\", \"main_points\": [\"asks model to reason step by step before answering\", \"often improves arithmetic and logic tasks\"]}, {\"title\": \"Hallucination and grounding\", \"main_points\": [\"fluent but unsupported or false content\", \"grounding in provided documents reduces it\", \"ask the model to quote its sources\"]}, {\"title\": \"Temperature\", \"main_points\": [\"controls randomness\", \"low temperature gives more deterministic output\", \"high temperature gives more varied output\"]}, {\"title\": \"Prompt injection\", \"main_points\": [\"untrusted text in the input tries to override developer instructions\"]}, {\"title\": \"Testing and versioning prompts\", \"main_points\": [\"test on a fixed test set\", \"version prompts like code\"]}]}\n",
+     "raw_generate": "{\"summary\": \"A prompt is the input given to a language model, and its wording strongly affects output quality. Zero-shot prompting gives an instruction alone; few-shot prompting adds input-output examples for the model to imitate. A good prompt states the role, task, context, constraints and required output format. Chain-of-thought prompting asks for step-by-step reasoning, which often improves arithmetic and logic. Grounding in provided documents and asking for quotes reduces hallucination. Temperature controls randomness, and prompt injection is untrusted text that tries to override developer instructions. Prompts should be tested on a fixed test set and versioned like code.\",\n \"key_terms\": [\n  {\"term\": \"Prompt\", \"definition\": \"The input given to a language model.\", \"evidence\": \"A prompt is the input given to a language model\"},\n  {\"term\": \"Zero-shot prompting\", \"definition\": \"Giving an instruction with no examples.\", \"evidence\": \"Zero-shot prompting gives an instruction with no examples.\"},\n  {\"term\": \"Few-shot prompting\", \"definition\": \"Including a few input-output examples in the prompt so the model can imitate the pattern and format.\", \"evidence\": \"Few-shot prompting includes a few input-output examples in the prompt so the model can imitate the pattern and the format.\"},\n  {\"term\": \"Chain-of-thought prompting\", \"definition\": \"Asking the model to reason step by step before answering.\", \"evidence\": \"Chain-of-thought prompting asks the model to reason step by step before answering\"},\n  {\"term\": \"Hallucination\", \"definition\": \"Fluent but unsupported or false content produced by a model.\", \"evidence\": \"Hallucination is when a model produces fluent but unsupported or false content.\"},\n  {\"term\": \"Grounding\", \"definition\": \"Basing the model's output on provided documents and asking it to quote its sources, which reduces hallucination.\", \"evidence\": \"Grounding the model in provided documents and asking it to quote its sources reduces it.\"},\n  {\"term\": \"Temperature\", \"definition\": \"A setting that controls randomness: low gives more deterministic output and high gives more varied output.\", \"evidence\": \"Temperature controls randomness\"},\n  {\"term\": \"Prompt injection\", \"definition\": \"Untrusted text in the input that tries to override the developer's instructions.\", \"evidence\": \"Prompt injection is when untrusted text in the input tries to override the developer's instructions.\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"Which prompting technique includes input-output examples in the prompt?\", \"options\": [\"Zero-shot prompting\", \"Few-shot prompting\", \"Chain-of-thought prompting\", \"Temperature tuning\"], \"answer\": \"Few-shot prompting\", \"evidence\": \"Few-shot prompting includes a few input-output examples in the prompt\"},\n  {\"type\": \"short\", \"question\": \"What does chain-of-thought prompting ask the model to do?\", \"options\": null, \"answer\": \"Reason step by step before answering.\", \"evidence\": \"asks the model to reason step by step before answering\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: low temperature gives more varied output.\", \"options\": null, \"answer\": \"False\", \"evidence\": \"low temperature gives more deterministic output\"},\n  {\"type\": \"mcq\", \"question\": \"What is prompt injection?\", \"options\": [\"Adding examples to a prompt\", \"Untrusted text that tries to override developer instructions\", \"Setting temperature to zero\", \"Chaining reasoning steps\"], \"answer\": \"Untrusted text that tries to override developer instructions\", \"evidence\": \"Prompt injection is when untrusted text in the input tries to override the developer's instructions.\"},\n  {\"type\": \"short\", \"question\": \"Name two elements of a good prompt.\", \"options\": null, \"answer\": \"Any two of: role, task, context, constraints, required output format.\", \"evidence\": \"A good prompt states the role, the task, the context, the constraints and the required output format.\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: prompts should be tested on a fixed test set and versioned like code.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"Prompts should be tested on a fixed test set and versioned, like code.\"},\n  {\"type\": \"mcq\", \"question\": \"Which action reduces hallucination according to the notes?\", \"options\": [\"Raising the temperature\", \"Grounding in provided documents\", \"Removing examples\", \"Adding untrusted input\"], \"answer\": \"Grounding in provided documents\", \"evidence\": \"Grounding the model in provided documents and asking it to quote its sources reduces it.\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"Notes define few-shot prompting as including input-output examples in the prompt; proposed answer agrees.\", \"answer\": \"Few-shot prompting\"}, {\"id\": 1, \"valid\": true, \"reason\": \"Notes say chain-of-thought prompting asks the model to reason step by step before answering.\", \"answer\": \"Reason step by step before answering.\"}, {\"id\": 2, \"valid\": true, \"reason\": \"Notes say low temperature gives more deterministic output, so the statement is false.\", \"answer\": \"False\"}, {\"id\": 3, \"valid\": true, \"reason\": \"Notes define prompt injection as untrusted text in the input that tries to override developer instructions.\", \"answer\": \"Untrusted text that tries to override developer instructions\"}, {\"id\": 4, \"valid\": true, \"reason\": \"Notes list role, task, context, constraints and required output format as elements of a good prompt.\", \"answer\": \"Any two of: role, task, context, constraints, required output format.\"}, {\"id\": 5, \"valid\": true, \"reason\": \"Notes say prompts should be tested on a fixed test set and versioned like code.\", \"answer\": \"True\"}, {\"id\": 6, \"valid\": true, \"reason\": \"Notes say grounding the model in provided documents reduces hallucination.\", \"answer\": \"Grounding in provided documents\"}]}",
+     "dropped": [],
+     "summary_words_before": 96
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "07_memory_management",
+   "score": {
+    "terms_found": 23,
+    "terms_gold": 30,
+    "cov": 9,
+    "cov_gold": 12,
+    "n_terms": 21,
+    "halluc": 1,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 1,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "The MMU translates logical to physical addresses, and base and limit registers protect memory. Contiguous allocation (first, best or worst fit) suffers external fragmentation, while paging has only internal fragmentation. A TLB caches page table entries; with an 80 percent hit ratio the effective access time is 130 ns. Multi-level paging handles large page tables, and segmentation matches the programmer's view. Demand paging loads pages on need; replacement compares FIFO (which can show Belady's anomaly), optimal (a benchmark) and LRU (approximates optimal). Thrashing, from too few frames, is controlled by the working-set model or page-fault frequency control.",
+    "key_terms": [
+     {
+      "term": "memory management unit (MMU)",
+      "definition": "The hardware that translates logical addresses into physical addresses in main memory.",
+      "evidence": "The hardware that translates them into physical addresses in main memory is the memory management unit (MMU)",
+      "grounded": true
+     },
+     {
+      "term": "logical address",
+      "definition": "An address generated by a program, also called a virtual address.",
+      "evidence": "A program generates logical addresses (also called virtual addresses)",
+      "grounded": true
+     },
+     {
+      "term": "base and limit registers",
+      "definition": "Registers that check every address generated by a process, with an illegal access causing a trap to the operating system.",
+      "evidence": "Protection is enforced with a base register and a limit register: every address generated by a process is checked against them, and an illegal access causes a trap to the operating system",
+      "grounded": true
+     },
+     {
+      "term": "external fragmentation",
+      "definition": "Enough total free memory for a request, but split into holes that are too small.",
+      "evidence": "External fragmentation means there is enough total free memory for a request, but it is split into holes that are too small",
+      "grounded": true
+     },
+     {
+      "term": "internal fragmentation",
+      "definition": "Unused space inside an allocated block, because the memory allocated is larger than requested.",
+      "evidence": "Internal fragmentation means memory allocated to a process is larger than requested, so the unused space inside the block is wasted",
+      "grounded": true
+     },
+     {
+      "term": "first-fit",
+      "definition": "Allocates the first hole that is large enough.",
+      "evidence": "First-fit allocates the first hole that is large enough",
+      "grounded": true
+     },
+     {
+      "term": "best-fit",
+      "definition": "Allocates the smallest hole that is large enough.",
+      "evidence": "Best-fit allocates the smallest hole that is large enough",
+      "grounded": true
+     },
+     {
+      "term": "frame",
+      "definition": "A fixed-size block of physical memory.",
+      "evidence": "Physical memory is divided into fixed-size blocks called frames",
+      "grounded": true
+     },
+     {
+      "term": "page table",
+      "definition": "A table that maps each page number to a frame number.",
+      "evidence": "A page table maps each page number to a frame number",
+      "grounded": true
+     },
+     {
+      "term": "translation look-aside buffer (TLB)",
+      "definition": "A small, fast hardware cache of page table entries.",
+      "evidence": "The translation look-aside buffer (TLB) is a small, fast hardware cache of page table entries",
+      "grounded": true
+     },
+     {
+      "term": "segmentation",
+      "definition": "A scheme that supports the programmer's view of memory as logical units such as the code, the stack and the heap.",
+      "evidence": "Segmentation supports the programmer's view of memory as a set of logical units such as the code, the stack and the heap",
+      "grounded": true
+     },
+     {
+      "term": "demand paging",
+      "definition": "Loading a page into memory only when it is needed.",
+      "evidence": "Demand paging loads a page into memory only when it is needed",
+      "grounded": true
+     },
+     {
+      "term": "valid-invalid bit",
+      "definition": "A bit in each page table entry that shows whether the page is in memory.",
+      "evidence": "A valid-invalid bit in each page table entry shows whether the page is in memory",
+      "grounded": true
+     },
+     {
+      "term": "page fault",
+      "definition": "The event of a process referencing a page that is not in memory.",
+      "evidence": "A page fault happens when a process references a page that is not in memory",
+      "grounded": true
+     },
+     {
+      "term": "locality of reference",
+      "definition": "The tendency of programs to use a small set of pages at a time.",
+      "evidence": "It works because of locality of reference: programs tend to use a small set of pages at a time",
+      "grounded": true
+     },
+     {
+      "term": "Belady's anomaly",
+      "definition": "The effect where giving a process more frames increases the number of page faults.",
+      "evidence": "where giving a process more frames increases the number of page faults",
+      "grounded": true
+     },
+     {
+      "term": "FIFO",
+      "definition": "A page replacement algorithm that replaces the page that has been in memory the longest.",
+      "evidence": "FIFO replaces the page that has been in memory the longest",
+      "grounded": true
+     },
+     {
+      "term": "optimal algorithm",
+      "definition": "A page replacement algorithm that replaces the page that will not be used for the longest time in the future.",
+      "evidence": "The optimal algorithm replaces the page that will not be used for the longest time in the future",
+      "grounded": true
+     },
+     {
+      "term": "LRU",
+      "definition": "A page replacement algorithm that replaces the page that has not been used for the longest time.",
+      "evidence": "Least recently used (LRU) replaces the page that has not been used for the longest time",
+      "grounded": true
+     },
+     {
+      "term": "thrashing",
+      "definition": "Happens when a process does not have enough frames for its active pages, so it spends more time paging than executing.",
+      "evidence": "Thrashing happens when a process does not have enough frames for its active pages, so it spends more time paging than executing",
+      "grounded": true
+     },
+     {
+      "term": "working-set model",
+      "definition": "A model that uses the pages referenced in the most recent window of references to decide how many frames a process needs.",
+      "evidence": "The working-set model uses the pages referenced in the most recent window of references to decide how many frames a process needs",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "On a TLB hit, what becomes available immediately?",
+      "options": [
+       "The page table entry in main memory",
+       "The frame number",
+       "The disk block",
+       "The segment limit"
+      ],
+      "answer": "The frame number",
+      "evidence": "On a TLB hit the frame number is available immediately",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: LRU suffers from Belady's anomaly.",
+      "options": null,
+      "answer": "False",
+      "evidence": "it does not suffer from Belady's anomaly",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Which kind of fragmentation can still occur in the last page of a paged process?",
+      "options": null,
+      "answer": "Internal fragmentation.",
+      "evidence": "Paging has no external fragmentation, but it can have internal fragmentation in the last page of a process",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "Which approach decides how many frames a process needs using the pages referenced in the most recent window?",
+      "options": [
+       "Working-set model",
+       "Compaction",
+       "Best-fit allocation",
+       "Optimal algorithm"
+      ],
+      "answer": "Working-set model",
+      "evidence": "The working-set model uses the pages referenced in the most recent window of references to decide how many frames a process needs",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: an offset beyond a segment limit causes a trap, commonly seen as a segmentation fault.",
+      "options": null,
+      "answer": "True",
+      "evidence": "An offset beyond the segment limit causes a trap, commonly seen as a segmentation fault",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: ok"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"Addresses and protection\", \"main_points\": [\"Logical (virtual) addresses are translated to physical addresses by the MMU\", \"Address binding at compile time, load time or execution time\", \"Execution-time binding needed if a process can be moved in memory\", \"Base and limit registers check every address\", \"Illegal access causes a trap to the operating system\"]}, {\"title\": \"Contiguous allocation and fragmentation\", \"main_points\": [\"Each process occupies one contiguous block; free blocks are holes\", \"First-fit takes the first hole large enough\", \"Best-fit takes the smallest hole large enough\", \"Worst-fit takes the largest hole\", \"External fragmentation: enough total free memory but split into small holes\", \"Compaction is costly and needs execution-time binding\", \"Internal fragmentation: unused space inside an allocated block\"]}, {\"title\": \"Paging\", \"main_points\": [\"Frames in physical memory, pages in logical memory, same fixed size\", \"Page table maps page numbers to frame numbers\", \"Address split into page number and offset\", \"No external fragmentation, but internal fragmentation in last page\", \"Average waste about half a page per process\", \"Smaller pages waste less but make the page table larger\", \"Page table in memory means two accesses per reference\"]}, {\"title\": \"Translation look-aside buffer\", \"main_points\": [\"TLB is a small, fast hardware cache of page table entries\", \"TLB hit gives frame number immediately\", \"TLB miss consults page table and loads the entry\", \"Effective access time depends on hit ratio\", \"Example: 0.8 x 110 + 0.2 x 210 = 130 ns\", \"Higher hit ratio brings access time closer to one memory access\"]}, {\"title\": \"Large page tables and segmentation\", \"main_points\": [\"32-bit space with small pages needs a very large page table\", \"Multi-level (hierarchical) paging pages the page table itself\", \"Segmentation matches the programmer's view: code, stack, heap\", \"Logical address is segment number and offset\", \"Segment table stores base and limit of each segment\", \"Segmentation can cause external fragmentation\", \"Offset beyond segment limit causes a trap (segmentation fault)\"]}, {\"title\": \"Virtual memory and demand paging\", \"main_points\": [\"Process can run with only part of it in physical memory\", \"Logical address space can be larger than physical memory\", \"Works because of locality of reference\", \"Demand paging loads a page only when needed\", \"Valid-invalid bit shows whether the page is in memory\", \"Page fault: find free frame, read page from disk, update table, restart\", \"Page fault rate strongly affects performance\"]}, {\"title\": \"Page replacement algorithms\", \"main_points\": [\"FIFO replaces the page longest in memory\", \"FIFO can show Belady's anomaly\", \"Reference string gives 9 faults with 3 frames and 10 with 4\", \"Optimal replaces the page unused for the longest future time\", \"Optimal is lowest fault rate but cannot be implemented; used as benchmark\", \"LRU replaces the page unused for the longest past time\", \"LRU approximates optimal and does not suffer Belady's anomaly\", \"LRU needs a hardware counter or a stack of page numbers\"]}, {\"title\": \"Thrashing\", \"main_points\": [\"Thrashing: not enough frames for active pages, more time paging than executing\", \"CPU utilisation falls and scheduler may admit more processes\", \"Working-set model uses pages referenced in the most recent window\", \"Page-fault frequency control adds frames when fault rate is high\", \"Remove frames when fault rate is low\", \"Limit thrashing by reducing multiprogramming or suspending processes\"]}]}",
+     "raw_generate": "{\"summary\": \"The MMU translates logical to physical addresses, and base and limit registers protect memory. Contiguous allocation (first, best or worst fit) suffers external fragmentation, while paging has only internal fragmentation. A TLB caches page table entries; with an 80 percent hit ratio the effective access time is 130 ns. Multi-level paging handles large page tables, and segmentation matches the programmer's view. Demand paging loads pages on need; replacement compares FIFO (which can show Belady's anomaly), optimal (a benchmark) and LRU (approximates optimal). Thrashing, from too few frames, is controlled by the working-set model or page-fault frequency control.\",\n \"key_terms\": [\n  {\"term\": \"memory management unit (MMU)\", \"definition\": \"The hardware that translates logical addresses into physical addresses in main memory.\", \"evidence\": \"The hardware that translates them into physical addresses in main memory is the memory management unit (MMU)\"},\n  {\"term\": \"logical address\", \"definition\": \"An address generated by a program, also called a virtual address.\", \"evidence\": \"A program generates logical addresses (also called virtual addresses)\"},\n  {\"term\": \"base and limit registers\", \"definition\": \"Registers that check every address generated by a process, with an illegal access causing a trap to the operating system.\", \"evidence\": \"Protection is enforced with a base register and a limit register: every address generated by a process is checked against them, and an illegal access causes a trap to the operating system\"},\n  {\"term\": \"external fragmentation\", \"definition\": \"Enough total free memory for a request, but split into holes that are too small.\", \"evidence\": \"External fragmentation means there is enough total free memory for a request, but it is split into holes that are too small\"},\n  {\"term\": \"internal fragmentation\", \"definition\": \"Unused space inside an allocated block, because the memory allocated is larger than requested.\", \"evidence\": \"Internal fragmentation means memory allocated to a process is larger than requested, so the unused space inside the block is wasted\"},\n  {\"term\": \"first-fit\", \"definition\": \"Allocates the first hole that is large enough.\", \"evidence\": \"First-fit allocates the first hole that is large enough\"},\n  {\"term\": \"best-fit\", \"definition\": \"Allocates the smallest hole that is large enough.\", \"evidence\": \"Best-fit allocates the smallest hole that is large enough\"},\n  {\"term\": \"frame\", \"definition\": \"A fixed-size block of physical memory.\", \"evidence\": \"Physical memory is divided into fixed-size blocks called frames\"},\n  {\"term\": \"page table\", \"definition\": \"A table that maps each page number to a frame number.\", \"evidence\": \"A page table maps each page number to a frame number\"},\n  {\"term\": \"translation look-aside buffer (TLB)\", \"definition\": \"A small, fast hardware cache of page table entries.\", \"evidence\": \"The translation look-aside buffer (TLB) is a small, fast hardware cache of page table entries\"},\n  {\"term\": \"segmentation\", \"definition\": \"A scheme that supports the programmer's view of memory as logical units such as the code, the stack and the heap.\", \"evidence\": \"Segmentation supports the programmer's view of memory as a set of logical units such as the code, the stack and the heap\"},\n  {\"term\": \"demand paging\", \"definition\": \"Loading a page into memory only when it is needed.\", \"evidence\": \"Demand paging loads a page into memory only when it is needed\"},\n  {\"term\": \"valid-invalid bit\", \"definition\": \"A bit in each page table entry that shows whether the page is in memory.\", \"evidence\": \"A valid-invalid bit in each page table entry shows whether the page is in memory\"},\n  {\"term\": \"page fault\", \"definition\": \"The event of a process referencing a page that is not in memory.\", \"evidence\": \"A page fault happens when a process references a page that is not in memory\"},\n  {\"term\": \"locality of reference\", \"definition\": \"The tendency of programs to use a small set of pages at a time.\", \"evidence\": \"It works because of locality of reference: programs tend to use a small set of pages at a time\"},\n  {\"term\": \"Belady's anomaly\", \"definition\": \"The effect where giving a process more frames increases the number of page faults.\", \"evidence\": \"where giving a process more frames increases the number of page faults\"},\n  {\"term\": \"FIFO\", \"definition\": \"A page replacement algorithm that replaces the page that has been in memory the longest.\", \"evidence\": \"FIFO replaces the page that has been in memory the longest\"},\n  {\"term\": \"optimal algorithm\", \"definition\": \"A page replacement algorithm that replaces the page that will not be used for the longest time in the future.\", \"evidence\": \"The optimal algorithm replaces the page that will not be used for the longest time in the future\"},\n  {\"term\": \"LRU\", \"definition\": \"A page replacement algorithm that replaces the page that has not been used for the longest time.\", \"evidence\": \"Least recently used (LRU) replaces the page that has not been used for the longest time\"},\n  {\"term\": \"thrashing\", \"definition\": \"Happens when a process does not have enough frames for its active pages, so it spends more time paging than executing.\", \"evidence\": \"Thrashing happens when a process does not have enough frames for its active pages, so it spends more time paging than executing\"},\n  {\"term\": \"working-set model\", \"definition\": \"A model that uses the pages referenced in the most recent window of references to decide how many frames a process needs.\", \"evidence\": \"The working-set model uses the pages referenced in the most recent window of references to decide how many frames a process needs\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"On a TLB hit, what becomes available immediately?\", \"options\": [\"The page table entry in main memory\", \"The frame number\", \"The disk block\", \"The segment limit\"], \"answer\": \"The frame number\", \"evidence\": \"On a TLB hit the frame number is available immediately\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: LRU suffers from Belady's anomaly.\", \"options\": null, \"answer\": \"False\", \"evidence\": \"it does not suffer from Belady's anomaly\"},\n  {\"type\": \"short\", \"question\": \"Which kind of fragmentation can still occur in the last page of a paged process?\", \"options\": null, \"answer\": \"Internal fragmentation.\", \"evidence\": \"Paging has no external fragmentation, but it can have internal fragmentation in the last page of a process\"},\n  {\"type\": \"mcq\", \"question\": \"Which approach decides how many frames a process needs using the pages referenced in the most recent window?\", \"options\": [\"Working-set model\", \"Compaction\", \"Best-fit allocation\", \"Optimal algorithm\"], \"answer\": \"Working-set model\", \"evidence\": \"The working-set model uses the pages referenced in the most recent window of references to decide how many frames a process needs\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: an offset beyond a segment limit causes a trap, commonly seen as a segmentation fault.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"An offset beyond the segment limit causes a trap, commonly seen as a segmentation fault\"},\n  {\"type\": \"mcq\", \"question\": \"Which page replacement algorithm replaces the page that will not be used for the longest time in the future?\", \"options\": [\"FIFO\", \"LRU\", \"Optimal\", \"Best-fit\"], \"answer\": \"Optimal\", \"evidence\": \"The optimal algorithm replaces the page that will not be used for the longest time in the future\"},\n  {\"type\": \"short\", \"question\": \"What do the base and limit registers do for every address a process generates?\", \"options\": null, \"answer\": \"They check each address, and an illegal access traps to the operating system.\", \"evidence\": \"every address generated by a process is checked against them, and an illegal access causes a trap to the operating system\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"The notes say that on a TLB hit the frame number is available immediately, so the proposed answer is correct.\", \"answer\": \"The frame number\"}, {\"id\": 1, \"valid\": true, \"reason\": \"The notes say LRU does not suffer from Belady's anomaly, so the statement is false and the proposed answer is correct.\", \"answer\": \"False\"}, {\"id\": 2, \"valid\": true, \"reason\": \"The notes say the average waste in the last page of a process is internal fragmentation, so the proposed answer is correct.\", \"answer\": \"Internal fragmentation.\"}, {\"id\": 3, \"valid\": true, \"reason\": \"The notes say the working-set model uses the pages referenced in the most recent window to decide how many frames a process needs, so the proposed answer is correct.\", \"answer\": \"Working-set model\"}, {\"id\": 4, \"valid\": true, \"reason\": \"The notes say an offset beyond the segment limit causes a trap, commonly seen as a segmentation fault, so the statement is true.\", \"answer\": \"True\"}, {\"id\": 5, \"valid\": true, \"reason\": \"The notes describe the optimal algorithm as replacing the page that will not be used for the longest time in the future, so the proposed answer is correct.\", \"answer\": \"Optimal\"}, {\"id\": 6, \"valid\": true, \"reason\": \"The notes say every address is checked against the base and limit registers, and an illegal access causes a trap to the operating system, which matches the proposed answer.\", \"answer\": \"They check each address, and an illegal access traps to the operating system.\"}]}\n",
+     "dropped": [],
+     "summary_words_before": 97
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "08_model_evaluation",
+   "score": {
+    "terms_found": 23,
+    "terms_gold": 31,
+    "cov": 9,
+    "cov_gold": 12,
+    "n_terms": 23,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 1,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "Models are judged on unseen data, split into training, validation and test sets; the test set is used once, and leakage gives unrealistically good results. Underfitting is too simple, overfitting fits noise, and regularization or early stopping helps. K-fold cross-validation averages k scores, often with k of 5 or 10. Accuracy misleads on imbalanced data, so precision, recall and F1 matter. Thresholds trade precision against recall, and AUC summarises performance across thresholds. Regression uses MAE, MSE, RMSE and R squared. Split before preprocessing, choose metrics matching error costs, compare to a baseline, and report variation across folds.",
+    "key_terms": [
+     {
+      "term": "training set",
+      "definition": "The data used to fit the model parameters.",
+      "evidence": "The training set is used to fit the model parameters",
+      "grounded": true
+     },
+     {
+      "term": "validation set",
+      "definition": "The data used to choose hyperparameters and compare models.",
+      "evidence": "The validation set is used to choose hyperparameters and to compare models",
+      "grounded": true
+     },
+     {
+      "term": "test set",
+      "definition": "The data used once at the end to estimate how the final model will perform on new data.",
+      "evidence": "The test set is used once at the end to estimate how the final model will perform on new data",
+      "grounded": true
+     },
+     {
+      "term": "data leakage",
+      "definition": "Using information from outside the training data to build the model, which produces unrealistically good results.",
+      "evidence": "Data leakage happens when information from outside the training data, for example from the test set or from the future, is used to build the model",
+      "grounded": true
+     },
+     {
+      "term": "underfitting",
+      "definition": "The model is too simple to capture the pattern in the data, so it has high error on both training and test sets.",
+      "evidence": "Underfitting means the model is too simple to capture the pattern in the data",
+      "grounded": true
+     },
+     {
+      "term": "overfitting",
+      "definition": "The model fits the noise in the training data, giving very low training error but much higher error on new data.",
+      "evidence": "Overfitting means the model fits the noise in the training data",
+      "grounded": true
+     },
+     {
+      "term": "bias",
+      "definition": "Strong simplifying assumptions, which lead to underfitting.",
+      "evidence": "High bias means strong simplifying assumptions and leads to underfitting",
+      "grounded": true
+     },
+     {
+      "term": "variance",
+      "definition": "The sensitivity of a model to the particular training sample, which leads to overfitting.",
+      "evidence": "High variance means the model is very sensitive to the particular training sample and leads to overfitting",
+      "grounded": true
+     },
+     {
+      "term": "L2 regularization",
+      "definition": "A penalty on the sum of squared weights added to the loss.",
+      "evidence": "L2 regularization penalises the sum of squared weights",
+      "grounded": true
+     },
+     {
+      "term": "L1 regularization",
+      "definition": "A penalty on the sum of absolute weights that can drive some weights to exactly zero.",
+      "evidence": "L1 regularization penalises the sum of absolute weights and can drive some weights to exactly zero",
+      "grounded": true
+     },
+     {
+      "term": "early stopping",
+      "definition": "Halting training when the validation error stops improving.",
+      "evidence": "Early stopping halts training when the validation error stops improving",
+      "grounded": true
+     },
+     {
+      "term": "k-fold cross-validation",
+      "definition": "Dividing the data into k equal folds, holding out each fold once for validation, and averaging the k scores.",
+      "evidence": "In k-fold cross-validation the data is divided into k equal folds",
+      "grounded": true
+     },
+     {
+      "term": "confusion matrix",
+      "definition": "For a binary classifier, a count of the four outcomes: TP, FP, FN and TN.",
+      "evidence": "For a binary classifier the confusion matrix counts four outcomes",
+      "grounded": true
+     },
+     {
+      "term": "precision",
+      "definition": "TP divided by (TP + FP); of the examples predicted positive, how many really are positive.",
+      "evidence": "Precision is TP divided by (TP + FP)",
+      "grounded": true
+     },
+     {
+      "term": "recall",
+      "definition": "TP divided by (TP + FN); of the really positive examples, how many the model found.",
+      "evidence": "Recall, also called sensitivity or the true positive rate, is TP divided by (TP + FN)",
+      "grounded": true
+     },
+     {
+      "term": "F1 score",
+      "definition": "The harmonic mean of precision and recall, high only when both are high.",
+      "evidence": "The F1 score is the harmonic mean of precision and recall",
+      "grounded": true
+     },
+     {
+      "term": "threshold",
+      "definition": "The value that converts a score or probability into a class.",
+      "evidence": "a threshold converts it into a class",
+      "grounded": true
+     },
+     {
+      "term": "ROC curve",
+      "definition": "A plot of the true positive rate against the false positive rate for every threshold.",
+      "evidence": "The ROC curve plots the true positive rate against the false positive rate for every threshold",
+      "grounded": true
+     },
+     {
+      "term": "AUC",
+      "definition": "The area under the ROC curve, which summarises performance across thresholds.",
+      "evidence": "The area under the ROC curve (AUC) summarises performance across thresholds",
+      "grounded": true
+     },
+     {
+      "term": "MAE",
+      "definition": "The average of the absolute differences between predictions and true values.",
+      "evidence": "Mean absolute error (MAE) is the average of the absolute differences between predictions and true values",
+      "grounded": true
+     },
+     {
+      "term": "MSE",
+      "definition": "The average of the squared differences between predictions and true values.",
+      "evidence": "Mean squared error (MSE) is the average of the squared differences",
+      "grounded": true
+     },
+     {
+      "term": "RMSE",
+      "definition": "The square root of MSE, in the same units as the target.",
+      "evidence": "Root mean squared error (RMSE) is its square root and is in the same units as the target",
+      "grounded": true
+     },
+     {
+      "term": "R squared",
+      "definition": "The proportion of the variance in the target that the model explains.",
+      "evidence": "R squared measures the proportion of the variance in the target that the model explains",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "Which data set is used once at the end to estimate how the final model will perform on new data?",
+      "options": [
+       "Training set",
+       "Validation set",
+       "Test set",
+       "Cross-validation fold"
+      ],
+      "answer": "Test set",
+      "evidence": "The test set is used once at the end to estimate how the final model will perform on new data",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: an overfitting model has very low training error but much higher error on new data.",
+      "options": null,
+      "answer": "True",
+      "evidence": "It has very low training error but much higher error on new data",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "What happens to the k scores in k-fold cross-validation?",
+      "options": null,
+      "answer": "The k scores are averaged.",
+      "evidence": "The k scores are averaged.",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "Which measure answers: of the examples predicted positive, how many really are positive?",
+      "options": [
+       "Recall",
+       "Precision",
+       "Accuracy",
+       "F1 score"
+      ],
+      "answer": "Precision",
+      "evidence": "It answers: of the examples predicted positive, how many really are positive?",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: a model that always predicts negative on data that is 99 percent negative has 99 percent accuracy.",
+      "options": null,
+      "answer": "True",
+      "evidence": "a model that always predicts negative has 99 percent accuracy but finds no positive cases",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: ok"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"Why we split the data\", \"main_points\": [\"Model must be judged on data it has not seen during training\", \"Data divided into training, validation and test sets\", \"Training set fits model parameters\", \"Validation set chooses hyperparameters and compares models\", \"Test set used once at the end to estimate performance on new data\", \"Repeated test set use makes the score optimistic\", \"Data leakage uses outside information and gives unrealistically good results\"]}, {\"title\": \"Overfitting and underfitting\", \"main_points\": [\"Underfitting: model too simple, high error on training and test sets\", \"Overfitting: model fits noise, very low training error but high error on new data\", \"High bias leads to underfitting; high variance leads to overfitting\", \"Making a model more complex lowers bias and raises variance\", \"L2 regularization penalises sum of squared weights\", \"L1 regularization penalises absolute weights and can drive weights to zero\", \"Early stopping halts training when validation error stops improving\"]}, {\"title\": \"Cross-validation\", \"main_points\": [\"k-fold: data divided into k equal folds\", \"Each fold held out once for validation; k scores averaged\", \"More stable estimate than a single split\", \"Useful when data is limited\", \"Costs k times more training\", \"Common choice is k = 5 or 10\"]}, {\"title\": \"The confusion matrix\", \"main_points\": [\"Binary classifier counts TP, FP, FN and TN\", \"Accuracy is (TP + TN) divided by total examples\", \"Precision is TP / (TP + FP)\", \"Recall (sensitivity, TPR) is TP / (TP + FN)\", \"F1 is the harmonic mean of precision and recall\", \"F1 is high only when both are high\"]}, {\"title\": \"Class imbalance\", \"main_points\": [\"99 percent negative data: always-negative model gets 99 percent accuracy\", \"Accuracy is misleading for imbalanced data\", \"Precision, recall and F1 are better measures\", \"Choice depends on cost of errors\", \"Disease screening: recall emphasised\", \"Spam filtering: precision emphasised\"]}, {\"title\": \"Thresholds, ROC curve and AUC\", \"main_points\": [\"Threshold converts a score or probability into a class\", \"Raising the threshold usually increases precision and lowers recall\", \"ROC plots true positive rate against false positive rate\", \"False positive rate is FP / (FP + TN)\", \"AUC summarises performance across thresholds\", \"AUC 0.5 is random guessing; 1.0 is perfect ranking\"]}, {\"title\": \"Regression metrics\", \"main_points\": [\"MAE is the average of absolute errors\", \"MSE is the average of squared errors\", \"RMSE is the square root of MSE, in the same units as the target\", \"MSE and RMSE are more sensitive to large errors than MAE\", \"R squared is the proportion of variance explained\", \"R squared of 0 means no better than predicting the mean\"]}, {\"title\": \"Practical checklist\", \"main_points\": [\"Split the data before any preprocessing that learns from it\", \"Choose a metric that matches the real cost of errors\", \"Compare against a simple baseline\", \"Report variation across folds, not only one number\"]}]}",
+     "raw_generate": "{\"summary\": \"Models are judged on unseen data, split into training, validation and test sets; the test set is used once, and leakage gives unrealistically good results. Underfitting is too simple, overfitting fits noise, and regularization or early stopping helps. K-fold cross-validation averages k scores, often with k of 5 or 10. Accuracy misleads on imbalanced data, so precision, recall and F1 matter. Thresholds trade precision against recall, and AUC summarises performance across thresholds. Regression uses MAE, MSE, RMSE and R squared. Split before preprocessing, choose metrics matching error costs, compare to a baseline, and report variation across folds.\",\n \"key_terms\": [\n  {\"term\": \"training set\", \"definition\": \"The data used to fit the model parameters.\", \"evidence\": \"The training set is used to fit the model parameters\"},\n  {\"term\": \"validation set\", \"definition\": \"The data used to choose hyperparameters and compare models.\", \"evidence\": \"The validation set is used to choose hyperparameters and to compare models\"},\n  {\"term\": \"test set\", \"definition\": \"The data used once at the end to estimate how the final model will perform on new data.\", \"evidence\": \"The test set is used once at the end to estimate how the final model will perform on new data\"},\n  {\"term\": \"data leakage\", \"definition\": \"Using information from outside the training data to build the model, which produces unrealistically good results.\", \"evidence\": \"Data leakage happens when information from outside the training data, for example from the test set or from the future, is used to build the model\"},\n  {\"term\": \"underfitting\", \"definition\": \"The model is too simple to capture the pattern in the data, so it has high error on both training and test sets.\", \"evidence\": \"Underfitting means the model is too simple to capture the pattern in the data\"},\n  {\"term\": \"overfitting\", \"definition\": \"The model fits the noise in the training data, giving very low training error but much higher error on new data.\", \"evidence\": \"Overfitting means the model fits the noise in the training data\"},\n  {\"term\": \"bias\", \"definition\": \"Strong simplifying assumptions, which lead to underfitting.\", \"evidence\": \"High bias means strong simplifying assumptions and leads to underfitting\"},\n  {\"term\": \"variance\", \"definition\": \"The sensitivity of a model to the particular training sample, which leads to overfitting.\", \"evidence\": \"High variance means the model is very sensitive to the particular training sample and leads to overfitting\"},\n  {\"term\": \"L2 regularization\", \"definition\": \"A penalty on the sum of squared weights added to the loss.\", \"evidence\": \"L2 regularization penalises the sum of squared weights\"},\n  {\"term\": \"L1 regularization\", \"definition\": \"A penalty on the sum of absolute weights that can drive some weights to exactly zero.\", \"evidence\": \"L1 regularization penalises the sum of absolute weights and can drive some weights to exactly zero\"},\n  {\"term\": \"early stopping\", \"definition\": \"Halting training when the validation error stops improving.\", \"evidence\": \"Early stopping halts training when the validation error stops improving\"},\n  {\"term\": \"k-fold cross-validation\", \"definition\": \"Dividing the data into k equal folds, holding out each fold once for validation, and averaging the k scores.\", \"evidence\": \"In k-fold cross-validation the data is divided into k equal folds\"},\n  {\"term\": \"confusion matrix\", \"definition\": \"For a binary classifier, a count of the four outcomes: TP, FP, FN and TN.\", \"evidence\": \"For a binary classifier the confusion matrix counts four outcomes\"},\n  {\"term\": \"precision\", \"definition\": \"TP divided by (TP + FP); of the examples predicted positive, how many really are positive.\", \"evidence\": \"Precision is TP divided by (TP + FP)\"},\n  {\"term\": \"recall\", \"definition\": \"TP divided by (TP + FN); of the really positive examples, how many the model found.\", \"evidence\": \"Recall, also called sensitivity or the true positive rate, is TP divided by (TP + FN)\"},\n  {\"term\": \"F1 score\", \"definition\": \"The harmonic mean of precision and recall, high only when both are high.\", \"evidence\": \"The F1 score is the harmonic mean of precision and recall\"},\n  {\"term\": \"threshold\", \"definition\": \"The value that converts a score or probability into a class.\", \"evidence\": \"a threshold converts it into a class\"},\n  {\"term\": \"ROC curve\", \"definition\": \"A plot of the true positive rate against the false positive rate for every threshold.\", \"evidence\": \"The ROC curve plots the true positive rate against the false positive rate for every threshold\"},\n  {\"term\": \"AUC\", \"definition\": \"The area under the ROC curve, which summarises performance across thresholds.\", \"evidence\": \"The area under the ROC curve (AUC) summarises performance across thresholds\"},\n  {\"term\": \"MAE\", \"definition\": \"The average of the absolute differences between predictions and true values.\", \"evidence\": \"Mean absolute error (MAE) is the average of the absolute differences between predictions and true values\"},\n  {\"term\": \"MSE\", \"definition\": \"The average of the squared differences between predictions and true values.\", \"evidence\": \"Mean squared error (MSE) is the average of the squared differences\"},\n  {\"term\": \"RMSE\", \"definition\": \"The square root of MSE, in the same units as the target.\", \"evidence\": \"Root mean squared error (RMSE) is its square root and is in the same units as the target\"},\n  {\"term\": \"R squared\", \"definition\": \"The proportion of the variance in the target that the model explains.\", \"evidence\": \"R squared measures the proportion of the variance in the target that the model explains\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"Which data set is used once at the end to estimate how the final model will perform on new data?\", \"options\": [\"Training set\", \"Validation set\", \"Test set\", \"Cross-validation fold\"], \"answer\": \"Test set\", \"evidence\": \"The test set is used once at the end to estimate how the final model will perform on new data\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: an overfitting model has very low training error but much higher error on new data.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"It has very low training error but much higher error on new data\"},\n  {\"type\": \"short\", \"question\": \"What happens to the k scores in k-fold cross-validation?\", \"options\": null, \"answer\": \"The k scores are averaged.\", \"evidence\": \"The k scores are averaged.\"},\n  {\"type\": \"mcq\", \"question\": \"Which measure answers: of the examples predicted positive, how many really are positive?\", \"options\": [\"Recall\", \"Precision\", \"Accuracy\", \"F1 score\"], \"answer\": \"Precision\", \"evidence\": \"It answers: of the examples predicted positive, how many really are positive?\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: a model that always predicts negative on data that is 99 percent negative has 99 percent accuracy.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"a model that always predicts negative has 99 percent accuracy but finds no positive cases\"},\n  {\"type\": \"short\", \"question\": \"What usually happens to precision and recall when the threshold is raised?\", \"options\": null, \"answer\": \"Precision usually increases and recall decreases.\", \"evidence\": \"Raising the threshold usually increases precision and lowers recall\"},\n  {\"type\": \"mcq\", \"question\": \"Which regression metric is in the same units as the target?\", \"options\": [\"MAE\", \"MSE\", \"RMSE\", \"R squared\"], \"answer\": \"RMSE\", \"evidence\": \"Root mean squared error (RMSE) is its square root and is in the same units as the target\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"The notes state the test set is used once at the end to estimate performance on new data, so the proposed answer matches and the single correct option is clear.\", \"answer\": \"Test set\"}, {\"id\": 1, \"valid\": true, \"reason\": \"The notes say an overfitting model has very low training error but much higher error on new data, so the statement is true.\", \"answer\": \"True\"}, {\"id\": 2, \"valid\": true, \"reason\": \"The notes say the k scores are averaged, which matches the proposed answer.\", \"answer\": \"The k scores are averaged.\"}, {\"id\": 3, \"valid\": true, \"reason\": \"The notes define precision as TP divided by (TP + FP), which answers how many predicted positives are really positive. The proposed answer matches.\", \"answer\": \"Precision\"}, {\"id\": 4, \"valid\": true, \"reason\": \"The notes say a model that always predicts negative on 99 percent negative data has 99 percent accuracy, so the statement is true.\", \"answer\": \"True\"}, {\"id\": 5, \"valid\": true, \"reason\": \"The notes say raising the threshold usually increases precision and lowers recall, which matches the proposed answer.\", \"answer\": \"Precision usually increases and recall decreases.\"}, {\"id\": 6, \"valid\": true, \"reason\": \"The notes say RMSE is in the same units as the target, and the other options do not share that property, so the proposed answer is correct.\", \"answer\": \"RMSE\"}]}\n",
+     "dropped": [],
+     "summary_words_before": 97
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "09_software_engineering_slides",
+   "score": {
+    "terms_found": 27,
+    "terms_gold": 36,
+    "cov": 9,
+    "cov_gold": 12,
+    "n_terms": 23,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 1,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v5",
+    "summary": "The SDLC runs requirements, design, implementation, testing, deployment and maintenance, and maintenance often costs more than first development. Waterfall runs phases in sequence, which is simple but gives late feedback and suits stable requirements. Agile delivers working software in short iterations, gathering customer feedback and adjusting plans. Scrum has a Product Owner, Scrum Master and self-organising Development Team, with sprints of one to four weeks. Testing spans unit, integration, system and acceptance levels, plus black-box, white-box and regression techniques. Version control, code review, continuous integration and delivery, and technical debt complete the topics.",
+    "key_terms": [
+     {
+      "term": "software development life cycle (SDLC)",
+      "definition": "The development process made up of requirements, design, implementation, testing, deployment and maintenance phases.",
+      "evidence": "Phases: requirements, design, implementation, testing, deployment, maintenance",
+      "grounded": true
+     },
+     {
+      "term": "waterfall model",
+      "definition": "A model in which phases run in sequence and each phase must finish before the next begins.",
+      "evidence": "Phases run in sequence; each phase must finish before the next begins",
+      "grounded": true
+     },
+     {
+      "term": "agile software development",
+      "definition": "An iterative and incremental approach that delivers working software in short cycles.",
+      "evidence": "Iterative and incremental: working software is delivered in short cycles",
+      "grounded": true
+     },
+     {
+      "term": "product backlog",
+      "definition": "An ordered list of everything that might be needed in the product.",
+      "evidence": "Product backlog: ordered list of everything that might be needed in the product",
+      "grounded": true
+     },
+     {
+      "term": "sprint backlog",
+      "definition": "The items chosen for the current sprint plus the plan to deliver them.",
+      "evidence": "Sprint backlog: items chosen for the current sprint plus the plan to deliver them",
+      "grounded": true
+     },
+     {
+      "term": "increment",
+      "definition": "The usable, potentially releasable result of a sprint.",
+      "evidence": "Increment: the usable, potentially releasable result of a sprint",
+      "grounded": true
+     },
+     {
+      "term": "sprint",
+      "definition": "A fixed-length period of one to four weeks.",
+      "evidence": "Sprint: fixed length, one to four weeks",
+      "grounded": true
+     },
+     {
+      "term": "daily scrum",
+      "definition": "A 15-minute meeting to synchronise the work.",
+      "evidence": "Daily scrum: a 15-minute meeting to synchronise the work",
+      "grounded": true
+     },
+     {
+      "term": "unit testing",
+      "definition": "Testing a single function or class in isolation, usually written by developers.",
+      "evidence": "Unit testing: tests a single function or class in isolation, usually written by developers",
+      "grounded": true
+     },
+     {
+      "term": "integration testing",
+      "definition": "Testing that components work together.",
+      "evidence": "Integration testing: tests that components work together",
+      "grounded": true
+     },
+     {
+      "term": "system testing",
+      "definition": "Testing the complete system against the requirements.",
+      "evidence": "System testing: tests the complete system against the requirements",
+      "grounded": true
+     },
+     {
+      "term": "acceptance testing",
+      "definition": "The customer checks that the system meets their needs.",
+      "evidence": "Acceptance testing: the customer checks that the system meets their needs",
+      "grounded": true
+     },
+     {
+      "term": "black-box testing",
+      "definition": "Testing behaviour from inputs and outputs without looking at the code.",
+      "evidence": "Black-box testing: tests behaviour from inputs and outputs without looking at the code",
+      "grounded": true
+     },
+     {
+      "term": "white-box testing",
+      "definition": "Tests designed from the internal structure of the code, for example to cover every branch.",
+      "evidence": "White-box testing: tests are designed from the internal structure of the code, for example to cover every branch",
+      "grounded": true
+     },
+     {
+      "term": "regression testing",
+      "definition": "Re-running earlier tests after a change to make sure nothing that worked has broken.",
+      "evidence": "Regression testing: re-runs earlier tests after a change to make sure nothing that worked has broken",
+      "grounded": true
+     },
+     {
+      "term": "version control",
+      "definition": "A system such as Git that records the history of changes.",
+      "evidence": "A version control system such as Git records the history of changes",
+      "grounded": true
+     },
+     {
+      "term": "branch",
+      "definition": "A separate line of development.",
+      "evidence": "Branch: a separate line of development; merge: combine branches",
+      "grounded": true
+     },
+     {
+      "term": "commit",
+      "definition": "A saved snapshot of changes with a message.",
+      "evidence": "Commit: a saved snapshot of changes with a message",
+      "grounded": true
+     },
+     {
+      "term": "code review",
+      "definition": "Another developer inspects changes before they are merged, which finds defects early and shares knowledge.",
+      "evidence": "Code review: another developer inspects changes before they are merged, which finds defects early and shares knowledge",
+      "grounded": true
+     },
+     {
+      "term": "continuous integration",
+      "definition": "Developers merge small changes often, and each merge triggers an automated build and test run.",
+      "evidence": "developers merge small changes often, and each merge triggers an automated build and test run",
+      "grounded": true
+     },
+     {
+      "term": "continuous delivery",
+      "definition": "Every passing change is kept in a state that can be released.",
+      "evidence": "Continuous delivery: every passing change is kept in a state that can be released",
+      "grounded": true
+     },
+     {
+      "term": "continuous deployment",
+      "definition": "Every passing change is released to users automatically.",
+      "evidence": "Continuous deployment: every passing change is released to users automatically",
+      "grounded": true
+     },
+     {
+      "term": "technical debt",
+      "definition": "Shortcuts in design or code that make later changes harder.",
+      "evidence": "Shortcuts in design or code that make later changes harder",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "mcq",
+      "question": "Which development model runs its phases in sequence, with each phase finishing before the next begins?",
+      "options": [
+       "Agile software development",
+       "Waterfall model",
+       "Continuous deployment",
+       "Regression testing"
+      ],
+      "answer": "Waterfall model",
+      "evidence": "Phases run in sequence; each phase must finish before the next begins",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: the Scrum Master owns the product backlog and decides priorities.",
+      "options": null,
+      "answer": "False",
+      "evidence": "Product Owner: owns the product backlog and decides priorities",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "How long is a sprint?",
+      "options": null,
+      "answer": "A sprint has a fixed length of one to four weeks.",
+      "evidence": "Sprint: fixed length, one to four weeks",
+      "grounded": true
+     },
+     {
+      "type": "mcq",
+      "question": "Which testing level checks that the system meets the customer's needs?",
+      "options": [
+       "Unit testing",
+       "Integration testing",
+       "System testing",
+       "Acceptance testing"
+      ],
+      "answer": "Acceptance testing",
+      "evidence": "Acceptance testing: the customer checks that the system meets their needs",
+      "grounded": true
+     },
+     {
+      "type": "true_false",
+      "question": "True or false: regression testing re-runs earlier tests after a change.",
+      "options": null,
+      "answer": "True",
+      "evidence": "Regression testing: re-runs earlier tests after a change to make sure nothing that worked has broken",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm outline",
+      "llm generate",
+      "grounding guard",
+      "llm moderator",
+      "length guard: ok"
+     ],
+     "raw_outline": "{\"topics\": [{\"title\": \"Software development life cycle\", \"main_points\": [\"Phases: requirements, design, implementation, testing, deployment, maintenance\", \"Requirements: functional (what) and non-functional (how well)\", \"Design covers architecture and detailed design of components\", \"Maintenance often costs more than the first development\"]}, {\"title\": \"Waterfall model\", \"main_points\": [\"Phases run in sequence; each must finish before the next begins\", \"Strength: simple, well documented, easy to manage milestones\", \"Weakness: feedback comes late; changing requirements is expensive\", \"Suits projects with stable, well-understood requirements\"]}, {\"title\": \"Agile software development\", \"main_points\": [\"Iterative and incremental; working software delivered in short cycles\", \"Agile Manifesto values individuals, working software, collaboration, responding to change\", \"Customer gives feedback after every iteration\", \"Plans adjusted as requirements change\"]}, {\"title\": \"Scrum roles\", \"main_points\": [\"Product Owner owns the product backlog and sets priorities\", \"Scrum Master helps the team follow Scrum and removes obstacles\", \"Development Team builds the increment and is self-organising\"]}, {\"title\": \"Scrum artifacts and events\", \"main_points\": [\"Product backlog: ordered list of everything that might be needed\", \"Sprint backlog: chosen items plus plan to deliver them\", \"Increment: usable, potentially releasable result of a sprint\", \"Sprint: fixed length, one to four weeks\", \"Sprint planning chooses what the team can deliver\", \"Daily scrum: 15-minute meeting to synchronise work\", \"Sprint review shows increment to stakeholders\", \"Sprint retrospective reflects on how to improve\"]}, {\"title\": \"Testing levels and techniques\", \"main_points\": [\"Unit testing: single function or class in isolation\", \"Integration testing: components work together\", \"System testing: complete system against requirements\", \"Acceptance testing: customer checks needs are met\", \"Black-box testing: behaviour from inputs and outputs\", \"White-box testing: designed from internal structure, e.g. every branch\", \"Regression testing: re-runs earlier tests after a change\"]}, {\"title\": \"Version control and code review\", \"main_points\": [\"Version control such as Git records history of changes\", \"Branch: separate line of development; merge: combine branches\", \"Commit: saved snapshot of changes with a message\", \"Code review: another developer inspects changes before merge\", \"Code review finds defects early and shares knowledge\"]}, {\"title\": \"Continuous integration and delivery\", \"main_points\": [\"CI: small changes merged often, each triggers automated build and tests\", \"Continuous delivery: every passing change kept ready to release\", \"Continuous deployment: every passing change released automatically\", \"Problems found within minutes of being introduced\"]}, {\"title\": \"Technical debt\", \"main_points\": [\"Shortcuts in design or code make later changes harder\", \"Like financial debt, it accumulates interest as code grows\", \"Reduced by refactoring, tests and code review\"]}]}",
+     "raw_generate": "{\"summary\": \"The SDLC runs requirements, design, implementation, testing, deployment and maintenance, and maintenance often costs more than first development. Waterfall runs phases in sequence, which is simple but gives late feedback and suits stable requirements. Agile delivers working software in short iterations, gathering customer feedback and adjusting plans. Scrum has a Product Owner, Scrum Master and self-organising Development Team, with sprints of one to four weeks. Testing spans unit, integration, system and acceptance levels, plus black-box, white-box and regression techniques. Version control, code review, continuous integration and delivery, and technical debt complete the topics.\",\n \"key_terms\": [\n  {\"term\": \"software development life cycle (SDLC)\", \"definition\": \"The development process made up of requirements, design, implementation, testing, deployment and maintenance phases.\", \"evidence\": \"Phases: requirements, design, implementation, testing, deployment, maintenance\"},\n  {\"term\": \"waterfall model\", \"definition\": \"A model in which phases run in sequence and each phase must finish before the next begins.\", \"evidence\": \"Phases run in sequence; each phase must finish before the next begins\"},\n  {\"term\": \"agile software development\", \"definition\": \"An iterative and incremental approach that delivers working software in short cycles.\", \"evidence\": \"Iterative and incremental: working software is delivered in short cycles\"},\n  {\"term\": \"product backlog\", \"definition\": \"An ordered list of everything that might be needed in the product.\", \"evidence\": \"Product backlog: ordered list of everything that might be needed in the product\"},\n  {\"term\": \"sprint backlog\", \"definition\": \"The items chosen for the current sprint plus the plan to deliver them.\", \"evidence\": \"Sprint backlog: items chosen for the current sprint plus the plan to deliver them\"},\n  {\"term\": \"increment\", \"definition\": \"The usable, potentially releasable result of a sprint.\", \"evidence\": \"Increment: the usable, potentially releasable result of a sprint\"},\n  {\"term\": \"sprint\", \"definition\": \"A fixed-length period of one to four weeks.\", \"evidence\": \"Sprint: fixed length, one to four weeks\"},\n  {\"term\": \"daily scrum\", \"definition\": \"A 15-minute meeting to synchronise the work.\", \"evidence\": \"Daily scrum: a 15-minute meeting to synchronise the work\"},\n  {\"term\": \"unit testing\", \"definition\": \"Testing a single function or class in isolation, usually written by developers.\", \"evidence\": \"Unit testing: tests a single function or class in isolation, usually written by developers\"},\n  {\"term\": \"integration testing\", \"definition\": \"Testing that components work together.\", \"evidence\": \"Integration testing: tests that components work together\"},\n  {\"term\": \"system testing\", \"definition\": \"Testing the complete system against the requirements.\", \"evidence\": \"System testing: tests the complete system against the requirements\"},\n  {\"term\": \"acceptance testing\", \"definition\": \"The customer checks that the system meets their needs.\", \"evidence\": \"Acceptance testing: the customer checks that the system meets their needs\"},\n  {\"term\": \"black-box testing\", \"definition\": \"Testing behaviour from inputs and outputs without looking at the code.\", \"evidence\": \"Black-box testing: tests behaviour from inputs and outputs without looking at the code\"},\n  {\"term\": \"white-box testing\", \"definition\": \"Tests designed from the internal structure of the code, for example to cover every branch.\", \"evidence\": \"White-box testing: tests are designed from the internal structure of the code, for example to cover every branch\"},\n  {\"term\": \"regression testing\", \"definition\": \"Re-running earlier tests after a change to make sure nothing that worked has broken.\", \"evidence\": \"Regression testing: re-runs earlier tests after a change to make sure nothing that worked has broken\"},\n  {\"term\": \"version control\", \"definition\": \"A system such as Git that records the history of changes.\", \"evidence\": \"A version control system such as Git records the history of changes\"},\n  {\"term\": \"branch\", \"definition\": \"A separate line of development.\", \"evidence\": \"Branch: a separate line of development; merge: combine branches\"},\n  {\"term\": \"commit\", \"definition\": \"A saved snapshot of changes with a message.\", \"evidence\": \"Commit: a saved snapshot of changes with a message\"},\n  {\"term\": \"code review\", \"definition\": \"Another developer inspects changes before they are merged, which finds defects early and shares knowledge.\", \"evidence\": \"Code review: another developer inspects changes before they are merged, which finds defects early and shares knowledge\"},\n  {\"term\": \"continuous integration\", \"definition\": \"Developers merge small changes often, and each merge triggers an automated build and test run.\", \"evidence\": \"developers merge small changes often, and each merge triggers an automated build and test run\"},\n  {\"term\": \"continuous delivery\", \"definition\": \"Every passing change is kept in a state that can be released.\", \"evidence\": \"Continuous delivery: every passing change is kept in a state that can be released\"},\n  {\"term\": \"continuous deployment\", \"definition\": \"Every passing change is released to users automatically.\", \"evidence\": \"Continuous deployment: every passing change is released to users automatically\"},\n  {\"term\": \"technical debt\", \"definition\": \"Shortcuts in design or code that make later changes harder.\", \"evidence\": \"Shortcuts in design or code that make later changes harder\"}\n ],\n \"questions\": [\n  {\"type\": \"mcq\", \"question\": \"Which development model runs its phases in sequence, with each phase finishing before the next begins?\", \"options\": [\"Agile software development\", \"Waterfall model\", \"Continuous deployment\", \"Regression testing\"], \"answer\": \"Waterfall model\", \"evidence\": \"Phases run in sequence; each phase must finish before the next begins\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: the Scrum Master owns the product backlog and decides priorities.\", \"options\": null, \"answer\": \"False\", \"evidence\": \"Product Owner: owns the product backlog and decides priorities\"},\n  {\"type\": \"short\", \"question\": \"How long is a sprint?\", \"options\": null, \"answer\": \"A sprint has a fixed length of one to four weeks.\", \"evidence\": \"Sprint: fixed length, one to four weeks\"},\n  {\"type\": \"mcq\", \"question\": \"Which testing level checks that the system meets the customer's needs?\", \"options\": [\"Unit testing\", \"Integration testing\", \"System testing\", \"Acceptance testing\"], \"answer\": \"Acceptance testing\", \"evidence\": \"Acceptance testing: the customer checks that the system meets their needs\"},\n  {\"type\": \"true_false\", \"question\": \"True or false: regression testing re-runs earlier tests after a change.\", \"options\": null, \"answer\": \"True\", \"evidence\": \"Regression testing: re-runs earlier tests after a change to make sure nothing that worked has broken\"},\n  {\"type\": \"short\", \"question\": \"What is triggered by each merge in continuous integration?\", \"options\": null, \"answer\": \"An automated build and test run.\", \"evidence\": \"developers merge small changes often, and each merge triggers an automated build and test run\"},\n  {\"type\": \"mcq\", \"question\": \"Which practices reduce technical debt?\", \"options\": [\"Refactoring, tests and code review\", \"Waiting for late feedback\", \"Releasing every change manually\", \"Making later changes harder\"], \"answer\": \"Refactoring, tests and code review\", \"evidence\": \"Reduced by refactoring, tests and code review\"}\n ],\n \"warnings\": []}\n",
+     "raw_verify": "{\"reviews\": [{\"id\": 0, \"valid\": true, \"reason\": \"The notes say the waterfall model runs phases in sequence, with each phase finishing before the next begins. The proposed answer matches and is the only such option.\", \"answer\": \"Waterfall model\"}, {\"id\": 1, \"valid\": true, \"reason\": \"The notes say the Product Owner owns the product backlog and decides priorities, not the Scrum Master, so the statement is false and the proposed answer is correct.\", \"answer\": \"False\"}, {\"id\": 2, \"valid\": true, \"reason\": \"The notes say a sprint has a fixed length of one to four weeks, which matches the proposed answer.\", \"answer\": \"A sprint has a fixed length of one to four weeks.\"}, {\"id\": 3, \"valid\": true, \"reason\": \"The notes say acceptance testing is where the customer checks that the system meets their needs, so the proposed answer is correct.\", \"answer\": \"Acceptance testing\"}, {\"id\": 4, \"valid\": true, \"reason\": \"The notes say regression testing re-runs earlier tests after a change, so the statement is true.\", \"answer\": \"True\"}, {\"id\": 5, \"valid\": true, \"reason\": \"The notes say each merge in continuous integration triggers an automated build and test run, which matches the proposed answer.\", \"answer\": \"An automated build and test run.\"}, {\"id\": 6, \"valid\": true, \"reason\": \"The notes say technical debt is reduced by refactoring, tests and code review. The other options do not reduce it, so the proposed answer is the only correct option.\", \"answer\": \"Refactoring, tests and code review\"}]}\n",
+     "dropped": [],
+     "summary_words_before": 93
+    },
+    "errors": []
+   }
+  }
+ ],
+ "model": "claude-haiku via Claude Code subagents"
+}

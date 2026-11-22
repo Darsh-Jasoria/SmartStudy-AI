@@ -1,0 +1,21 @@
+{
+  "summary": "Lecture 3 introduces the basics of prompting. The output quality of a language model depends strongly on how the prompt is written. Zero-shot prompting gives an instruction with no examples, while few-shot prompting includes input-output examples so the model can imitate the pattern and format. A good prompt states the role, task, context, constraints and required output format. Chain-of-thought prompting asks the model to reason step by step, which often helps arithmetic and logic. Hallucination is fluent but unsupported or false output, and grounding the model in provided documents and asking it to quote sources reduces it. Temperature controls randomness: low temperature is more deterministic and high temperature is more varied. Prompt injection occurs when untrusted input tries to override the developer's instructions. Prompts should be tested on a fixed test set and versioned like code.",
+  "key_terms": [
+    {"term": "Prompt", "definition": "The input given to a language model."},
+    {"term": "Zero-shot prompting", "definition": "Giving an instruction with no examples."},
+    {"term": "Few-shot prompting", "definition": "Including a few input-output examples in the prompt so the model can imitate the pattern and format."},
+    {"term": "Chain-of-thought prompting", "definition": "Asking the model to reason step by step before answering."},
+    {"term": "Hallucination", "definition": "When a model produces fluent but unsupported or false content."},
+    {"term": "Grounding", "definition": "Anchoring the model's answers in provided documents, often by asking it to quote its sources."},
+    {"term": "Temperature", "definition": "A setting that controls randomness in output: low gives more deterministic output and high gives more varied output."},
+    {"term": "Prompt injection", "definition": "When untrusted text in the input tries to override the developer's instructions."}
+  ],
+  "questions": [
+    {"question": "What is the difference between zero-shot and few-shot prompting?", "answer": "Zero-shot gives an instruction with no examples. Few-shot includes a few input-output examples so the model can imitate the pattern and format."},
+    {"question": "What elements does a good prompt state?", "answer": "The role, the task, the context, the constraints and the required output format."},
+    {"question": "What is chain-of-thought prompting and what does it often improve?", "answer": "It asks the model to reason step by step before answering, which often improves arithmetic and logic tasks."},
+    {"question": "How can hallucination be reduced?", "answer": "By grounding the model in provided documents and asking it to quote its sources."},
+    {"question": "What does a low temperature setting do?", "answer": "It makes output more deterministic."},
+    {"question": "What is prompt injection?", "answer": "When untrusted text in the input tries to override the developer's instructions."}
+  ]
+}

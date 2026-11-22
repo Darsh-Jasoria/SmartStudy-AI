@@ -1,0 +1,3 @@
+{"key_terms": ["CPU scheduler|scheduler", "dispatcher", "preemptive", "non-preemptive", "FCFS|first-come first-served", "convoy effect", "SJF|shortest job first", "round robin|RR", "time quantum", "priority scheduling", "starvation", "aging", "turnaround time", "waiting time", "response time"],
+ "must_cover": [["convoy"], ["starv"], ["aging"], ["time quantum", "quantum"], ["waiting time"], ["preempt"], ["context switch", "context-switch"]],
+ "out_of_scope": ["multilevel feedback", "lottery scheduling", "completely fair scheduler", "deadlock", "semaphore"]}

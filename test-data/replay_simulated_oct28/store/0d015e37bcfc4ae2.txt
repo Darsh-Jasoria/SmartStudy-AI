@@ -1,0 +1,24 @@
+{
+  "summary": "Lecture 14 covers TCP connection management. TCP is a connection-oriented, reliable, byte-stream protocol that provides ordered delivery and retransmits lost segments. A connection opens with a three-way handshake (SYN, SYN-ACK, ACK) and closes with a four-way teardown using FIN and ACK in each direction. Sequence numbers label bytes so the receiver can reorder data and detect loss, and ACKs confirm what was received. Flow control uses the receiver's advertised window (rwnd) to avoid overwhelming its buffer. Congestion control protects the network: slow start grows the congestion window (cwnd) roughly exponentially until the slow-start threshold (ssthresh), then congestion avoidance grows it by about one segment per round trip. On a timeout, TCP halves cwnd into ssthresh and restarts slow start. UDP, by contrast, is connectionless and offers no delivery guarantee.",
+  "key_terms": [
+    {"term": "TCP", "definition": "A connection-oriented, reliable, byte-stream transport protocol that provides ordered delivery and retransmits lost segments."},
+    {"term": "Three-way handshake", "definition": "The process of opening a TCP connection: client sends SYN, server replies SYN-ACK, client replies ACK."},
+    {"term": "Sequence number", "definition": "A label for each byte that lets the receiver reorder segments and detect loss."},
+    {"term": "ACK (acknowledgement)", "definition": "A message telling the sender what data the receiver has received."},
+    {"term": "Flow control", "definition": "Limiting the sender's rate so it does not overwhelm the receiver's buffer, using the advertised window (rwnd)."},
+    {"term": "Congestion window (cwnd)", "definition": "The sender-side limit on how much unacknowledged data may be in flight, used for congestion control."},
+    {"term": "Slow start", "definition": "A congestion control phase in which cwnd starts small and roughly doubles every round trip until it reaches ssthresh."},
+    {"term": "Slow-start threshold (ssthresh)", "definition": "The cwnd value at which slow start ends and congestion avoidance begins."},
+    {"term": "Congestion avoidance", "definition": "A phase in which cwnd increases by about one segment per round trip."},
+    {"term": "Four-way teardown", "definition": "Closing a TCP connection by exchanging FIN and ACK segments in each direction."},
+    {"term": "UDP", "definition": "A connectionless transport protocol that gives no delivery guarantee."}
+  ],
+  "questions": [
+    {"question": "What are the three segments in the TCP three-way handshake, in order?", "answer": "SYN from the client, SYN-ACK from the server, and ACK from the client."},
+    {"question": "What is the difference between flow control and congestion control in TCP?", "answer": "Flow control protects the receiver's buffer and uses the advertised window (rwnd). Congestion control protects the network and uses the congestion window (cwnd)."},
+    {"question": "How does TCP grow cwnd during slow start and during congestion avoidance?", "answer": "During slow start cwnd roughly doubles every round trip until it reaches ssthresh. During congestion avoidance it increases by about one segment per round trip."},
+    {"question": "What does TCP do to ssthresh and cwnd when a timeout indicates packet loss?", "answer": "It sets ssthresh to half of cwnd and restarts slow start."},
+    {"question": "How is a TCP connection closed?", "answer": "With a four-way teardown: FIN and ACK segments are exchanged in each direction."},
+    {"question": "How does UDP differ from TCP in terms of delivery?", "answer": "UDP is connectionless and gives no delivery guarantee, whereas TCP provides reliable, ordered delivery."}
+  ]
+}

@@ -1,0 +1,86 @@
+{
+ "key_terms": [
+  "training set",
+  "validation set",
+  "test set",
+  "hyperparameter",
+  "data leakage",
+  "underfitting",
+  "overfitting",
+  "bias-variance trade-off|bias variance",
+  "regularization",
+  "L1 regularization|L1",
+  "L2 regularization|L2",
+  "early stopping",
+  "k-fold cross-validation|cross-validation",
+  "confusion matrix",
+  "true positive",
+  "false positive",
+  "false negative",
+  "true negative",
+  "accuracy",
+  "precision",
+  "recall|sensitivity|true positive rate",
+  "F1 score|F1",
+  "class imbalance|imbalanced",
+  "threshold",
+  "ROC curve|ROC",
+  "AUC",
+  "false positive rate",
+  "MAE|mean absolute error",
+  "MSE|mean squared error",
+  "RMSE|root mean squared error",
+  "R squared"
+ ],
+ "must_cover": [
+  [
+   "once",
+   "optimistic"
+  ],
+  [
+   "leakage"
+  ],
+  [
+   "bias"
+  ],
+  [
+   "variance"
+  ],
+  [
+   "regulariz"
+  ],
+  [
+   "folds",
+   "k-fold"
+  ],
+  [
+   "99 percent",
+   "99%"
+  ],
+  [
+   "harmonic mean"
+  ],
+  [
+   "threshold"
+  ],
+  [
+   "0.5",
+   "random"
+  ],
+  [
+   "squared"
+  ],
+  [
+   "baseline"
+  ]
+ ],
+ "out_of_scope": [
+  "stratified",
+  "bootstrap",
+  "learning curve",
+  "log loss",
+  "matthews",
+  "precision-recall curve",
+  "grid search"
+ ]
+}

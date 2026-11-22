@@ -1,0 +1,3 @@
+{"key_terms": ["gradient descent", "loss function", "gradient", "learning rate", "batch gradient descent", "stochastic gradient descent|sgd", "mini-batch gradient descent|mini-batch", "convex", "local minimum|local minima", "feature scaling", "epoch"],
+ "must_cover": [["overshoot", "diverge"], ["noisy", "noise"], ["mini-batch"], ["convex"], ["feature scaling", "standardi"], ["epoch"]],
+ "out_of_scope": ["adam", "momentum", "rmsprop", "backpropagation", "vanishing gradient", "adagrad"]}

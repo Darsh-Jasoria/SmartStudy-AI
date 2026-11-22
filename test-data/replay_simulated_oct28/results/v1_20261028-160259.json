@@ -1,0 +1,875 @@
+{
+ "version": "v1",
+ "runs": 1,
+ "metrics": {
+  "term_recall": 0.763,
+  "coverage": 0.974,
+  "term_halluc": 0.138,
+  "ungrounded_q": "n/a",
+  "answer_support": 0.944,
+  "outside_know": 0,
+  "constraints": 0.0,
+  "json_fail": 0
+ },
+ "metrics_per_run": [
+  {
+   "term_recall": 0.763,
+   "coverage": 0.974,
+   "term_halluc": 0.138,
+   "ungrounded_q": "n/a",
+   "answer_support": 0.944,
+   "outside_know": 0,
+   "constraints": 0.0,
+   "json_fail": 0
+  }
+ ],
+ "detail": [
+  {
+   "run": 0,
+   "case": "01_cpu_scheduling",
+   "score": {
+    "terms_found": 13,
+    "terms_gold": 15,
+    "cov": 7,
+    "cov_gold": 7,
+    "n_terms": 13,
+    "halluc": 0,
+    "n_q": 6,
+    "n_q_checkable": 0,
+    "ungrounded": 0,
+    "supported": 6,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v1",
+    "summary": "Lecture 7 covers CPU scheduling. The scheduler picks which ready process runs next, and the dispatcher hands over the CPU through a context switch. Preemptive scheduling can take the CPU from a running process, while non-preemptive scheduling lets it run until it blocks or finishes. First-Come First-Served is simple but suffers the convoy effect. Shortest Job First gives the minimum average waiting time but needs burst prediction and can starve long processes. Round Robin gives each process a fixed time quantum; a very large quantum behaves like FCFS and a very small one is dominated by context-switch overhead. Priority scheduling can cause starvation, which aging solves by gradually raising the priority of waiting processes. Key metrics are turnaround time (completion minus arrival), waiting time (turnaround minus burst) and response time (first run minus arrival).",
+    "key_terms": [
+     {
+      "term": "CPU scheduler",
+      "definition": "The component that picks which process in the ready queue runs next.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Dispatcher",
+      "definition": "The component that hands the CPU to the selected process through a context switch.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Preemptive scheduling",
+      "definition": "Scheduling that can take the CPU away from a running process.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Non-preemptive scheduling",
+      "definition": "Scheduling that lets a process run until it blocks or finishes.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "First-Come First-Served (FCFS)",
+      "definition": "Scheduling that runs processes in arrival order; it suffers the convoy effect.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Convoy effect",
+      "definition": "The situation in which short processes wait behind one long process under FCFS.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Shortest Job First (SJF)",
+      "definition": "Scheduling that runs the process with the smallest next CPU burst; it minimises average waiting time but can starve long processes.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Round Robin (RR)",
+      "definition": "Scheduling in which each process gets a fixed time quantum and then goes to the back of the ready queue.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Time quantum",
+      "definition": "The fixed amount of CPU time a process gets in Round Robin before it is preempted.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Aging",
+      "definition": "Gradually increasing the priority of waiting processes to prevent starvation.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Turnaround time",
+      "definition": "Completion time minus arrival time.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Waiting time",
+      "definition": "Turnaround time minus burst time.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Response time",
+      "definition": "First run time minus arrival time.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "What is the difference between preemptive and non-preemptive scheduling?",
+      "options": null,
+      "answer": "Preemptive scheduling can take the CPU away from a running process. Non-preemptive scheduling lets a process run until it blocks or finishes.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is the convoy effect?",
+      "options": null,
+      "answer": "Under FCFS, short processes wait behind one long process.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "Why can SJF starve long processes?",
+      "options": null,
+      "answer": "It always runs the process with the smallest next CPU burst, so long processes can keep being passed over.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What happens in Round Robin if the time quantum is very large or very small?",
+      "options": null,
+      "answer": "A very large quantum makes RR behave like FCFS. A very small quantum makes context-switch overhead dominate.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "How does aging solve starvation in priority scheduling?",
+      "options": null,
+      "answer": "It gradually increases the priority of waiting processes.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "A process arrives at time 0, completes at time 10, and has a burst time of 6. What is its turnaround time and waiting time?",
+      "options": null,
+      "answer": "Turnaround time is 10 and waiting time is 4.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm generate"
+     ],
+     "raw_generate": "{\n  \"summary\": \"Lecture 7 covers CPU scheduling. The scheduler picks which ready process runs next, and the dispatcher hands over the CPU through a context switch. Preemptive scheduling can take the CPU from a running process, while non-preemptive scheduling lets it run until it blocks or finishes. First-Come First-Served is simple but suffers the convoy effect. Shortest Job First gives the minimum average waiting time but needs burst prediction and can starve long processes. Round Robin gives each process a fixed time quantum; a very large quantum behaves like FCFS and a very small one is dominated by context-switch overhead. Priority scheduling can cause starvation, which aging solves by gradually raising the priority of waiting processes. Key metrics are turnaround time (completion minus arrival), waiting time (turnaround minus burst) and response time (first run minus arrival).\",\n  \"key_terms\": [\n    {\"term\": \"CPU scheduler\", \"definition\": \"The component that picks which process in the ready queue runs next.\"},\n    {\"term\": \"Dispatcher\", \"definition\": \"The component that hands the CPU to the selected process through a context switch.\"},\n    {\"term\": \"Preemptive scheduling\", \"definition\": \"Scheduling that can take the CPU away from a running process.\"},\n    {\"term\": \"Non-preemptive scheduling\", \"definition\": \"Scheduling that lets a process run until it blocks or finishes.\"},\n    {\"term\": \"First-Come First-Served (FCFS)\", \"definition\": \"Scheduling that runs processes in arrival order; it suffers the convoy effect.\"},\n    {\"term\": \"Convoy effect\", \"definition\": \"The situation in which short processes wait behind one long process under FCFS.\"},\n    {\"term\": \"Shortest Job First (SJF)\", \"definition\": \"Scheduling that runs the process with the smallest next CPU burst; it minimises average waiting time but can starve long processes.\"},\n    {\"term\": \"Round Robin (RR)\", \"definition\": \"Scheduling in which each process gets a fixed time quantum and then goes to the back of the ready queue.\"},\n    {\"term\": \"Time quantum\", \"definition\": \"The fixed amount of CPU time a process gets in Round Robin before it is preempted.\"},\n    {\"term\": \"Aging\", \"definition\": \"Gradually increasing the priority of waiting processes to prevent starvation.\"},\n    {\"term\": \"Turnaround time\", \"definition\": \"Completion time minus arrival time.\"},\n    {\"term\": \"Waiting time\", \"definition\": \"Turnaround time minus burst time.\"},\n    {\"term\": \"Response time\", \"definition\": \"First run time minus arrival time.\"}\n  ],\n  \"questions\": [\n    {\"question\": \"What is the difference between preemptive and non-preemptive scheduling?\", \"answer\": \"Preemptive scheduling can take the CPU away from a running process. Non-preemptive scheduling lets a process run until it blocks or finishes.\"},\n    {\"question\": \"What is the convoy effect?\", \"answer\": \"Under FCFS, short processes wait behind one long process.\"},\n    {\"question\": \"Why can SJF starve long processes?\", \"answer\": \"It always runs the process with the smallest next CPU burst, so long processes can keep being passed over.\"},\n    {\"question\": \"What happens in Round Robin if the time quantum is very large or very small?\", \"answer\": \"A very large quantum makes RR behave like FCFS. A very small quantum makes context-switch overhead dominate.\"},\n    {\"question\": \"How does aging solve starvation in priority scheduling?\", \"answer\": \"It gradually increases the priority of waiting processes.\"},\n    {\"question\": \"A process arrives at time 0, completes at time 10, and has a burst time of 6. What is its turnaround time and waiting time?\", \"answer\": \"Turnaround time is 10 and waiting time is 4.\"}\n  ]\n}\n"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "02_big_o",
+   "score": {
+    "terms_found": 9,
+    "terms_gold": 13,
+    "cov": 5,
+    "cov_gold": 6,
+    "n_terms": 9,
+    "halluc": 5,
+    "n_q": 6,
+    "n_q_checkable": 0,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v1",
+    "summary": "Lecture 2 introduces algorithm analysis and Big-O notation. Time complexity describes how running time grows with input size n, not the exact number of seconds. Big-O gives an upper bound: f(n) = O(g(n)) if constants c and n0 exist such that f(n) <= c*g(n) for all n >= n0. Common growth classes, in increasing order, are O(1), O(log n), O(n), O(n log n), O(n^2) and O(2^n). Constants and lower-order terms are dropped, so 3n^2 + 5n + 7 is O(n^2). Binary search is O(log n) and linear search is O(n). Merge sort is O(n log n) in the worst case, and insertion sort is O(n^2) in the worst case but O(n) on sorted input. Big-Omega gives a lower bound, Big-Theta gives a tight bound, and space complexity measures extra memory as a function of n.",
+    "key_terms": [
+     {
+      "term": "Time complexity",
+      "definition": "A description of how running time grows as the input size n grows, not the exact number of seconds.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Big-O notation",
+      "definition": "An upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 with f(n) <= c*g(n) for all n >= n0.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Big-Omega",
+      "definition": "A lower bound on growth.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Big-Theta",
+      "definition": "A tight bound, meaning both an upper bound and a lower bound.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Constant time O(1)",
+      "definition": "Running time that does not grow with input size.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Logarithmic time O(log n)",
+      "definition": "Running time that grows by a fixed step each time the input doubles, as in binary search.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Linear time O(n)",
+      "definition": "Running time that grows in direct proportion to input size, as in linear search.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Quadratic time O(n^2)",
+      "definition": "Running time that grows with the square of the input size.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Space complexity",
+      "definition": "A measure of the extra memory an algorithm uses as a function of n.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "What does Big-O notation give, and what is its formal condition?",
+      "options": null,
+      "answer": "An upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "List the common complexity classes in increasing order of growth.",
+      "options": null,
+      "answer": "O(1), O(log n), O(n), O(n log n), O(n^2), O(2^n).",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is the Big-O class of 3n^2 + 5n + 7?",
+      "options": null,
+      "answer": "O(n^2), because constants and lower-order terms are dropped.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "Why is binary search O(log n)?",
+      "options": null,
+      "answer": "Each step halves the search range on a sorted array.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is the worst-case complexity of insertion sort, and when does it become O(n)?",
+      "options": null,
+      "answer": "O(n^2) in the worst case. It is O(n) when the array is already sorted.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is the difference between Big-Omega and Big-Theta?",
+      "options": null,
+      "answer": "Big-Omega gives a lower bound, while Big-Theta gives a tight bound that is both an upper and a lower bound.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm generate"
+     ],
+     "raw_generate": "{\n  \"summary\": \"Lecture 2 introduces algorithm analysis and Big-O notation. Time complexity describes how running time grows with input size n, not the exact number of seconds. Big-O gives an upper bound: f(n) = O(g(n)) if constants c and n0 exist such that f(n) <= c*g(n) for all n >= n0. Common growth classes, in increasing order, are O(1), O(log n), O(n), O(n log n), O(n^2) and O(2^n). Constants and lower-order terms are dropped, so 3n^2 + 5n + 7 is O(n^2). Binary search is O(log n) and linear search is O(n). Merge sort is O(n log n) in the worst case, and insertion sort is O(n^2) in the worst case but O(n) on sorted input. Big-Omega gives a lower bound, Big-Theta gives a tight bound, and space complexity measures extra memory as a function of n.\",\n  \"key_terms\": [\n    {\"term\": \"Time complexity\", \"definition\": \"A description of how running time grows as the input size n grows, not the exact number of seconds.\"},\n    {\"term\": \"Big-O notation\", \"definition\": \"An upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 with f(n) <= c*g(n) for all n >= n0.\"},\n    {\"term\": \"Big-Omega\", \"definition\": \"A lower bound on growth.\"},\n    {\"term\": \"Big-Theta\", \"definition\": \"A tight bound, meaning both an upper bound and a lower bound.\"},\n    {\"term\": \"Constant time O(1)\", \"definition\": \"Running time that does not grow with input size.\"},\n    {\"term\": \"Logarithmic time O(log n)\", \"definition\": \"Running time that grows by a fixed step each time the input doubles, as in binary search.\"},\n    {\"term\": \"Linear time O(n)\", \"definition\": \"Running time that grows in direct proportion to input size, as in linear search.\"},\n    {\"term\": \"Quadratic time O(n^2)\", \"definition\": \"Running time that grows with the square of the input size.\"},\n    {\"term\": \"Space complexity\", \"definition\": \"A measure of the extra memory an algorithm uses as a function of n.\"}\n  ],\n  \"questions\": [\n    {\"question\": \"What does Big-O notation give, and what is its formal condition?\", \"answer\": \"An upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0.\"},\n    {\"question\": \"List the common complexity classes in increasing order of growth.\", \"answer\": \"O(1), O(log n), O(n), O(n log n), O(n^2), O(2^n).\"},\n    {\"question\": \"What is the Big-O class of 3n^2 + 5n + 7?\", \"answer\": \"O(n^2), because constants and lower-order terms are dropped.\"},\n    {\"question\": \"Why is binary search O(log n)?\", \"answer\": \"Each step halves the search range on a sorted array.\"},\n    {\"question\": \"What is the worst-case complexity of insertion sort, and when does it become O(n)?\", \"answer\": \"O(n^2) in the worst case. It is O(n) when the array is already sorted.\"},\n    {\"question\": \"What is the difference between Big-Omega and Big-Theta?\", \"answer\": \"Big-Omega gives a lower bound, while Big-Theta gives a tight bound that is both an upper and a lower bound.\"}\n  ]\n}\n"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "03_normalization",
+   "score": {
+    "terms_found": 9,
+    "terms_gold": 13,
+    "cov": 6,
+    "cov_gold": 6,
+    "n_terms": 9,
+    "halluc": 1,
+    "n_q": 6,
+    "n_q_checkable": 0,
+    "ungrounded": 0,
+    "supported": 6,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v1",
+    "summary": "Lecture 11 covers database normalization, the process of organizing tables to reduce redundancy and avoid update, insertion and deletion anomalies. A functional dependency X -> Y means each value of X determines exactly one value of Y. The normal forms build on each other: 1NF requires atomic values and no repeating groups; 2NF requires 1NF plus no partial dependency on part of a composite key; 3NF requires 2NF plus no transitive dependency between non-key attributes; and BCNF requires that the left side of every functional dependency be a superkey. A transitive dependency is resolved by splitting the table, as in Student and Department. Denormalization deliberately reintroduces redundancy to speed up reads, at the cost of more complex updates.",
+    "key_terms": [
+     {
+      "term": "Normalization",
+      "definition": "Organizing tables to reduce redundancy and avoid update, insertion and deletion anomalies.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Functional dependency (X -> Y)",
+      "definition": "A relationship in which each value of X determines exactly one value of Y.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "First Normal Form (1NF)",
+      "definition": "Every column holds atomic values and there are no repeating groups.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Second Normal Form (2NF)",
+      "definition": "The table is in 1NF and no non-key attribute depends on only part of a composite primary key.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Third Normal Form (3NF)",
+      "definition": "The table is in 2NF and no non-key attribute depends on another non-key attribute.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Boyce-Codd Normal Form (BCNF)",
+      "definition": "A stricter form in which, for every functional dependency X -> Y, X is a superkey.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Transitive dependency",
+      "definition": "A case where a non-key attribute depends on another non-key attribute, which 3NF removes.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Superkey",
+      "definition": "A set of attributes that uniquely identifies each row in a table.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Denormalization",
+      "definition": "Deliberately adding redundancy back into a database to speed up reads, at the cost of more complex updates.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "What is a functional dependency X -> Y?",
+      "options": null,
+      "answer": "A relationship in which each value of X determines exactly one value of Y.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What does 1NF require?",
+      "options": null,
+      "answer": "Every column holds atomic (indivisible) values and there are no repeating groups.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What extra condition does 2NF add beyond 1NF?",
+      "options": null,
+      "answer": "No non-key attribute depends on only part of a composite primary key, so there is no partial dependency.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "In the Student(StudentID, Name, DeptID, DeptName) example, why is the table not in 3NF, and how is it fixed?",
+      "options": null,
+      "answer": "DeptName depends on DeptID, which is a non-key attribute, so there is a transitive dependency. Splitting the data into Student and Department tables fixes it.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is the stricter condition BCNF places on functional dependencies?",
+      "options": null,
+      "answer": "For every functional dependency X -> Y, X must be a superkey.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "Why would a designer use denormalization?",
+      "options": null,
+      "answer": "To add redundancy on purpose and speed up reads, accepting that updates become more complex.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm generate"
+     ],
+     "raw_generate": "{\n  \"summary\": \"Lecture 11 covers database normalization, the process of organizing tables to reduce redundancy and avoid update, insertion and deletion anomalies. A functional dependency X -> Y means each value of X determines exactly one value of Y. The normal forms build on each other: 1NF requires atomic values and no repeating groups; 2NF requires 1NF plus no partial dependency on part of a composite key; 3NF requires 2NF plus no transitive dependency between non-key attributes; and BCNF requires that the left side of every functional dependency be a superkey. A transitive dependency is resolved by splitting the table, as in Student and Department. Denormalization deliberately reintroduces redundancy to speed up reads, at the cost of more complex updates.\",\n  \"key_terms\": [\n    {\"term\": \"Normalization\", \"definition\": \"Organizing tables to reduce redundancy and avoid update, insertion and deletion anomalies.\"},\n    {\"term\": \"Functional dependency (X -> Y)\", \"definition\": \"A relationship in which each value of X determines exactly one value of Y.\"},\n    {\"term\": \"First Normal Form (1NF)\", \"definition\": \"Every column holds atomic values and there are no repeating groups.\"},\n    {\"term\": \"Second Normal Form (2NF)\", \"definition\": \"The table is in 1NF and no non-key attribute depends on only part of a composite primary key.\"},\n    {\"term\": \"Third Normal Form (3NF)\", \"definition\": \"The table is in 2NF and no non-key attribute depends on another non-key attribute.\"},\n    {\"term\": \"Boyce-Codd Normal Form (BCNF)\", \"definition\": \"A stricter form in which, for every functional dependency X -> Y, X is a superkey.\"},\n    {\"term\": \"Transitive dependency\", \"definition\": \"A case where a non-key attribute depends on another non-key attribute, which 3NF removes.\"},\n    {\"term\": \"Superkey\", \"definition\": \"A set of attributes that uniquely identifies each row in a table.\"},\n    {\"term\": \"Denormalization\", \"definition\": \"Deliberately adding redundancy back into a database to speed up reads, at the cost of more complex updates.\"}\n  ],\n  \"questions\": [\n    {\"question\": \"What is a functional dependency X -> Y?\", \"answer\": \"A relationship in which each value of X determines exactly one value of Y.\"},\n    {\"question\": \"What does 1NF require?\", \"answer\": \"Every column holds atomic (indivisible) values and there are no repeating groups.\"},\n    {\"question\": \"What extra condition does 2NF add beyond 1NF?\", \"answer\": \"No non-key attribute depends on only part of a composite primary key, so there is no partial dependency.\"},\n    {\"question\": \"In the Student(StudentID, Name, DeptID, DeptName) example, why is the table not in 3NF, and how is it fixed?\", \"answer\": \"DeptName depends on DeptID, which is a non-key attribute, so there is a transitive dependency. Splitting the data into Student and Department tables fixes it.\"},\n    {\"question\": \"What is the stricter condition BCNF places on functional dependencies?\", \"answer\": \"For every functional dependency X -> Y, X must be a superkey.\"},\n    {\"question\": \"Why would a designer use denormalization?\", \"answer\": \"To add redundancy on purpose and speed up reads, accepting that updates become more complex.\"}\n  ]\n}\n"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "04_tcp",
+   "score": {
+    "terms_found": 10,
+    "terms_gold": 14,
+    "cov": 7,
+    "cov_gold": 7,
+    "n_terms": 11,
+    "halluc": 1,
+    "n_q": 6,
+    "n_q_checkable": 0,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v1",
+    "summary": "Lecture 14 covers TCP connection management. TCP is a connection-oriented, reliable, byte-stream protocol that provides ordered delivery and retransmits lost segments. A connection opens with a three-way handshake (SYN, SYN-ACK, ACK) and closes with a four-way teardown using FIN and ACK in each direction. Sequence numbers label bytes so the receiver can reorder data and detect loss, and ACKs confirm what was received. Flow control uses the receiver's advertised window (rwnd) to avoid overwhelming its buffer. Congestion control protects the network: slow start grows the congestion window (cwnd) roughly exponentially until the slow-start threshold (ssthresh), then congestion avoidance grows it by about one segment per round trip. On a timeout, TCP halves cwnd into ssthresh and restarts slow start. UDP, by contrast, is connectionless and offers no delivery guarantee.",
+    "key_terms": [
+     {
+      "term": "TCP",
+      "definition": "A connection-oriented, reliable, byte-stream transport protocol that provides ordered delivery and retransmits lost segments.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Three-way handshake",
+      "definition": "The process of opening a TCP connection: client sends SYN, server replies SYN-ACK, client replies ACK.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Sequence number",
+      "definition": "A label for each byte that lets the receiver reorder segments and detect loss.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "ACK (acknowledgement)",
+      "definition": "A message telling the sender what data the receiver has received.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Flow control",
+      "definition": "Limiting the sender's rate so it does not overwhelm the receiver's buffer, using the advertised window (rwnd).",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Congestion window (cwnd)",
+      "definition": "The sender-side limit on how much unacknowledged data may be in flight, used for congestion control.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Slow start",
+      "definition": "A congestion control phase in which cwnd starts small and roughly doubles every round trip until it reaches ssthresh.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Slow-start threshold (ssthresh)",
+      "definition": "The cwnd value at which slow start ends and congestion avoidance begins.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Congestion avoidance",
+      "definition": "A phase in which cwnd increases by about one segment per round trip.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Four-way teardown",
+      "definition": "Closing a TCP connection by exchanging FIN and ACK segments in each direction.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "UDP",
+      "definition": "A connectionless transport protocol that gives no delivery guarantee.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "What are the three segments in the TCP three-way handshake, in order?",
+      "options": null,
+      "answer": "SYN from the client, SYN-ACK from the server, and ACK from the client.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is the difference between flow control and congestion control in TCP?",
+      "options": null,
+      "answer": "Flow control protects the receiver's buffer and uses the advertised window (rwnd). Congestion control protects the network and uses the congestion window (cwnd).",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "How does TCP grow cwnd during slow start and during congestion avoidance?",
+      "options": null,
+      "answer": "During slow start cwnd roughly doubles every round trip until it reaches ssthresh. During congestion avoidance it increases by about one segment per round trip.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What does TCP do to ssthresh and cwnd when a timeout indicates packet loss?",
+      "options": null,
+      "answer": "It sets ssthresh to half of cwnd and restarts slow start.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "How is a TCP connection closed?",
+      "options": null,
+      "answer": "With a four-way teardown: FIN and ACK segments are exchanged in each direction.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "How does UDP differ from TCP in terms of delivery?",
+      "options": null,
+      "answer": "UDP is connectionless and gives no delivery guarantee, whereas TCP provides reliable, ordered delivery.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm generate"
+     ],
+     "raw_generate": "{\n  \"summary\": \"Lecture 14 covers TCP connection management. TCP is a connection-oriented, reliable, byte-stream protocol that provides ordered delivery and retransmits lost segments. A connection opens with a three-way handshake (SYN, SYN-ACK, ACK) and closes with a four-way teardown using FIN and ACK in each direction. Sequence numbers label bytes so the receiver can reorder data and detect loss, and ACKs confirm what was received. Flow control uses the receiver's advertised window (rwnd) to avoid overwhelming its buffer. Congestion control protects the network: slow start grows the congestion window (cwnd) roughly exponentially until the slow-start threshold (ssthresh), then congestion avoidance grows it by about one segment per round trip. On a timeout, TCP halves cwnd into ssthresh and restarts slow start. UDP, by contrast, is connectionless and offers no delivery guarantee.\",\n  \"key_terms\": [\n    {\"term\": \"TCP\", \"definition\": \"A connection-oriented, reliable, byte-stream transport protocol that provides ordered delivery and retransmits lost segments.\"},\n    {\"term\": \"Three-way handshake\", \"definition\": \"The process of opening a TCP connection: client sends SYN, server replies SYN-ACK, client replies ACK.\"},\n    {\"term\": \"Sequence number\", \"definition\": \"A label for each byte that lets the receiver reorder segments and detect loss.\"},\n    {\"term\": \"ACK (acknowledgement)\", \"definition\": \"A message telling the sender what data the receiver has received.\"},\n    {\"term\": \"Flow control\", \"definition\": \"Limiting the sender's rate so it does not overwhelm the receiver's buffer, using the advertised window (rwnd).\"},\n    {\"term\": \"Congestion window (cwnd)\", \"definition\": \"The sender-side limit on how much unacknowledged data may be in flight, used for congestion control.\"},\n    {\"term\": \"Slow start\", \"definition\": \"A congestion control phase in which cwnd starts small and roughly doubles every round trip until it reaches ssthresh.\"},\n    {\"term\": \"Slow-start threshold (ssthresh)\", \"definition\": \"The cwnd value at which slow start ends and congestion avoidance begins.\"},\n    {\"term\": \"Congestion avoidance\", \"definition\": \"A phase in which cwnd increases by about one segment per round trip.\"},\n    {\"term\": \"Four-way teardown\", \"definition\": \"Closing a TCP connection by exchanging FIN and ACK segments in each direction.\"},\n    {\"term\": \"UDP\", \"definition\": \"A connectionless transport protocol that gives no delivery guarantee.\"}\n  ],\n  \"questions\": [\n    {\"question\": \"What are the three segments in the TCP three-way handshake, in order?\", \"answer\": \"SYN from the client, SYN-ACK from the server, and ACK from the client.\"},\n    {\"question\": \"What is the difference between flow control and congestion control in TCP?\", \"answer\": \"Flow control protects the receiver's buffer and uses the advertised window (rwnd). Congestion control protects the network and uses the congestion window (cwnd).\"},\n    {\"question\": \"How does TCP grow cwnd during slow start and during congestion avoidance?\", \"answer\": \"During slow start cwnd roughly doubles every round trip until it reaches ssthresh. During congestion avoidance it increases by about one segment per round trip.\"},\n    {\"question\": \"What does TCP do to ssthresh and cwnd when a timeout indicates packet loss?\", \"answer\": \"It sets ssthresh to half of cwnd and restarts slow start.\"},\n    {\"question\": \"How is a TCP connection closed?\", \"answer\": \"With a four-way teardown: FIN and ACK segments are exchanged in each direction.\"},\n    {\"question\": \"How does UDP differ from TCP in terms of delivery?\", \"answer\": \"UDP is connectionless and gives no delivery guarantee, whereas TCP provides reliable, ordered delivery.\"}\n  ]\n}\n"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "05_gradient_descent",
+   "score": {
+    "terms_found": 9,
+    "terms_gold": 11,
+    "cov": 6,
+    "cov_gold": 6,
+    "n_terms": 8,
+    "halluc": 1,
+    "n_q": 6,
+    "n_q_checkable": 0,
+    "ungrounded": 0,
+    "supported": 6,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v1",
+    "summary": "Lecture 5 covers gradient descent, an optimization method that minimises a loss function L(w) by repeatedly moving the parameters w opposite to the gradient. The update rule is w_new = w_old - alpha * dL/dw, where alpha is the learning rate. A learning rate that is too small makes convergence slow, and one that is too large can overshoot and diverge. Batch gradient descent uses the whole training set per step and is stable but slow on large data. Stochastic gradient descent uses one example per update, which is fast and noisy, and the noise can help escape shallow local minima. Mini-batch gradient descent uses a small batch, such as 32 or 64 examples, and is the usual practice. For convex losses such as mean squared error in linear regression, gradient descent with a suitable learning rate reaches the global minimum. Feature scaling such as standardisation speeds convergence, and an epoch is one full pass through the training data.",
+    "key_terms": [
+     {
+      "term": "Gradient descent",
+      "definition": "An optimization method that minimises a loss function by repeatedly moving the parameters opposite to the gradient.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Learning rate (alpha)",
+      "definition": "The step-size factor in the update rule that controls how far each update moves the parameters.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Batch gradient descent",
+      "definition": "Gradient descent that computes the gradient on the whole training set at each step.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Stochastic gradient descent (SGD)",
+      "definition": "Gradient descent that uses one training example per update.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Mini-batch gradient descent",
+      "definition": "Gradient descent that uses a small batch of examples, such as 32 or 64, per update.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Convex loss",
+      "definition": "A loss function with a single global minimum, for which gradient descent with a suitable learning rate reaches that minimum.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Feature scaling",
+      "definition": "Transforming features, for example by standardisation, so the loss surface is rounder and converges faster.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Epoch",
+      "definition": "One full pass through the training data.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "What is the gradient descent update rule?",
+      "options": null,
+      "answer": "w_new = w_old - alpha * dL/dw, where alpha is the learning rate.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What happens if the learning rate is too large?",
+      "options": null,
+      "answer": "The updates can overshoot the minimum and diverge.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "How does batch gradient descent differ from stochastic gradient descent?",
+      "options": null,
+      "answer": "Batch gradient descent uses the whole training set per step and is stable but slow on large data. SGD uses one example per update and is fast but noisy.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "Which variant is the usual choice in practice, and why?",
+      "options": null,
+      "answer": "Mini-batch gradient descent, which uses a small batch such as 32 or 64 examples.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "Why does feature scaling help gradient descent?",
+      "options": null,
+      "answer": "It makes the loss surface rounder, which speeds up convergence.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is an epoch?",
+      "options": null,
+      "answer": "One full pass through the training data.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm generate"
+     ],
+     "raw_generate": "{\n  \"summary\": \"Lecture 5 covers gradient descent, an optimization method that minimises a loss function L(w) by repeatedly moving the parameters w opposite to the gradient. The update rule is w_new = w_old - alpha * dL/dw, where alpha is the learning rate. A learning rate that is too small makes convergence slow, and one that is too large can overshoot and diverge. Batch gradient descent uses the whole training set per step and is stable but slow on large data. Stochastic gradient descent uses one example per update, which is fast and noisy, and the noise can help escape shallow local minima. Mini-batch gradient descent uses a small batch, such as 32 or 64 examples, and is the usual practice. For convex losses such as mean squared error in linear regression, gradient descent with a suitable learning rate reaches the global minimum. Feature scaling such as standardisation speeds convergence, and an epoch is one full pass through the training data.\",\n  \"key_terms\": [\n    {\"term\": \"Gradient descent\", \"definition\": \"An optimization method that minimises a loss function by repeatedly moving the parameters opposite to the gradient.\"},\n    {\"term\": \"Learning rate (alpha)\", \"definition\": \"The step-size factor in the update rule that controls how far each update moves the parameters.\"},\n    {\"term\": \"Batch gradient descent\", \"definition\": \"Gradient descent that computes the gradient on the whole training set at each step.\"},\n    {\"term\": \"Stochastic gradient descent (SGD)\", \"definition\": \"Gradient descent that uses one training example per update.\"},\n    {\"term\": \"Mini-batch gradient descent\", \"definition\": \"Gradient descent that uses a small batch of examples, such as 32 or 64, per update.\"},\n    {\"term\": \"Convex loss\", \"definition\": \"A loss function with a single global minimum, for which gradient descent with a suitable learning rate reaches that minimum.\"},\n    {\"term\": \"Feature scaling\", \"definition\": \"Transforming features, for example by standardisation, so the loss surface is rounder and converges faster.\"},\n    {\"term\": \"Epoch\", \"definition\": \"One full pass through the training data.\"}\n  ],\n  \"questions\": [\n    {\"question\": \"What is the gradient descent update rule?\", \"answer\": \"w_new = w_old - alpha * dL/dw, where alpha is the learning rate.\"},\n    {\"question\": \"What happens if the learning rate is too large?\", \"answer\": \"The updates can overshoot the minimum and diverge.\"},\n    {\"question\": \"How does batch gradient descent differ from stochastic gradient descent?\", \"answer\": \"Batch gradient descent uses the whole training set per step and is stable but slow on large data. SGD uses one example per update and is fast but noisy.\"},\n    {\"question\": \"Which variant is the usual choice in practice, and why?\", \"answer\": \"Mini-batch gradient descent, which uses a small batch such as 32 or 64 examples.\"},\n    {\"question\": \"Why does feature scaling help gradient descent?\", \"answer\": \"It makes the loss surface rounder, which speeds up convergence.\"},\n    {\"question\": \"What is an epoch?\", \"answer\": \"One full pass through the training data.\"}\n  ]\n}\n"
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "06_prompting_basics",
+   "score": {
+    "terms_found": 8,
+    "terms_gold": 10,
+    "cov": 6,
+    "cov_gold": 6,
+    "n_terms": 8,
+    "halluc": 0,
+    "n_q": 6,
+    "n_q_checkable": 0,
+    "ungrounded": 0,
+    "supported": 6,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v1",
+    "summary": "Lecture 3 introduces the basics of prompting. The output quality of a language model depends strongly on how the prompt is written. Zero-shot prompting gives an instruction with no examples, while few-shot prompting includes input-output examples so the model can imitate the pattern and format. A good prompt states the role, task, context, constraints and required output format. Chain-of-thought prompting asks the model to reason step by step, which often helps arithmetic and logic. Hallucination is fluent but unsupported or false output, and grounding the model in provided documents and asking it to quote sources reduces it. Temperature controls randomness: low temperature is more deterministic and high temperature is more varied. Prompt injection occurs when untrusted input tries to override the developer's instructions. Prompts should be tested on a fixed test set and versioned like code.",
+    "key_terms": [
+     {
+      "term": "Prompt",
+      "definition": "The input given to a language model.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Zero-shot prompting",
+      "definition": "Giving an instruction with no examples.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Few-shot prompting",
+      "definition": "Including a few input-output examples in the prompt so the model can imitate the pattern and format.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Chain-of-thought prompting",
+      "definition": "Asking the model to reason step by step before answering.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Hallucination",
+      "definition": "When a model produces fluent but unsupported or false content.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Grounding",
+      "definition": "Anchoring the model's answers in provided documents, often by asking it to quote its sources.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Temperature",
+      "definition": "A setting that controls randomness in output: low gives more deterministic output and high gives more varied output.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "term": "Prompt injection",
+      "definition": "When untrusted text in the input tries to override the developer's instructions.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "What is the difference between zero-shot and few-shot prompting?",
+      "options": null,
+      "answer": "Zero-shot gives an instruction with no examples. Few-shot includes a few input-output examples so the model can imitate the pattern and format.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What elements does a good prompt state?",
+      "options": null,
+      "answer": "The role, the task, the context, the constraints and the required output format.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is chain-of-thought prompting and what does it often improve?",
+      "options": null,
+      "answer": "It asks the model to reason step by step before answering, which often improves arithmetic and logic tasks.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "How can hallucination be reduced?",
+      "options": null,
+      "answer": "By grounding the model in provided documents and asking it to quote its sources.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What does a low temperature setting do?",
+      "options": null,
+      "answer": "It makes output more deterministic.",
+      "evidence": "",
+      "grounded": null
+     },
+     {
+      "type": "short",
+      "question": "What is prompt injection?",
+      "options": null,
+      "answer": "When untrusted text in the input tries to override the developer's instructions.",
+      "evidence": "",
+      "grounded": null
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "llm generate"
+     ],
+     "raw_generate": "{\n  \"summary\": \"Lecture 3 introduces the basics of prompting. The output quality of a language model depends strongly on how the prompt is written. Zero-shot prompting gives an instruction with no examples, while few-shot prompting includes input-output examples so the model can imitate the pattern and format. A good prompt states the role, task, context, constraints and required output format. Chain-of-thought prompting asks the model to reason step by step, which often helps arithmetic and logic. Hallucination is fluent but unsupported or false output, and grounding the model in provided documents and asking it to quote sources reduces it. Temperature controls randomness: low temperature is more deterministic and high temperature is more varied. Prompt injection occurs when untrusted input tries to override the developer's instructions. Prompts should be tested on a fixed test set and versioned like code.\",\n  \"key_terms\": [\n    {\"term\": \"Prompt\", \"definition\": \"The input given to a language model.\"},\n    {\"term\": \"Zero-shot prompting\", \"definition\": \"Giving an instruction with no examples.\"},\n    {\"term\": \"Few-shot prompting\", \"definition\": \"Including a few input-output examples in the prompt so the model can imitate the pattern and format.\"},\n    {\"term\": \"Chain-of-thought prompting\", \"definition\": \"Asking the model to reason step by step before answering.\"},\n    {\"term\": \"Hallucination\", \"definition\": \"When a model produces fluent but unsupported or false content.\"},\n    {\"term\": \"Grounding\", \"definition\": \"Anchoring the model's answers in provided documents, often by asking it to quote its sources.\"},\n    {\"term\": \"Temperature\", \"definition\": \"A setting that controls randomness in output: low gives more deterministic output and high gives more varied output.\"},\n    {\"term\": \"Prompt injection\", \"definition\": \"When untrusted text in the input tries to override the developer's instructions.\"}\n  ],\n  \"questions\": [\n    {\"question\": \"What is the difference between zero-shot and few-shot prompting?\", \"answer\": \"Zero-shot gives an instruction with no examples. Few-shot includes a few input-output examples so the model can imitate the pattern and format.\"},\n    {\"question\": \"What elements does a good prompt state?\", \"answer\": \"The role, the task, the context, the constraints and the required output format.\"},\n    {\"question\": \"What is chain-of-thought prompting and what does it often improve?\", \"answer\": \"It asks the model to reason step by step before answering, which often improves arithmetic and logic tasks.\"},\n    {\"question\": \"How can hallucination be reduced?\", \"answer\": \"By grounding the model in provided documents and asking it to quote its sources.\"},\n    {\"question\": \"What does a low temperature setting do?\", \"answer\": \"It makes output more deterministic.\"},\n    {\"question\": \"What is prompt injection?\", \"answer\": \"When untrusted text in the input tries to override the developer's instructions.\"}\n  ]\n}\n"
+    },
+    "errors": []
+   }
+  }
+ ],
+ "model": "claude-haiku via Claude Code subagents"
+}

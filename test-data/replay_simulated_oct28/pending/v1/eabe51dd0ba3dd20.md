@@ -1,0 +1,71 @@
+=== SYSTEM PROMPT ===
+
+
+=== USER MESSAGE ===
+Make a study pack from these lecture notes: a summary, key terms and practice questions with answers. Return JSON with keys "summary", "key_terms" (list of {"term","definition"}) and "questions" (list of {"question","answer"}).
+
+Software Engineering: Process, Agile and Testing (slide text)
+
+Slide 1: Software development life cycle (SDLC)
+- Phases: requirements, design, implementation, testing, deployment, maintenance
+- Requirements: what the system must do (functional) and how well (non-functional)
+- Design: architecture and detailed design of components
+- Maintenance often costs more than the first development
+
+Slide 2: Waterfall model
+- Phases run in sequence; each phase must finish before the next begins
+- Strength: simple, well documented, easy to manage milestones
+- Weakness: feedback comes late; changing requirements is expensive
+- Suits projects with stable, well-understood requirements
+
+Slide 3: Agile software development
+- Iterative and incremental: working software is delivered in short cycles
+- Agile Manifesto values: individuals and interactions, working software, customer collaboration, responding to change
+- The customer gives feedback after every iteration
+- Plans are adjusted as requirements change
+
+Slide 4: Scrum roles
+- Product Owner: owns the product backlog and decides priorities
+- Scrum Master: helps the team follow Scrum and removes obstacles
+- Development Team: builds the increment; self-organising
+
+Slide 5: Scrum artifacts
+- Product backlog: ordered list of everything that might be needed in the product
+- Sprint backlog: items chosen for the current sprint plus the plan to deliver them
+- Increment: the usable, potentially releasable result of a sprint
+
+Slide 6: Scrum events
+- Sprint: fixed length, one to four weeks
+- Sprint planning: the team chooses what it can deliver in the sprint
+- Daily scrum: a 15-minute meeting to synchronise the work
+- Sprint review: the team shows the increment to stakeholders
+- Sprint retrospective: the team reflects on how to improve its process
+
+Slide 7: Levels of testing
+- Unit testing: tests a single function or class in isolation, usually written by developers
+- Integration testing: tests that components work together
+- System testing: tests the complete system against the requirements
+- Acceptance testing: the customer checks that the system meets their needs
+
+Slide 8: Testing techniques
+- Black-box testing: tests behaviour from inputs and outputs without looking at the code
+- White-box testing: tests are designed from the internal structure of the code, for example to cover every branch
+- Regression testing: re-runs earlier tests after a change to make sure nothing that worked has broken
+
+Slide 9: Version control and code review
+- A version control system such as Git records the history of changes
+- Branch: a separate line of development; merge: combine branches
+- Commit: a saved snapshot of changes with a message
+- Code review: another developer inspects changes before they are merged, which finds defects early and shares knowledge
+
+Slide 10: Continuous integration and delivery
+- Continuous integration (CI): developers merge small changes often, and each merge triggers an automated build and test run
+- Continuous delivery: every passing change is kept in a state that can be released
+- Continuous deployment: every passing change is released to users automatically
+- Benefit: problems are found within minutes of being introduced
+
+Slide 11: Technical debt
+- Shortcuts in design or code that make later changes harder
+- Like financial debt, it accumulates interest as the code grows
+- Reduced by refactoring, tests and code review
+

@@ -1,0 +1,23 @@
+{"summary": "The scheduler picks the next ready process and the dispatcher switches the CPU to it via a context switch. Preemptive scheduling can take the CPU from a running process; non-preemptive scheduling does not. FCFS runs processes in arrival order but suffers the convoy effect. SJF gives minimum average waiting time but needs burst prediction and can starve long processes. Round Robin gives each process a fixed quantum and sends it to the back of the ready queue; large quanta act like FCFS and tiny ones add overhead. Priority scheduling runs the highest priority first, and aging solves starvation. Metrics are turnaround, waiting and response time.",
+ "key_terms": [
+  {"term": "CPU scheduler", "definition": "The component that picks which process in the ready queue runs next.", "evidence": "The CPU scheduler picks which process in the ready queue runs next."},
+  {"term": "Dispatcher", "definition": "The component that hands the CPU to the chosen process through a context switch.", "evidence": "The dispatcher then hands the CPU to that process through a context switch."},
+  {"term": "Preemptive scheduling", "definition": "Scheduling that can take the CPU away from a running process.", "evidence": "Preemptive scheduling can take the CPU away from a running process"},
+  {"term": "First-Come First-Served (FCFS)", "definition": "A method in which processes run in arrival order; it is simple but suffers the convoy effect.", "evidence": "processes run in arrival order"},
+  {"term": "Convoy effect", "definition": "The problem where short processes wait behind one long process under FCFS.", "evidence": "where short processes wait behind one long process"},
+  {"term": "Shortest Job First (SJF)", "definition": "A method that runs the process with the smallest next CPU burst.", "evidence": "runs the process with the smallest next CPU burst"},
+  {"term": "Round Robin (RR)", "definition": "A method in which each process gets a fixed time quantum and then goes to the back of the ready queue.", "evidence": "each process gets a fixed time quantum and then goes to the back of the ready queue"},
+  {"term": "Aging", "definition": "Gradually increasing the priority of waiting processes to solve starvation.", "evidence": "aging, which gradually increases the priority of waiting processes"},
+  {"term": "Turnaround time", "definition": "Completion time minus arrival time.", "evidence": "turnaround time = completion time - arrival time"},
+  {"term": "Waiting time", "definition": "Turnaround time minus burst time.", "evidence": "waiting time = turnaround time - burst time"}
+ ],
+ "questions": [
+  {"type": "mcq", "question": "Which scheduling method runs the process with the smallest next CPU burst?", "options": ["First-Come First-Served (FCFS)", "Shortest Job First (SJF)", "Round Robin (RR)", "Priority scheduling"], "answer": "Shortest Job First (SJF)", "evidence": "runs the process with the smallest next CPU burst"},
+  {"type": "short", "question": "What happens to a process in Round Robin when its time quantum expires?", "options": null, "answer": "It goes to the back of the ready queue.", "evidence": "each process gets a fixed time quantum and then goes to the back of the ready queue"},
+  {"type": "true_false", "question": "True or false: non-preemptive scheduling can take the CPU away from a running process.", "options": null, "answer": "False", "evidence": "non-preemptive scheduling lets it run until it blocks or finishes"},
+  {"type": "mcq", "question": "Which technique solves starvation in priority scheduling?", "options": ["Convoy effect", "Aging", "Context switching", "Burst prediction"], "answer": "Aging", "evidence": "Starvation can be solved by aging"},
+  {"type": "short", "question": "How is waiting time calculated?", "options": null, "answer": "Turnaround time minus burst time.", "evidence": "waiting time = turnaround time - burst time"},
+  {"type": "true_false", "question": "True or false: under FCFS, short processes can wait behind one long process.", "options": null, "answer": "True", "evidence": "where short processes wait behind one long process"},
+  {"type": "mcq", "question": "If the quantum in Round Robin is very large, the algorithm behaves most like which method?", "options": ["Shortest Job First (SJF)", "First-Come First-Served (FCFS)", "Priority scheduling", "Dispatcher"], "answer": "First-Come First-Served (FCFS)", "evidence": "If the quantum is very large, RR behaves like FCFS"}
+ ],
+ "warnings": []}

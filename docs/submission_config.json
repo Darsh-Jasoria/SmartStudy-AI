@@ -1,0 +1,50 @@
+{
+  "team_id": "PE-B37-17",
+  "team_name": "IntelliCore",
+  "project_title": "SmartStudy: AI-Powered Lecture Notes to Study Pack Generator",
+  "short_title": "SmartStudy",
+  "batch": "B37-48",
+  "faculty": "Pawan Kumar",
+  "course": "SCSE4041 Prompt Engineering, Bennett University",
+  "main_tool": "Gemini 3.1 Flash-Lite (gemini-3.1-flash-lite) via the Gemini API",
+  "links": {
+    "prototype": "",
+    "repository": "",
+    "reel": ""
+  },
+  "reel_seconds": 0,
+  "members": [
+    {
+      "name": "Darsh Jasoria",
+      "enrollment": "S24CSEU0844",
+      "role": "Team leader, experiments and deployment",
+      "tasks": "Ran the live Gemini experiments (v0 to v5 on 9 notes) and the 13-input test table; set up the GitHub repository and the online deployment; coordinated and submitted the milestone.",
+      "evidence": "test-data/live_runs/, code/smartstudy/m2_tests.py, api/index.py, vercel.json, CHANGELOG.md",
+      "percent": 25
+    },
+    {
+      "name": "Mahak Soni",
+      "enrollment": "S24CSEU2741",
+      "role": "Prompt design and iteration log",
+      "tasks": "Designed and refined prompts v1 to v3 (role, rules, JSON schema, evidence quotes, worked example) and the final prompts P1 to P4; wrote the prompt iteration log with observed results.",
+      "evidence": "prompts/v1/, prompts/v2/, prompts/v3/, prompts/final/, Section 3 of this PDF",
+      "percent": 25
+    },
+    {
+      "name": "Pradanya Sharma",
+      "enrollment": "S24CSEU1697",
+      "role": "Testing and evaluation",
+      "tasks": "Designed the 13 test inputs (6 normal, 4 edge, 2 invalid) and their pass/fail checks; analysed the two failures (tests 8 and 12) and wrote the limitations and next steps.",
+      "evidence": "test-data/m2_inputs/, code/smartstudy/m2_tests.py, Section 4 of this PDF, docs/experiment_log.md",
+      "percent": 25
+    },
+    {
+      "name": "Arnav Singh",
+      "enrollment": "S24CSEU1770",
+      "role": "Diagrams, documentation and reel",
+      "tasks": "Prepared the four diagrams (workflow, task decomposition, input-output flow, architecture), captured the real-run screenshots, wrote the technical report (supporting document) and recorded the reel.",
+      "evidence": "docs/diagrams/, docs/figures/, docs/IntelliCore_TechnicalReport.pdf, reel link on the cover page",
+      "percent": 25
+    }
+  ]
+}

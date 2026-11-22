@@ -1,0 +1,3 @@
+{"key_terms": ["prompt", "zero-shot", "few-shot", "chain-of-thought", "hallucination", "grounding", "temperature", "prompt injection", "output format", "test set"],
+ "must_cover": [["imitate", "pattern"], ["step by step", "step-by-step"], ["quote"], ["deterministic"], ["override"], ["versioned", "version"]],
+ "out_of_scope": ["fine-tuning", "fine tuning", "rlhf", "retrieval-augmented", "rag", "embedding", "tokenizer"]}

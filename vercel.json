@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/index.py": {
+      "maxDuration": 60,
+      "includeFiles": "{code,prompts,test-data,docs,README.md,CHANGELOG.md}/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/index?__p=" },
+    { "source": "/:path*", "destination": "/api/index?__p=:path*" }
+  ]
+}

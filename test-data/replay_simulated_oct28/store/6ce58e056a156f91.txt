@@ -1,0 +1,22 @@
+{
+  "summary": "Lecture 2 introduces algorithm analysis and Big-O notation. Time complexity describes how running time grows with input size n, not the exact number of seconds. Big-O gives an upper bound: f(n) = O(g(n)) if constants c and n0 exist such that f(n) <= c*g(n) for all n >= n0. Common growth classes, in increasing order, are O(1), O(log n), O(n), O(n log n), O(n^2) and O(2^n). Constants and lower-order terms are dropped, so 3n^2 + 5n + 7 is O(n^2). Binary search is O(log n) and linear search is O(n). Merge sort is O(n log n) in the worst case, and insertion sort is O(n^2) in the worst case but O(n) on sorted input. Big-Omega gives a lower bound, Big-Theta gives a tight bound, and space complexity measures extra memory as a function of n.",
+  "key_terms": [
+    {"term": "Time complexity", "definition": "A description of how running time grows as the input size n grows, not the exact number of seconds."},
+    {"term": "Big-O notation", "definition": "An upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 with f(n) <= c*g(n) for all n >= n0."},
+    {"term": "Big-Omega", "definition": "A lower bound on growth."},
+    {"term": "Big-Theta", "definition": "A tight bound, meaning both an upper bound and a lower bound."},
+    {"term": "Constant time O(1)", "definition": "Running time that does not grow with input size."},
+    {"term": "Logarithmic time O(log n)", "definition": "Running time that grows by a fixed step each time the input doubles, as in binary search."},
+    {"term": "Linear time O(n)", "definition": "Running time that grows in direct proportion to input size, as in linear search."},
+    {"term": "Quadratic time O(n^2)", "definition": "Running time that grows with the square of the input size."},
+    {"term": "Space complexity", "definition": "A measure of the extra memory an algorithm uses as a function of n."}
+  ],
+  "questions": [
+    {"question": "What does Big-O notation give, and what is its formal condition?", "answer": "An upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0."},
+    {"question": "List the common complexity classes in increasing order of growth.", "answer": "O(1), O(log n), O(n), O(n log n), O(n^2), O(2^n)."},
+    {"question": "What is the Big-O class of 3n^2 + 5n + 7?", "answer": "O(n^2), because constants and lower-order terms are dropped."},
+    {"question": "Why is binary search O(log n)?", "answer": "Each step halves the search range on a sorted array."},
+    {"question": "What is the worst-case complexity of insertion sort, and when does it become O(n)?", "answer": "O(n^2) in the worst case. It is O(n) when the array is already sorted."},
+    {"question": "What is the difference between Big-Omega and Big-Theta?", "answer": "Big-Omega gives a lower bound, while Big-Theta gives a tight bound that is both an upper and a lower bound."}
+  ]
+}

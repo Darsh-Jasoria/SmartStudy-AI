@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SmartStudy</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%234f46e5%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2714%27 text-anchor=%27middle%27 fill=%27white%27 font-family=%27Arial%27 font-weight=%27bold%27%3EIC%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f4f6fb;--surface:#ffffff;--surface2:#f0f3fa;--ink:#161b2e;--mut:#5a6483;--line:#dfe4f1;
+  --brand:#4f46e5;--brand2:#7c3aed;--brand-ink:#ffffff;--good:#0f9d58;--warn:#c2410c;--bad:#c62828;--mark:#fde68a;
+  --shadow:0 1px 2px rgba(20,28,60,.06),0 8px 24px rgba(20,28,60,.06);--r:14px;--ease:cubic-bezier(.2,.8,.2,1)
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1220;--surface:#171c30;--surface2:#1d2340;--ink:#e9ecf8;--mut:#9aa4c7;--line:#2a3254;
+  --brand:#8b8cff;--brand2:#b794ff;--brand-ink:#0e1220;--good:#4cd08a;--warn:#f59e6c;--bad:#ff8a80;--mark:#6b5b12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{
+  --bg:#0e1220;--surface:#171c30;--surface2:#1d2340;--ink:#e9ecf8;--mut:#9aa4c7;--line:#2a3254;
+  --brand:#8b8cff;--brand2:#b794ff;--brand-ink:#0e1220;--good:#4cd08a;--warn:#f59e6c;--bad:#ff8a80;--mark:#6b5b12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  background-image:radial-gradient(900px 400px at 85% -10%,color-mix(in srgb,var(--brand2) 14%,transparent),transparent),radial-gradient(700px 380px at -5% 0%,color-mix(in srgb,var(--brand) 12%,transparent),transparent);background-repeat:no-repeat}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;transition:transform .15s var(--ease),box-shadow .2s,border-color .2s,background .2s}
+button:active{transform:scale(.97)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.8);opacity:0}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{from{background-position:-300px 0}to{background-position:300px 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes glow{0%,100%{box-shadow:0 6px 18px color-mix(in srgb,var(--brand) 30%,transparent)}50%{box-shadow:0 6px 28px color-mix(in srgb,var(--brand2) 55%,transparent)}}
+@keyframes lit{from{opacity:0;transform:translateX(-8px) scale(.96)}to{opacity:1;transform:none}}
+.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1280px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.4px}
+.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;animation:glow 4s ease-in-out infinite}
+.brand small{display:block;font-weight:500;font-size:11.5px;color:var(--mut);letter-spacing:0}
+nav{display:flex;gap:4px;margin-left:12px}
+nav button{background:none;border:0;padding:8px 14px;border-radius:999px;color:var(--mut);font-weight:600}
+nav button:hover{color:var(--ink)}
+nav button.on{background:var(--surface2);color:var(--ink)}
+.spacer{flex:1}
+.badge{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--mut)}
+.badge.live{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,var(--line))}
+.badge.live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:6px;animation:glow 2s infinite}
+.icon-btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:7px 11px}
+.icon-btn:hover{border-color:var(--brand)}
+main{max-width:1280px;margin:auto;padding:22px 20px 60px}
+.page{display:none}.page.on{display:block;animation:fadeUp .35s var(--ease)}
+.grid{display:grid;grid-template-columns:minmax(320px,430px) 1fr;gap:20px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
+.side{position:sticky;top:78px}
+@media(max-width:900px){.side{position:static}}
+h2{margin:0 0 4px;font-size:17px}h3{margin:18px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut)}
+.sub{color:var(--mut);font-size:13px;margin:0 0 12px}
+label.l{display:block;font-size:12px;font-weight:650;color:var(--mut);margin:12px 0 6px;text-transform:uppercase;letter-spacing:.05em}
+select,input[type=number],input[type=search]{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+textarea{width:100%;height:260px;resize:vertical;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
+textarea:focus,select:focus,input:focus{outline:2px solid color-mix(in srgb,var(--brand) 55%,transparent);outline-offset:1px}
+.meta{display:flex;justify-content:space-between;color:var(--mut);font-size:12px;margin-top:6px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:650;color:var(--mut)}
+.pill:hover{border-color:var(--brand);color:var(--ink)}
+.pill.on{background:linear-gradient(135deg,var(--brand),var(--brand2));border-color:transparent;color:#fff;animation:pop .3s var(--ease)}
+.pillnote{font-size:12.5px;color:var(--mut);margin-top:8px;min-height:36px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.go{width:100%;margin-top:16px;padding:12px;border:0;border-radius:12px;font-weight:750;font-size:15px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;box-shadow:0 6px 18px color-mix(in srgb,var(--brand) 35%,transparent)}
+.go:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 26px color-mix(in srgb,var(--brand) 45%,transparent)}
+.go:disabled{opacity:.7;cursor:progress}
+.kbd{font:11px ui-monospace,monospace;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 5px;background:var(--surface2);color:var(--mut)}
+.tabs{display:flex;gap:2px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:-4px 0 16px}
+.tabs button{background:none;border:0;padding:10px 12px;color:var(--mut);font-weight:650;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button:hover{color:var(--ink)}
+.tabs button.on{color:var(--brand);border-bottom-color:var(--brand)}
+.tabs .ct{font-size:11px;background:var(--surface2);border-radius:999px;padding:1px 7px;margin-left:5px}
+.pane{animation:fadeUp .35s var(--ease)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:6px}
+.stat{background:var(--surface2);border-radius:12px;padding:12px 14px;animation:fadeUp .5s var(--ease) both;transition:transform .2s var(--ease)}
+.stat:hover{transform:translateY(-3px)}
+.stat b{display:block;font-size:23px;letter-spacing:-.5px}
+.stat span{font-size:12px;color:var(--mut)}
+.stat.ok b{color:var(--good)}.stat.no b{color:var(--warn)}
+.hero{text-align:center;padding:34px 10px 10px}
+.hero .big{font-size:46px;display:inline-block;animation:float 4s ease-in-out infinite}
+.hero h2{font-size:24px;margin:8px 0}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:22px 0;text-align:left}
+.feat div{background:var(--surface2);border-radius:12px;padding:14px;animation:fadeUp .6s var(--ease) both;transition:transform .2s var(--ease)}
+.feat div:hover{transform:translateY(-4px)}
+.feat b{display:block;margin-bottom:4px}.feat span{font-size:13px;color:var(--mut)}
+.tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:6px;background:var(--surface2);color:var(--mut)}
+.tag.mcq{color:#4f46e5}.tag.short{color:#0f766e}.tag.true_false{color:#b45309}
+.chip{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--surface2);color:var(--mut)}
+.chip.good{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.chip.warn{background:color-mix(in srgb,var(--warn) 15%,transparent);color:var(--warn)}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:var(--surface);animation:fadeUp .4s var(--ease) both;transition:border-color .2s,transform .2s var(--ease)}
+.q:hover{border-color:color-mix(in srgb,var(--brand) 50%,var(--line));transform:translateY(-2px)}
+.q .top{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.q .qt{font-weight:600}
+.star{margin-left:auto;background:none;border:0;font-size:19px;color:var(--mut);padding:0 4px}
+.star.on{color:#f5b301;animation:pop .3s var(--ease)}
+ol.opts{list-style:upper-alpha;margin:8px 0 6px 22px;padding:0}
+ol.opts li{margin:3px 0}
+.ans{margin-top:8px;padding:10px 12px;border-radius:10px;background:var(--surface2);animation:fadeUp .25s var(--ease)}
+.ans .quote{color:var(--mut);font-style:italic;font-size:13.5px;margin-top:4px}
+.linkbtn{background:none;border:0;color:var(--brand);font-weight:650;padding:4px 0}
+.term{display:grid;grid-template-columns:200px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);animation:fadeUp .4s var(--ease) both}
+@media(max-width:640px){.term{grid-template-columns:1fr}}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+.toolbar input{max-width:260px}
+.btn{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:13px}
+.btn:hover{border-color:var(--brand);transform:translateY(-1px)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.on{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 14%,var(--surface))}
+.flash{perspective:1100px;height:230px;margin:10px 0;cursor:pointer}
+.flash .inner{position:relative;width:100%;height:100%;transition:transform .6s var(--ease);transform-style:preserve-3d}
+.flash.flipped .inner{transform:rotateY(180deg)}
+.flash .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;display:grid;place-items:center;text-align:center;padding:26px;font-size:21px;font-weight:650;border:1px solid var(--line);box-shadow:var(--shadow);background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 14%,var(--surface)),var(--surface))}
+.flash .face.back{transform:rotateY(180deg);background:linear-gradient(135deg,color-mix(in srgb,var(--brand2) 16%,var(--surface)),var(--surface));font-size:18px;font-weight:550}
+.flash .face small{display:block;font-weight:500;font-size:12.5px;color:var(--mut);margin-top:10px}
+.prog{height:6px;border-radius:99px;background:var(--surface2);overflow:hidden;margin:6px 0 14px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .4s var(--ease)}
+.opt{display:block;width:100%;text-align:left;padding:11px 13px;margin:7px 0;border-radius:11px;border:1px solid var(--line);background:var(--surface);animation:fadeUp .35s var(--ease) both}
+.opt:hover:not(:disabled){border-color:var(--brand);transform:translateX(3px)}
+.opt.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,var(--surface));animation:pop .35s var(--ease)}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--surface));animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.score{font-size:54px;font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent;animation:pop .6s var(--ease)}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mut)}
+mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 2px}
+mark.term{background:color-mix(in srgb,var(--brand) 22%,transparent);display:inline;padding:0 3px;border:0;animation:none;grid-template-columns:none}
+.src{white-space:pre-wrap;font:13px/1.65 ui-monospace,Menlo,monospace;max-height:340px;overflow:auto;background:var(--surface2);padding:12px;border-radius:10px;margin-top:8px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.cmp{grid-template-columns:1fr}}
+.cmp .col{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--surface);animation:fadeUp .4s var(--ease) both}
+.cmp .col:nth-child(2){animation-delay:.1s}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--mut);font-weight:650;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+tbody tr{transition:background .15s}tbody tr:hover{background:var(--surface2)}
+tr.best td{font-weight:700}
+.bars{display:grid;gap:7px;margin-top:6px}
+.bar{display:grid;grid-template-columns:70px 1fr 48px;gap:10px;align-items:center;font-size:13px}
+.bar .t{height:12px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.bar .t i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width 1s var(--ease)}
+.bar .t i.lowbad{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.notice{padding:11px 13px;border-radius:10px;background:color-mix(in srgb,var(--warn) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--warn) 30%,var(--line));font-size:13.5px;margin:10px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:all .25s var(--ease);z-index:60}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid #fff6;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:8px}
+.skel{border-radius:12px;height:16px;margin:12px 0;background:linear-gradient(90deg,var(--surface2) 25%,color-mix(in srgb,var(--brand) 12%,var(--surface2)) 50%,var(--surface2) 75%);background-size:600px 100%;animation:shimmer 1.2s linear infinite}
+pre.trace{white-space:pre-wrap;background:var(--surface2);padding:12px;border-radius:10px;font-size:12.5px;max-height:360px;overflow:auto}
+ul.flow{list-style:none;padding:0;margin:8px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+ul.flow li{background:var(--surface2);padding:6px 11px;border-radius:8px;font-size:13px;animation:lit .4s var(--ease) both}
+ul.flow li+li::before{content:"→";margin-right:8px;color:var(--mut)}
+.foot{color:var(--mut);font-size:12px;margin-top:14px}
+.spark{display:flex;gap:5px;align-items:flex-end;height:48px;margin:10px 0}
+.spark i{flex:1;max-width:28px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--brand2),var(--brand));animation:fadeUp .5s var(--ease) both}
+.modal{position:fixed;inset:0;background:rgba(10,14,30,.55);display:none;place-items:center;z-index:70;padding:20px}
+.modal.on{display:grid;animation:fadeUp .2s}
+.modal .box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;max-width:440px;width:100%;box-shadow:var(--shadow)}
+.modal table td{text-align:left}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 14px}
+.kpi{background:var(--surface2);border-radius:12px;padding:12px 14px;animation:fadeUp .5s var(--ease) both}
+.kpi b{display:block;font-size:22px;letter-spacing:-.5px}.kpi span{font-size:12px;color:var(--mut)}
+td.best,th.best{color:var(--good);font-weight:800}
+.heat{border-collapse:separate;border-spacing:3px;font-size:12.5px}.heat th{background:none;text-align:center;padding:4px 6px}.heat td{padding:8px 6px;text-align:center;border-radius:8px;border:0;font-variant-numeric:tabular-nums;min-width:68px;animation:pop .35s var(--ease) both}.heat td.rowh{text-align:left;background:none;font-weight:600;min-width:170px}
+.legend{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mut);margin:8px 0}.legend i{display:inline-block;width:120px;height:10px;border-radius:99px;background:linear-gradient(90deg,hsl(0 70% 55%),hsl(45 85% 55%),hsl(140 55% 45%))}
+.md h2,.md h3,.md h4{margin:16px 0 6px}.md p{margin:6px 0}.md ul,.md ol{margin:6px 0 6px 20px}.md blockquote{border-left:3px solid var(--brand);margin:8px 0;padding:2px 12px;color:var(--mut)}.md table{margin:8px 0;display:table}.md td,.md th{text-align:left;vertical-align:top}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}.chips .chip{background:var(--surface2)}
+details.pf{border:1px solid var(--line);border-radius:10px;margin:8px 0;padding:8px 12px;background:var(--surface)}details.pf summary{cursor:pointer;font-weight:650}
+.skip{position:absolute;left:-999px;top:0;background:var(--brand);color:#fff;padding:8px 12px;border-radius:8px;z-index:100}.skip:focus{left:12px;top:8px}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+#scrollbar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));z-index:90}
+#totop{position:fixed;right:20px;bottom:20px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:40;font-size:18px}#totop.on{opacity:1;pointer-events:auto}#totop:hover{transform:translateY(-3px)}
+.accents{display:flex;gap:6px;align-items:center}.accents button{width:18px;height:18px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line);padding:0}.accents button.on{box-shadow:0 0 0 2px var(--ink)}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.15)}}
+.hero{position:relative;overflow:hidden;border-radius:14px}
+.hero::before,.hero::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(70px);opacity:.28;z-index:0;animation:drift 11s ease-in-out infinite alternate}
+.hero::before{left:-60px;top:-60px;background:var(--brand)}.hero::after{right:-60px;bottom:-80px;background:var(--brand2);animation-delay:-5s}
+.hero>*{position:relative;z-index:1}
+.how{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:stretch;margin:6px 0 22px}
+.stp{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:158px;font-size:12.5px;text-align:left;line-height:1.35;animation:lit .55s var(--ease) both;box-shadow:var(--shadow);transition:transform .2s var(--ease)}.stp:hover{transform:translateY(-4px)}
+.stp .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--brand);color:var(--brand-ink);font-weight:800;font-size:12px;margin-bottom:5px}.stp.cd .n{background:var(--good)}
+.stp b{display:block}.how .ar{align-self:center;color:var(--brand);font-weight:800;animation:fadeUp .6s both}
+.sess{display:grid;grid-template-columns:104px 1fr auto;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;margin:8px 0;align-items:center;background:var(--surface);animation:fadeUp .45s var(--ease) both;transition:transform .2s var(--ease),border-color .2s}.sess:hover{transform:translateX(4px);border-color:var(--brand)}
+.sess .d{font-weight:750}.sess .d small{display:block;font-weight:500;color:var(--mut);font-size:12px}
+@media(max-width:640px){.sess{grid-template-columns:1fr}}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:8px 0}
+.member{background:var(--surface2);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:center;animation:fadeUp .5s var(--ease) both;transition:transform .2s var(--ease)}.member:hover{transform:translateY(-4px)}
+.member i{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:#fff;font-weight:800;font-style:normal}
+.member b{display:block}.member span{font-size:12.5px;color:var(--mut)}
+.timeline{position:relative;margin:10px 0 6px 10px;padding-left:22px;border-left:2px solid var(--line)}
+.tl{position:relative;margin:0 0 16px;animation:fadeUp .5s var(--ease) both}.tl::before{content:"";position:absolute;left:-30px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--brand)}.tl.now::before{background:var(--brand);animation:glow 2s infinite}
+.tl b{display:block}.tl span{font-size:13px;color:var(--mut)}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.tech div{background:var(--surface2);border-radius:12px;padding:12px 14px;animation:fadeUp .5s var(--ease) both;transition:transform .2s var(--ease)}.tech div:hover{transform:translateY(-3px)}
+.tech b{display:block;margin-bottom:2px}.tech span{font-size:12.5px;color:var(--mut)}
+.radar-wrap{display:grid;grid-template-columns:minmax(300px,430px) 1fr;gap:20px;align-items:center}@media(max-width:800px){.radar-wrap{grid-template-columns:1fr}}
+@keyframes grow{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.rpoly{transform-origin:200px 200px;animation:grow .9s var(--ease) both}
+svg text{fill:var(--mut);font:11.5px -apple-system,Segoe UI,sans-serif}
+.pt{transform-box:fill-box;transform-origin:center;animation:pop .7s var(--ease) both}
+.vchip{display:inline-flex;align-items:center;gap:6px}.vchip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.st-ok{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}.st-part{background:color-mix(in srgb,#d97706 16%,transparent);color:#d97706}.st-no{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}.st-inc{background:var(--surface2);color:var(--mut)}
+#printarea{display:none}
+@media print{body.pp .topbar,body.pp main,body.pp .toast,body.pp #totop,body.pp #scrollbar{display:none!important}body.pp #printarea{display:block;color:#000;background:#fff;font:12pt/1.5 Georgia,serif;padding:0}body.pp #printarea h1{font-size:18pt}body.pp #printarea li{margin:8px 0}body.pp{background:#fff}}
+canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:80}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media print{.topbar,.side,.tabs,.toolbar,.go,.toast,nav,.star,.linkbtn{display:none!important}.grid{display:block}.card{box-shadow:none;border:0}.page{display:none}#page-gen{display:block}}
+</style>
+</head>
+<body>
+<a class="skip" href="#out">Skip to results</a><div id="scrollbar"></div><button id="totop" aria-label="Back to top" title="Back to top">↑</button><div id="printarea"></div>
+<canvas id="fx"></canvas>
+<header class="topbar"><div class="in">
+  <div class="brand"><div class="logo">SS</div><div>SmartStudy<small>AI-Powered Lecture Notes to Study Pack Generator</small></div></div>
+  <nav>
+    <button data-page="gen" class="on">Generate</button>
+    <button data-page="res">Evaluation</button>
+    <button data-page="about">About</button>
+  </nav>
+  <div class="spacer"></div>
+  <span class="badge" id="mode">checking…</span>
+  <div class="accents" id="accents" title="Accent colour" aria-label="Accent colour"></div>
+  <button class="icon-btn" id="help" title="Keyboard shortcuts" aria-label="Keyboard shortcuts">?</button>
+  <button class="icon-btn" id="theme" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
+</div></header>
+
+<main>
+<section class="page on" id="page-gen"><div class="grid">
+  <aside class="card side">
+    <h2>Your lecture notes</h2>
+    <p class="sub">Paste notes or load a sample. No personal data please.</p>
+    <select id="sample" aria-label="Sample notes"><option value="">Load sample notes…</option></select>
+    <textarea id="notes" placeholder="Paste lecture notes here…" spellcheck="false"></textarea>
+    <div class="meta"><span id="wc">0 words</span><button class="linkbtn" id="clear">Clear</button></div>
+    <label class="l">Prompt workflow</label>
+    <div class="pills" id="vers"></div>
+    <div class="pillnote" id="vnote"></div>
+    <div class="row2">
+      <div><label class="l">Subject (optional)</label><input id="subj" type="text" maxlength="80" placeholder="e.g. Computer Networks" style="width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--surface)"></div>
+      <div><label class="l">Difficulty</label><select id="diff"><option value="">Not specified</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
+    </div>
+    <div class="row2">
+      <div><label class="l">Questions</label><input id="nq" type="number" min="1" max="15" value="5"></div>
+      <div><label class="l">Summary max words</label><input id="mw" type="number" min="30" max="300" value="100"></div>
+    </div>
+    <button class="go" id="go">Generate study pack</button>
+    <div class="foot"><span class="kbd">Ctrl/⌘</span> <span class="kbd">Enter</span> to generate · AI-generated draft: check it against your lecture before relying on it.</div>
+  </aside>
+  <section class="card" id="out"></section>
+</div></section>
+
+<section class="page" id="page-res">
+  <div class="card">
+    <div class="toolbar" style="justify-content:space-between;margin-bottom:4px"><div><h2 style="margin:0">Evaluation dashboard</h2>
+    <p class="sub" style="margin:0">9 lecture notes (6 short, 3 long), one rubric, one run per version. Everything is loaded live from <code>test-data/results/</code>, <code>test-data/</code>, <code>prompts/</code> and <code>docs/</code>.</p></div>
+    <div class="toolbar" style="margin:0"><button class="btn" id="csv">Download CSV</button></div></div>
+    <div class="tabs" id="dtabs"></div>
+    <div id="resbody"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+  </div>
+</section>
+
+<section class="page" id="page-about"><div class="card">
+  <h2 style="font-size:22px">SmartStudy: AI-Powered Lecture Notes to Study Pack Generator</h2>
+  <p class="sub">A prompt-engineering project that converts university lecture notes into concise summaries, key terms with definitions, practice questions and answer keys using structured prompts and source-grounding instructions.<br>Bennett University · B.Tech 5th Semester · Prompt Engineering Mini-Project 2026 · Problem Pool <b>C2</b> “Lecture notes to study pack”</p>
+  <h3>Team IntelliCore · Team ID PE-B37-17 · Batch B37–48 · Faculty: Pawan Kumar</h3>
+  <div class="team">
+    <div class="member" style="animation-delay:.05s"><i>DJ</i><div><b>Darsh Jasoria</b><span>S24CSEU0844 · Team Leader</span></div></div>
+    <div class="member" style="animation-delay:.12s"><i>MS</i><div><b>Mahak Soni</b><span>S24CSEU2741 · Member</span></div></div>
+    <div class="member" style="animation-delay:.19s"><i>PS</i><div><b>Pradanya Sharma</b><span>S24CSEU1697 · Member</span></div></div>
+    <div class="member" style="animation-delay:.26s"><i>AS</i><div><b>Arnav Singh</b><span>S24CSEU1770 · Member</span></div></div>
+  </div>
+  <h3>Project timeline</h3>
+  <div class="timeline">
+    <div class="tl" style="animation-delay:.05s"><b>Milestone 1 · Problem identification and prompt proposal</b><span>8 marks · October 2026 (check the LMS for the exact date)</span></div>
+    <div class="tl now" style="animation-delay:.15s"><b>Milestone 2 · Prompt design, experimentation, implementation and demonstration</b><span>12 marks · due 22 November 2026 · this submission: workflows v0 to v5, live Gemini evaluation on 9 notes, a 12-input test table, web app and dashboard</span></div>
+    <div class="tl" style="animation-delay:.25s"><b>Milestone 3 · Final solution, evaluation, documentation and presentation</b><span>10 marks · due 1 December 2026 · human scoring, repeats, tool comparison, final report, LinkedIn post, video</span></div>
+  </div>
+  <h3>The task</h3>
+  <p>Input: lecture notes or slide text, with an optional subject and difficulty level. Output: a word-limited summary, key terms with definitions, and practice questions (MCQ, short answer, true/false) with an answer key, where every term and answer carries a quote from the notes. Missing information is reported with a warning, not invented.</p>
+  <h3>Prompt-engineering techniques used</h3>
+  <div class="tech">
+    <div style="animation-delay:.03s"><b>Role + constraints</b><span>Teaching-assistant role, “use only the notes”, word limit</span></div>
+    <div style="animation-delay:.08s"><b>Structured output</b><span>Strict JSON schema, validated in code</span></div>
+    <div style="animation-delay:.13s"><b>Few-shot with a negative case</b><span>Worked example; distractors are not terms</span></div>
+    <div style="animation-delay:.18s"><b>Prompt chaining</b><span>Outline → generate → moderate → length guard</span></div>
+    <div style="animation-delay:.23s"><b>Source grounding</b><span>Verbatim quote per item, checked by code</span></div>
+    <div style="animation-delay:.28s"><b>Over-generate and filter</b><span>N+2 questions, keep the first N valid</span></div>
+    <div style="animation-delay:.33s"><b>Escape hatch</b><span>Fewer questions plus a warning instead of inventing</span></div>
+    <div style="animation-delay:.38s"><b>Rubric-based A/B evaluation</b><span>Six versions, one gold-labelled test set</span></div>
+  </div>
+  <h3>Workflow versions</h3>
+  <ul id="vlist"></ul>
+  <h3>v5 pipeline</h3>
+  <ul class="flow"><li>Outline topics (LLM)</li><li>Generate N+2 with quotes (LLM)</li><li>Quote must exist in notes (code)</li><li>Moderator answers from notes only (LLM)</li><li>Keep first N (code)</li><li>Word-limit check + one retry (code + LLM)</li></ul>
+  <h3>Research basis</h3>
+  <p>Dunlosky et al. (2013) identified practice testing and distributed practice as highly useful learning techniques; the Questions, Quiz and Plan tabs follow that idea. This project evaluates the quality of generated study packs; it makes no claim about learning gains.</p>
+  <h3>Responsible use</h3>
+  <p>Output is a revision aid, not a source of truth. Items whose quote cannot be found are flagged, questions that fail review are dropped, and fewer questions are returned (with a warning) rather than padding with unverified ones. Do not paste personal data; nothing is stored.</p>
+  <h3>Built with</h3>
+  <div class="chips"><span class="chip">Python 3 (standard library only)</span><span class="chip">HTML · CSS · JavaScript</span><span class="chip">Gemini 3.1 Flash-Lite (live runs)</span><span class="chip">Gemini, Anthropic or Ollama (switchable)</span><span class="chip">22 unit tests</span></div>
+  <div class="notice">Honest limits: the v1–v5 results come from a single run on nine computer-science notes (six short, three long), answered live by Gemini 3.1 Flash-Lite through the Gemini API. The earlier simulated replay results (Claude Haiku via helper agents) are kept separately and labelled as simulated. A matching quote proves the quote exists, not that the answer is correct.</div>
+</div></section>
+</main>
+
+<div class="modal" id="modal"><div class="box"><h2>Keyboard shortcuts</h2><table>
+<tr><td><span class="kbd">Ctrl/⌘</span> <span class="kbd">Enter</span></td><td>Generate study pack</td></tr>
+<tr><td><span class="kbd">1</span>–<span class="kbd">4</span> or <span class="kbd">A</span>–<span class="kbd">D</span></td><td>Pick a quiz option</td></tr>
+<tr><td><span class="kbd">Enter</span> / <span class="kbd">→</span></td><td>Next question or card; show answer</td></tr>
+<tr><td><span class="kbd">←</span> / <span class="kbd">→</span></td><td>Previous / next flashcard</td></tr>
+<tr><td><span class="kbd">Space</span></td><td>Flip flashcard</td></tr>
+<tr><td><span class="kbd">K</span> / <span class="kbd">R</span></td><td>Flashcard: I know it / review again</td></tr>
+<tr><td><span class="kbd">?</span></td><td>This help</td></tr></table><p class="sub" style="margin-top:10px">Click anywhere to close.</p></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const VERS={
+  v0:['v0 · Rules','Offline, no AI: extractive sentences and cloze questions. The non-LLM baseline.'],
+  v1:['v1 · Zero-shot','One-line instruction. No limits, no source quotes.'],
+  v2:['v2 · Structured','Role, “use only the notes”, schema, question mix, source quote per item.'],
+  v3:['v3 · Few-shot','v2 plus a worked example with a negative case.'],
+  v4:['v4 · Chain','Outline → generate extra → quote guard → moderator.'],
+  v5:['v5 · Chain + length guard','v4 plus a word-count check and one shorten retry. Recommended.']};
+const st={ver:'v5',res:null,tab:'overview',quiz:null,cards:{i:0,known:{}},notes:'',status:null,fav:new Set(),onlyFav:false,cardMode:false};
+const store={get(k,d){try{return localStorage.getItem(k)??d}catch{return d}},set(k,v){try{localStorage.setItem(k,v)}catch{}}};
+
+/* ---------- chrome ---------- */
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1800)}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id==='page-'+b.dataset.page));
+  if(b.dataset.page==='res')loadResults();});
+function applyTheme(t){if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t)}
+applyTheme(store.get('ic-theme','auto'));
+$('theme').onclick=()=>{const cur=document.documentElement.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');const n=cur==='dark'?'light':'dark';store.set('ic-theme',n);applyTheme(n)};
+$('help').onclick=()=>$('modal').classList.add('on');$('modal').onclick=()=>$('modal').classList.remove('on');
+
+/* ---------- inputs ---------- */
+function renderVers(){
+  $('vers').innerHTML=Object.keys(VERS).reverse().map(v=>`<button class="pill ${v===st.ver?'on':''}" data-v="${v}">${VERS[v][0].split(' · ')[0]}</button>`).join('');
+  $('vers').querySelectorAll('button').forEach(b=>b.onclick=()=>{st.ver=b.dataset.v;renderVers()});
+  $('vnote').textContent=VERS[st.ver][0]+' — '+VERS[st.ver][1];}
+$('notes').addEventListener('input',()=>{$('wc').textContent=($('notes').value.trim()?$('notes').value.trim().split(/\s+/).length:0)+' words'});
+$('clear').onclick=()=>{$('notes').value='';$('notes').dispatchEvent(new Event('input'))};
+$('sample').onchange=e=>{const o=e.target.selectedOptions[0];if(o&&o.dataset.t){$('notes').value=o.dataset.t;$('notes').dispatchEvent(new Event('input'))}};
+$('vlist').innerHTML=Object.keys(VERS).map(v=>`<li><b>${esc(VERS[v][0])}</b>: ${esc(VERS[v][1])}</li>`).join('');
+
+/* ---------- API ---------- */
+async function generate(version){
+  const r=await fetch('/api/generate',{method:'POST',body:JSON.stringify({notes:$('notes').value,version,n_questions:+$('nq').value,max_words:+$('mw').value,subject:$('subj').value,difficulty:$('diff').value})});
+  const d=await r.json(); if(d.error)throw new Error(d.error); return d;}
+function summarize(d){
+  const mw=+$('mw').value, words=d.summary.split(/\s+/).filter(Boolean).length;
+  const items=[...d.key_terms,...d.questions]; const chk=items.filter(x=>x.grounded!==null&&x.grounded!==undefined);
+  const ok=chk.filter(x=>x.grounded).length;
+  const nwords=st.notes.trim()?st.notes.trim().split(/\s+/).length:0;
+  return {words,mw,withinLimit:words<=mw,terms:d.key_terms.length,qs:d.questions.length,groundedPct:chk.length?Math.round(100*ok/chk.length):null,
+    types:[...new Set(d.questions.map(q=>q.type))],warn:d.warnings.length+d.errors.length,nwords,compress:nwords?Math.round(100*(1-words/nwords)):null}}
+async function run(){
+  const b=$('go'); st.notes=$('notes').value; b.disabled=true; b.innerHTML='<span class="spin"></span>Running workflow…';
+  $('out').innerHTML='<div class="skel" style="width:40%;height:22px"></div><div class="skel"></div><div class="skel" style="width:90%"></div><div class="skel" style="width:75%"></div><div class="skel" style="width:85%;margin-top:26px"></div><div class="skel" style="width:60%"></div>';
+  try{st.res=await generate(st.ver);st.quiz=null;st.cards={i:0,known:{}};st.tab='overview';st.cmp=null;st.fav=new Set();render()}
+  catch(e){$('out').innerHTML=`<div class="notice"><b>Could not generate.</b> ${esc(e.message)}</div>`}
+  finally{b.disabled=false;b.textContent='Generate study pack'}}
+$('go').onclick=run;
+
+/* ---------- rendering ---------- */
+const TABS=[['overview','Overview'],['summary','Summary'],['terms','Key terms'],['questions','Questions'],['quiz','Quiz'],['plan','Plan'],['notes','Notes'],['compare','Compare'],['trace','Trace']];
+function hero(){
+  const step=(n,t,desc,code,i)=>`<div class="stp ${code?'cd':''}" style="animation-delay:${i*130}ms"><span class="n">${n}</span><b>${t}</b>${desc}</div>`;
+  const steps=[['Outline','Topics of your notes',false],['Generate','Summary, terms, N+2 questions, each with a quote',false],['Quote guard','Drop items whose quote is not in the notes',true],['Moderator','A second model answers from the notes only',false],['Keep first N','Never pad; warn if fewer pass',true],['Length guard','Count words; one shorten retry',true]];
+  return `<div class="hero"><div class="big">🎓</div><h2>Turn lecture notes into a study pack you can trust</h2>
+<p class="sub">Every term and answer comes with a quote from <i>your</i> notes, checked by code.</p>
+<div class="feat"><div style="animation-delay:.05s"><b>📝 Summary</b><span>Within your word limit</span></div><div style="animation-delay:.12s"><b>🔑 Key terms</b><span>Searchable, with flashcards</span></div><div style="animation-delay:.19s"><b>❓ Questions</b><span>MCQ, short, true/false, printable</span></div><div style="animation-delay:.26s"><b>🎯 Quiz mode</b><span>Timer, streaks, history</span></div><div style="animation-delay:.33s"><b>🗓 Review plan</b><span>Spaced sessions, calendar export</span></div><div style="animation-delay:.4s"><b>⚖️ Compare</b><span>Any two prompt versions</span></div></div>
+<h3 style="text-align:center">How it works (workflow v5)</h3>
+<div class="how">${steps.map((x,i)=>(i?'<span class="ar" style="animation-delay:'+(i*130)+'ms">›</span>':'')+step(i+1,x[0],x[1],x[2],i)).join('')}</div>
+<p class="sub" style="margin:0 0 12px">Purple numbers are model calls, green numbers are code checks.</p>
+<button class="btn primary" id="try" style="padding:11px 20px;font-size:14px">Try the TCP sample with v5</button></div>`}
+function render(){
+  const d=st.res; if(!d){$('out').innerHTML=hero();$('try').onclick=()=>{const s=$('sample');const i=[...s.options].findIndex(o=>o.value.includes('tcp'));s.selectedIndex=i>0?i:1;s.dispatchEvent(new Event('change'));st.ver='v5';renderVers();run()};return}
+  const s=summarize(d);
+  let h=`<div class="toolbar" style="justify-content:space-between"><div><h2 style="margin:0">Study pack</h2><span class="sub" style="margin:0">${esc(VERS[d.version][0])}</span></div><div class="toolbar" style="margin:0">
+    <button class="btn" data-act="copy">Copy Markdown</button><button class="btn" data-act="md">Download .md</button><button class="btn" data-act="json">JSON</button><button class="btn" data-act="print">Print / PDF</button></div></div>`;
+  h+=`<div class="tabs">${TABS.map(([k,l])=>`<button data-tab="${k}" class="${st.tab===k?'on':''}">${l}${k==='terms'?`<span class="ct">${s.terms}</span>`:k==='questions'||k==='quiz'?`<span class="ct">${s.qs}</span>`:''}</button>`).join('')}</div>`;
+  h+=`<div class="pane" id="pane">${pane(d,s)}</div>`;
+  $('out').innerHTML=h;
+  $('out').querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{st.tab=b.dataset.tab;render()});
+  $('out').querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>act(b.dataset.act));
+  bind(d);countUp();timerTick();}
+function pane(d,s){switch(st.tab){
+  case'overview':return overview(d,s);case'summary':return `<p style="font-size:16px;line-height:1.7">${esc(d.summary)||'(none)'}</p><span class="chip ${s.withinLimit?'good':'warn'}">${s.words} / ${s.mw} words</span>${s.compress!==null?` <span class="chip">${s.compress}% shorter than your notes</span>`:''}`;
+  case'terms':return terms(d);case'questions':return questions(d);case'quiz':return quiz(d);case'plan':return plan(d,s);case'notes':return notesView(d);case'compare':return compareView();case'trace':return trace(d);}}
+function overview(d,s){
+  const stat=(v,l,c='',i=0,suffix='')=>`<div class="stat ${c}" style="animation-delay:${i*60}ms"><b ${typeof v==='number'?`data-count="${v}" data-suffix="${suffix}"`:''}>${typeof v==='number'?0:v}${typeof v==='number'?suffix:''}</b><span>${l}</span></div>`;
+  let h=`<div class="stats">${stat(s.words,'summary words (limit '+s.mw+')',s.withinLimit?'ok':'no',0)}${stat(s.terms,'key terms','',1)}${stat(s.qs,'questions','',2)}${stat(s.groundedPct===null?'n/a':s.groundedPct,'items with a verified source quote',s.groundedPct===100?'ok':s.groundedPct===null?'':'no',3,'%')}${stat(s.types.length,'question types: '+(s.types.join(', ')||'none'),'',4)}${stat(s.compress===null?'n/a':s.compress,'shorter than your notes ('+s.nwords+' words)','',5,'%')}${stat(s.warn,'warnings',s.warn?'no':'ok',6)}</div>`;
+  h+=`<h3>Summary</h3><p>${esc(d.summary)}</p>`;
+  if(d.warnings.length||d.errors.length)h+=`<div class="notice">${[...d.warnings,...d.errors].map(esc).join('<br>')}</div>`;
+  h+=`<h3>How it was made</h3><ul class="flow">${(d.trace.stages||[]).map((x,i)=>`<li style="animation-delay:${i*140}ms">${esc(x)}</li>`).join('')}</ul>`;
+  const dr=d.trace.dropped||[]; if(dr.length)h+=`<p class="sub">${dr.length} candidate(s) were dropped by the checks (see Trace).</p>`;
+  return h;}
+function countUp(){document.querySelectorAll('[data-count]').forEach(el=>{const to=+el.dataset.count,suf=el.dataset.suffix||'';if(reduce||to===0){el.textContent=to+suf;return}
+  const t0=performance.now(),dur=700;const f=t=>{const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(to*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}
+function terms(d){
+  if(!d.key_terms.length)return '<p class="sub">No key terms.</p>';
+  return `<div class="toolbar"><input type="search" id="tq" placeholder="Search terms…"><button class="btn" id="tf">${st.cardMode?'List view':'Flashcards'}</button></div><div id="tbody">${st.cardMode?cards(d):termList(d,'')}</div>`;}
+function termList(d,q){return d.key_terms.filter(t=>(t.term+t.definition).toLowerCase().includes(q.toLowerCase())).map((t,i)=>`<div class="term" style="animation-delay:${i*40}ms"><b>${esc(t.term)}</b><div>${esc(t.definition)}${t.evidence?`<div class="sub" style="margin:4px 0 0;font-style:italic">“${esc(t.evidence)}”</div>`:''}</div>${chip(t.grounded)}</div>`).join('')||'<p class="sub">No match.</p>';}
+function chip(g){return g===true?'<span class="chip good">✓ source verified</span>':g===false?'<span class="chip warn">⚠ quote not found</span>':'<span class="chip">no source</span>'}
+function cards(d){const c=st.cards,t=d.key_terms[c.i],n=d.key_terms.length,kn=Object.values(c.known).filter(Boolean).length;
+  return `<div class="qhead"><span>Card ${c.i+1} of ${n}</span><span>✓ ${kn} known · ↻ ${Object.keys(c.known).length-kn} to review</span></div><div class="prog"><i style="width:${100*(c.i+1)/n}%"></i></div>
+  <div class="flash" id="flash"><div class="inner"><div class="face"><div>${esc(t.term)}<small>click or press Space to flip</small></div></div><div class="face back"><div>${esc(t.definition)}</div></div></div></div>
+  <div class="toolbar" style="justify-content:center"><button class="btn" id="cp">← Prev</button><button class="btn" id="cr">↻ Review again</button><button class="btn primary" id="ck">✓ I know it</button><button class="btn" id="cn">Next →</button><button class="btn" id="cs">Shuffle</button></div>`;}
+function questions(d){
+  if(!d.questions.length)return '<p class="sub">No questions.</p>';
+  const qt=st.qtype||'all';
+  const list=d.questions.map((q,i)=>[q,i]).filter(([q,i])=>(!st.onlyFav||st.fav.has(i))&&(qt==='all'||q.type===qt));
+  const types=[['all','All'],['mcq','MCQ'],['short','Short'],['true_false','True / false']];
+  return `<div class="toolbar">${types.map(([k,l])=>`<button class="btn ${qt===k?'on':''}" data-qt="${k}">${l}</button>`).join('')}<button class="btn ${st.onlyFav?'on':''}" id="fv">★ Starred (${st.fav.size})</button><button class="btn" id="ra">Show / hide answers</button><button class="btn" id="pe">Print exam sheet</button><button class="btn" id="pk">Print answer key</button></div>`+(list.map(([q,i],k)=>`<div class="q" style="animation-delay:${k*60}ms"><div class="top"><span class="tag ${esc(q.type)}">${esc(q.type.replace('_',' / '))}</span>${chip(q.grounded)}<button class="star ${st.fav.has(i)?'on':''}" data-star="${i}" title="Star this question" aria-label="Star question">${st.fav.has(i)?'★':'☆'}</button></div>
+    <div class="qt">${i+1}. ${esc(q.question)}</div>${q.options?`<ol class="opts">${q.options.map(o=>`<li>${esc(o)}</li>`).join('')}</ol>`:''}
+    <button class="linkbtn" data-reveal="${i}">Show answer</button><div id="a${i}" hidden class="ans"><b>${esc(q.answer)}</b><div class="quote">“${esc(q.evidence)}”</div><button class="linkbtn" data-src="${i}">Highlight in my notes</button><div id="s${i}"></div></div></div>`).join('')||'<p class="sub">No questions match this filter.</p>');}
+function printSheet(kind){const d=st.res,subj=$('subj').value.trim();
+  const qs=d.questions.map((q,i)=>`<li><b>${esc(q.question)}</b>${q.options?`<ol type="A">${q.options.map(o=>`<li>${esc(o)}</li>`).join('')}</ol>`:''}${kind==='exam'?(q.type==='short'?'<div style="border-bottom:1px solid #000;height:34px"></div><div style="border-bottom:1px solid #000;height:34px"></div>':''):`<div><i>Answer:</i> ${esc(q.answer)}<br><small>Source: “${esc(q.evidence)}”</small></div>`}</li>`).join('');
+  $('printarea').innerHTML=`<h1>${kind==='exam'?'Practice test':'Answer key'}${subj?' · '+esc(subj):''}</h1><p>${kind==='exam'?'Name: ____________________ &nbsp; Date: ____________':'Check each answer against the lecture notes.'}</p><ol>${qs}</ol><p><small>Generated by SmartStudy (Team IntelliCore). AI-generated draft: verify against the lecture.</small></p>`;
+  document.body.classList.add('pp');setTimeout(()=>{window.print();setTimeout(()=>document.body.classList.remove('pp'),400)},50)}
+function norm(s){return String(s||'').toLowerCase().replace(/[’‘]/g,"'").replace(/[“”]/g,'"')}
+function highlight(notes,quote){const n=norm(notes),q=norm(quote).trim();const i=q?n.indexOf(q):-1;
+  if(i<0)return `<div class="sub">The quote spans a line break or formatting, so it can't be highlighted verbatim (it was still verified after normalising).</div>`;
+  return `<div class="src">${esc(notes.slice(0,i))}<mark>${esc(notes.slice(i,i+q.length))}</mark>${esc(notes.slice(i+q.length))}</div>`;}
+function notesView(d){
+  const ts=d.key_terms.map(t=>t.term.replace(/\s*\(.*?\)\s*/g,'').trim()).filter(t=>t.length>2).sort((a,b)=>b.length-a.length);
+  if(!ts.length)return `<div class="src">${esc(st.notes)}</div>`;
+  const re=new RegExp('('+ts.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','gi');
+  const defs={};d.key_terms.forEach(t=>defs[t.term.replace(/\s*\(.*?\)\s*/g,'').trim().toLowerCase()]=t.definition);
+  const html=st.notes.split(re).map((p,i)=>i%2?`<mark class="term" title="${esc(defs[p.toLowerCase()]||'')}">${esc(p)}</mark>`:esc(p)).join('');
+  return `<p class="sub">Your notes with the generated key terms highlighted. Hover a term to see its definition.</p><div class="src" style="max-height:none">${html}</div>`;}
+/* ---- quiz ---- */
+function quiz(d){
+  if(!d.questions.length)return '<p class="sub">No questions to quiz.</p>';
+  const z=st.quiz||(st.quiz={i:0,score:0,streak:0,best:0,done:false,picked:null,log:[],t0:Date.now(),t1:null});
+  if(z.done){const pct=Math.round(100*z.score/d.questions.length),secs=Math.round((z.t1-z.t0)/1000);
+    const hist=JSON.parse(store.get('ic-quiz-hist','[]'));
+    return `<div style="text-align:center;padding:14px 0"><div class="score">${z.score} / ${d.questions.length}</div><p>${pct>=80?'Great recall — you know this material.':pct>=50?'Good start. Review the missed ones below.':'Re-read the notes, then try again.'}</p>
+      <div class="toolbar" style="justify-content:center"><span class="chip">⏱ ${secs}s</span><span class="chip">🔥 best streak ${z.best}</span><span class="chip">${esc(VERS[d.version][0])}</span></div>
+      ${hist.length>1?`<h3>Your last ${hist.length} attempts</h3><div class="spark">${hist.map((h,i)=>`<i title="${h.score}/${h.n}" style="height:${Math.max(8,100*h.score/h.n)}%;animation-delay:${i*60}ms"></i>`).join('')}</div>`:''}
+      <button class="btn primary" id="qr">Retake quiz</button></div>
+    ${z.log.map(l=>`<div class="q"><span class="chip ${l.ok?'good':'warn'}">${l.ok?'Correct':'Missed'}</span> <b>${esc(l.q)}</b><div class="ans">${esc(l.a)}</div></div>`).join('')}`;}
+  const q=d.questions[z.i];let body='';
+  if(q.type==='mcq'&&q.options){const ci=correctIdx(q);
+    body=q.options.map((o,j)=>`<button class="opt ${z.picked!==null?(j===ci?'right':j===z.picked?'wrong':''):''}" style="animation-delay:${j*60}ms" data-pick="${j}" ${z.picked!==null?'disabled':''}>${'ABCD'[j]||j+1}. ${esc(o)}</button>`).join('');}
+  else if(q.type==='true_false'){const t=/^\s*true/i.test(q.answer);
+    body=['True','False'].map((o,j)=>`<button class="opt ${z.picked!==null?((j===0)===t?'right':j===z.picked?'wrong':''):''}" data-pick="${j}" ${z.picked!==null?'disabled':''}>${j+1}. ${o}</button>`).join('');}
+  else body=z.picked===null?`<button class="btn primary" id="qshow">Show answer</button>`:`<div class="ans"><b>${esc(q.answer)}</b></div><div class="toolbar" style="margin-top:10px"><button class="btn" data-self="1">I knew it</button><button class="btn" data-self="0">I missed it</button></div>`;
+  const reveal=z.picked!==null&&q.type!=='short'?`<div class="ans"><b>${esc(q.answer)}</b><div class="quote">“${esc(q.evidence)}”</div></div><button class="btn primary" id="qnext" style="margin-top:10px">${z.i+1<d.questions.length?'Next question →':'See score'}</button>`:'';
+  return `<div class="qhead"><span>Question ${z.i+1} of ${d.questions.length} · ${esc(q.type.replace('_',' / '))}</span><span>🔥 ${z.streak} · ⏱ <span id="qtimer">0s</span></span></div><div class="prog"><i style="width:${100*z.i/d.questions.length}%"></i></div><h2 style="margin:6px 0 10px;font-size:19px">${esc(q.question)}</h2>${body}${reveal}`;}
+function correctIdx(q){const a=norm(q.answer).trim();let i=q.options.findIndex(o=>norm(o).trim()===a);if(i<0)i=q.options.findIndex(o=>a&&(norm(o).includes(a)||a.includes(norm(o).trim())));if(i<0){const m=/^\s*([a-d])[\).:\s]/i.exec(q.answer);if(m)i='abcd'.indexOf(m[1].toLowerCase())}return i}
+function timerTick(){clearInterval(timerTick.h);timerTick.h=setInterval(()=>{const e=$('qtimer');if(e&&st.quiz&&!st.quiz.done)e.textContent=Math.round((Date.now()-st.quiz.t0)/1000)+'s'},500)}
+function dstr(dt){return dt.toISOString?`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`:dt}
+function addDays(dt,n){const x=new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()+n);return x}
+function buildPlan(d){
+  const today=new Date();today.setHours(0,0,0,0);
+  const exam=st.exam?new Date(st.exam+'T00:00:00'):null;
+  const sw=d.summary.split(/\s+/).filter(Boolean).length,nt=d.key_terms.length,nq=d.questions.length;
+  const mins=(i)=>i===0?Math.max(10,Math.ceil(sw/150*2+nt*.5)):Math.max(10,Math.round((nq*1.5+nt*.3)/5)*5||10);
+  const acts=['First pass: read the summary and the key terms','Flashcards, then answer the questions from memory','Take the quiz; re-study what you missed','Quiz again, starting with starred questions','Mixed recall: write the summary from memory, then quiz','Spaced check: quiz and flashcards'];
+  let offs=[0,1,3,7,14,30];let last=null;
+  if(exam&&exam>today){const span=Math.round((exam-today)/864e5);offs=offs.filter(o=>o<span-1);if(span>=1&&!offs.includes(span-1))offs.push(span-1);last=span-1}
+  offs=[...new Set(offs)].sort((a,b)=>a-b);
+  return offs.map((o,i)=>({date:addDays(today,o),off:o,act:(last!==null&&o===last&&offs.length>1)?'Final review the day before the exam: quiz and flashcards':acts[Math.min(i,acts.length-1)],min:mins(i)}))}
+function plan(d,s){
+  const rows=buildPlan(d),total=rows.reduce((a,r)=>a+r.min,0);
+  const fmt=dt=>dt.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
+  return `<p class="sub">Spaced review sessions for this study pack. Distributed practice and practice testing are rated highly useful by Dunlosky et al. (2013); this is a simple fixed schedule, not personalised and not tested for effectiveness.</p>
+  <div class="toolbar"><label class="sub" style="margin:0">Exam date (optional)</label><input type="date" id="examdate" value="${esc(st.exam||'')}" style="width:auto"><button class="btn primary" id="ics">Add to calendar (.ics)</button><span class="chip">${rows.length} sessions · about ${total} min in total</span></div>
+  ${rows.map((r,i)=>`<div class="sess" style="animation-delay:${i*90}ms"><div class="d">${r.off===0?'Today':fmt(r.date)}<small>${r.off===0?fmt(r.date):'in '+r.off+' day'+(r.off===1?'':'s')}</small></div><div>${esc(r.act)}</div><span class="chip">${r.min} min</span></div>`).join('')}
+  ${st.exam&&new Date(st.exam+'T00:00:00')<=new Date(new Date().setHours(0,0,0,0))?'<div class="notice">The exam date is today or in the past, so the default spacing is shown.</div>':''}`}
+function exportIcs(d){
+  const rows=buildPlan(d),subj=$('subj').value.trim()||'study pack',now=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  const ev=rows.map((r,i)=>{const a=dstr(r.date).replace(/-/g,''),b=dstr(addDays(r.date,1)).replace(/-/g,'');return `BEGIN:VEVENT\r\nUID:smartstudy-${Date.now()}-${i}@localhost\r\nDTSTAMP:${now}Z\r\nDTSTART;VALUE=DATE:${a}\r\nDTEND;VALUE=DATE:${b}\r\nSUMMARY:SmartStudy review ${i+1}: ${subj.replace(/[,;\n]/g,' ')}\r\nDESCRIPTION:${r.act.replace(/[,;\n]/g,' ')} (about ${r.min} min)\r\nEND:VEVENT`}).join('\r\n');
+  dl('smartstudy-review-plan.ics','BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//SmartStudy//Team IntelliCore//EN\r\n'+ev+'\r\nEND:VCALENDAR\r\n','text/calendar')}
+function trace(d){return `<h3>Stages</h3><ul class="flow">${(d.trace.stages||[]).map((x,i)=>`<li style="animation-delay:${i*120}ms">${esc(x)}</li>`).join('')}</ul><h3>Dropped by checks</h3>${(d.trace.dropped||[]).length?`<pre class="trace">${esc(JSON.stringify(d.trace.dropped,null,1))}</pre>`:'<p class="sub">Nothing was dropped on this run.</p>'}${d.trace.summary_words_before?`<p class="sub">Summary length before the length guard: ${d.trace.summary_words_before} words.</p>`:''}<h3>Raw JSON</h3><pre class="trace">${esc(JSON.stringify({summary:d.summary,key_terms:d.key_terms,questions:d.questions,warnings:d.warnings,errors:d.errors},null,1))}</pre>`;}
+/* ---- compare ---- */
+function compareView(){
+  const opts=Object.keys(VERS).map(v=>`<option value="${v}" ${v===(st.cmpB||'v0')?'selected':''}>${esc(VERS[v][0])}</option>`).join('');
+  let h=`<div class="toolbar"><span class="sub" style="margin:0">Compare current (<b>${esc(st.res.version)}</b>) with</span><select id="cb" style="width:auto">${opts}</select><button class="btn primary" id="cgo">Compare</button></div>`;
+  if(!st.cmp)return h+'<p class="sub">Runs the second workflow on the same notes and shows the two packs side by side.</p>';
+  const cols=[st.res,st.cmp].map(d=>{const s=summarize(d);return `<div class="col"><h2>${esc(VERS[d.version][0])}</h2>
+   <div class="toolbar"><span class="chip ${s.withinLimit?'good':'warn'}">${s.words}/${s.mw} words</span><span class="chip">${s.terms} terms</span><span class="chip">${s.qs} questions</span><span class="chip ${s.groundedPct===100?'good':'warn'}">${s.groundedPct===null?'sources n/a':s.groundedPct+'% verified'}</span></div>
+   <p>${esc(d.summary)}</p><h3>Terms</h3><p>${d.key_terms.map(t=>esc(t.term)).join(' · ')||'—'}</p><h3>Questions</h3><ol>${d.questions.map(q=>`<li>${esc(q.question)} <span class="tag">${esc(q.type)}</span></li>`).join('')}</ol></div>`}).join('');
+  return h+`<div class="cmp">${cols}</div>`;}
+/* ---- bindings ---- */
+function bind(d){
+  const o=$('out');
+  o.querySelectorAll('[data-reveal]').forEach(b=>b.onclick=()=>{const a=$('a'+b.dataset.reveal);a.hidden=!a.hidden;b.textContent=a.hidden?'Show answer':'Hide answer'});
+  const ra=$('ra');if(ra)ra.onclick=()=>{const bs=[...o.querySelectorAll('[data-reveal]')];const open=bs.some(b=>!$('a'+b.dataset.reveal).hidden);bs.forEach(b=>{$('a'+b.dataset.reveal).hidden=open;b.textContent=open?'Show answer':'Hide answer'})};
+  o.querySelectorAll('[data-src]').forEach(b=>b.onclick=()=>{const i=+b.dataset.src;$('s'+i).innerHTML=highlight(st.notes,d.questions[i].evidence)});
+  o.querySelectorAll('[data-star]').forEach(b=>b.onclick=()=>{const i=+b.dataset.star;st.fav.has(i)?st.fav.delete(i):st.fav.add(i);render()});
+  const fv=$('fv');if(fv)fv.onclick=()=>{st.onlyFav=!st.onlyFav;render()};
+  o.querySelectorAll('[data-qt]').forEach(b=>b.onclick=()=>{st.qtype=b.dataset.qt;render()});
+  const pe=$('pe');if(pe)pe.onclick=()=>printSheet('exam');const pk=$('pk');if(pk)pk.onclick=()=>printSheet('key');
+  const pdt=$('examdate');if(pdt)pdt.onchange=()=>{st.exam=pdt.value;render()};
+  const ics=$('ics');if(ics)ics.onclick=()=>exportIcs(d);
+  const tq=$('tq');if(tq)tq.oninput=()=>$('tbody').innerHTML=termList(d,tq.value);
+  const tf=$('tf');if(tf)tf.onclick=()=>{st.cardMode=!st.cardMode;st.cards={i:0,known:{}};render()};
+  const fl=$('flash');if(fl){const n=d.key_terms.length,go=k=>{st.cards.i=(st.cards.i+k+n)%n;render()};
+    fl.onclick=flip;$('cp').onclick=()=>go(-1);$('cn').onclick=()=>go(1);
+    $('ck').onclick=()=>{st.cards.known[st.cards.i]=true;go(1)};$('cr').onclick=()=>{st.cards.known[st.cards.i]=false;go(1)};
+    $('cs').onclick=()=>{st.cards.i=Math.floor(Math.random()*n);render();toast('Shuffled')}}
+  const z=st.quiz;
+  o.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{const q=d.questions[z.i],j=+b.dataset.pick;z.picked=j;
+    const ok=q.type==='mcq'?j===correctIdx(q):((j===0)===/^\s*true/i.test(q.answer));mark(z,q,ok);render()});
+  const qs=$('qshow');if(qs)qs.onclick=()=>{z.picked=-1;render()};
+  o.querySelectorAll('[data-self]').forEach(b=>b.onclick=()=>{const q=d.questions[z.i];mark(z,q,b.dataset.self==='1');advance(d)});
+  const qn=$('qnext');if(qn)qn.onclick=()=>advance(d);
+  const qr=$('qr');if(qr)qr.onclick=()=>{st.quiz=null;render()};
+  const cg=$('cgo');if(cg)cg.onclick=async()=>{st.cmpB=$('cb').value;cg.disabled=true;cg.innerHTML='<span class="spin"></span>Running…';
+    try{st.cmp=await generate(st.cmpB);render()}catch(e){toast(e.message);cg.disabled=false;cg.textContent='Compare'}};
+}
+function flip(){const f=$('flash');if(f)f.classList.toggle('flipped')}
+function mark(z,q,ok){if(ok){z.score++;z.streak++;z.best=Math.max(z.best,z.streak)}else z.streak=0;z.log.push({q:q.question,a:q.answer,ok})}
+function advance(d){const z=st.quiz;z.picked=null;if(z.i+1>=d.questions.length){z.done=true;z.t1=Date.now();
+  const h=JSON.parse(store.get('ic-quiz-hist','[]'));h.push({score:z.score,n:d.questions.length,ver:d.version});store.set('ic-quiz-hist',JSON.stringify(h.slice(-8)));
+  if(z.score/d.questions.length>=.8)confetti()}else z.i++;render()}
+/* ---- export ---- */
+function act(a){const d=st.res;
+  if(a==='copy'){navigator.clipboard.writeText(d.markdown).then(()=>toast('Markdown copied'),()=>toast('Copy blocked by the browser'))}
+  else if(a==='md')dl('smartstudy-study-pack.md',d.markdown,'text/markdown');
+  else if(a==='json')dl('smartstudy-study-pack.json',JSON.stringify({summary:d.summary,key_terms:d.key_terms,questions:d.questions,warnings:d.warnings},null,2),'application/json');
+  else if(a==='print'){st.tab='overview';render();window.print()}}
+function dl(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Downloaded '+name)}
+/* ---- confetti ---- */
+function confetti(){if(reduce)return;const c=$('fx'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+  const cols=['#4f46e5','#7c3aed','#0f9d58','#f5b301','#ef4444','#06b6d4'];
+  const ps=Array.from({length:140},()=>({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*13-3,s:5+Math.random()*6,c:cols[Math.random()*cols.length|0],r:Math.random()*6,vr:(Math.random()-.5)*.4}));
+  let f=0;(function tick(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);x.restore()});
+    if(++f<110)requestAnimationFrame(tick);else x.clearRect(0,0,c.width,c.height)})()}
+/* ---- keyboard ---- */
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();if(!$('go').disabled)run();return}
+  const tag=(e.target.tagName||'').toLowerCase();if(['textarea','input','select'].includes(tag))return;
+  if(e.key==='?'){$('modal').classList.toggle('on');return}
+  if(e.key==='Escape'){$('modal').classList.remove('on');return}
+  if(!st.res)return;
+  if(st.tab==='quiz'&&st.quiz&&!st.quiz.done){
+    const opts=[...document.querySelectorAll('[data-pick]')];
+    const idx='1234'.indexOf(e.key)>=0&&e.key?'1234'.indexOf(e.key):'abcd'.indexOf((e.key||'').toLowerCase());
+    if(idx>=0&&opts[idx]&&!opts[idx].disabled){opts[idx].click();return}
+    if(e.key==='Enter'||e.key==='ArrowRight'){const b=$('qnext')||$('qshow');if(b){e.preventDefault();b.click()}}
+  }else if(st.tab==='terms'&&st.cardMode&&$('flash')){
+    if(e.key===' '){e.preventDefault();flip()}else if(e.key==='ArrowRight')$('cn').click();else if(e.key==='ArrowLeft')$('cp').click();
+    else if(e.key.toLowerCase()==='k')$('ck').click();else if(e.key.toLowerCase()==='r')$('cr').click();}});
+
+/* ---------- results dashboard ---------- */
+const MET=[['term_recall','Term recall',true],['coverage','Coverage',true],['constraints','Constraints met',true],['answer_support','Answer support',true],['term_halluc','Invented terms',false],['ungrounded_q','Ungrounded questions',false]];
+const GUIDE=[['term_recall','Share of gold key terms found among the output terms (synonyms allowed)','higher'],['coverage','Share of must-cover ideas present in the summary and definitions','higher'],['term_halluc','Share of output terms that do not appear in the notes','lower'],['ungrounded_q','Share of questions whose source quote is not found in the notes (n/a for v1, which does not request quotes)','lower'],['answer_support','Share of questions whose answer words are mostly present in the notes (a proxy for a correct answer key, not a correctness check)','higher'],['outside_know','Out-of-scope terms (true but not taught in the notes) that leaked into the pack','lower'],['constraints','Share of notes with exactly N questions, summary within the word limit, and at least three question types including MCQ','higher'],['json_fail','Outputs that could not be parsed','lower']];
+const COST=[['v0','0','Rules only','Offline baseline; no model'],['v1','1','None','One-line prompt; no limits, no quotes'],['v2','1','JSON parse; quote flag','Role, rules, schema, evidence quote'],['v3','1','JSON parse; quote flag','v2 + worked example'],['v4','3','Quote guard; keep first N','Outline, generate N+2, moderator'],['v5','3 (4 if the summary is too long)','Quote guard; word count','v4 + length guard and one retry']];
+const DTABS=[['overview','Overview'],['charts','Charts'],['notes','By note'],['hyp','Hypotheses'],['testset','Test set'],['prompts','Prompt versions'],['log','Experiment log'],['docs','Project docs'],['guide','Metrics guide']];
+let dd={rv:['v1','v3','v5'],tab:'overview',grp:'all',metric:'term_recall',res:null,matrix:null,testset:null,prompts:null,pv:'v5',doc:'test_table',mver:'v5'};
+const cache={};
+async function getJ(u){if(!cache[u])cache[u]=await (await fetch(u)).json();return cache[u]}
+async function loadResults(){
+  try{dd.res=await getJ('/api/results');drawDash()}catch(e){$('resbody').innerHTML='<div class="notice">Could not load results: '+esc(e.message)+'</div>'}}
+function mdInline(t){return esc(t).replace(/\\([*_`|])/g,'$1').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|[^*\w])\*([^*\s][^*]*)\*/g,'$1<i>$2</i>')}
+function mdToHtml(md){
+  const L=md.split('\n');let h='',i=0;const cells=l=>l.trim().replace(/^\||\|$/g,'').split('|').map(x=>x.trim());
+  while(i<L.length){const l=L[i];
+    if(/^```/.test(l)){const c=[];i++;while(i<L.length&&!/^```/.test(L[i])){c.push(L[i]);i++}i++;h+='<pre class="trace">'+esc(c.join('\n'))+'</pre>';continue}
+    if(/^\s*\|/.test(l)&&L[i+1]&&/^\s*\|[\s:|-]+\|\s*$/.test(L[i+1])){const head=cells(l);i+=2;const rows=[];while(i<L.length&&/^\s*\|/.test(L[i])){rows.push(cells(L[i]));i++}
+      h+='<div style="overflow:auto"><table><thead><tr>'+head.map(x=>'<th>'+mdInline(x)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+mdInline(x)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';continue}
+    const m=/^(#{1,4})\s+(.*)/.exec(l);if(m){const n=Math.min(4,m[1].length+1);h+=`<h${n}>${mdInline(m[2])}</h${n}>`;i++;continue}
+    if(/^\s*[-*]\s+/.test(l)){const it=[];while(i<L.length&&/^\s*[-*]\s+/.test(L[i])){it.push(L[i].replace(/^\s*[-*]\s+/,''));i++}h+='<ul>'+it.map(x=>'<li>'+mdInline(x)+'</li>').join('')+'</ul>';continue}
+    if(/^\s*\d+\.\s+/.test(l)){const it=[];while(i<L.length&&/^\s*\d+\.\s+/.test(L[i])){it.push(L[i].replace(/^\s*\d+\.\s+/,''));i++}h+='<ol>'+it.map(x=>'<li>'+mdInline(x)+'</li>').join('')+'</ol>';continue}
+    if(/^>\s?/.test(l)){h+='<blockquote>'+mdInline(l.replace(/^>\s?/,''))+'</blockquote>';i++;continue}
+    if(!l.trim()){i++;continue}
+    const para=[];while(i<L.length&&L[i].trim()&&!/^(#{1,4}\s|```|\s*\||\s*[-*]\s|\s*\d+\.\s|>)/.test(L[i])){para.push(L[i]);i++}
+    if(!para.length){para.push(L[i]);i++}h+='<p>'+mdInline(para.join(' '))+'</p>'}
+  return '<div class="md">'+h+'</div>'}
+function metricsOf(v){const r=dd.res[v];return dd.grp==='all'?r.metrics:r.groups[dd.grp].metrics}
+function drawDash(){
+  const vs=Object.keys(dd.res||{});
+  if(!vs.length){$('resbody').innerHTML='<div class="notice">No results yet. Run <code>python3 -m smartstudy.evaluate</code>.</div>';$('dtabs').innerHTML='';return}
+  $('dtabs').innerHTML=DTABS.map(([k,l])=>`<button data-dt="${k}" class="${dd.tab===k?'on':''}">${l}</button>`).join('');
+  $('dtabs').querySelectorAll('[data-dt]').forEach(b=>b.onclick=()=>{dd.tab=b.dataset.dt;drawDash()});
+  const fn={overview:dOverview,charts:dCharts,hyp:dHyp,notes:dNotes,testset:dTestset,prompts:dPrompts,log:dLog,docs:dDocs,guide:dGuide}[dd.tab];
+  Promise.resolve(fn(vs)).then(h=>{$('resbody').innerHTML=h;wireDash();setTimeout(()=>document.querySelectorAll('.bar i[data-w]').forEach(i=>i.style.width=i.dataset.w+'%'),60)})
+    .catch(e=>{$('resbody').innerHTML='<div class="notice">Could not load: '+esc(e.message)+'</div>'})}
+function bestOf(vs,m,higher){const xs=vs.map(v=>metricsOf(v)[m]).filter(x=>typeof x==='number');return xs.length?(higher?Math.max(...xs):Math.min(...xs)):null}
+function dOverview(vs){
+  const r=dd.res,hasG=vs.every(v=>r[v].groups&&r[v].groups.long&&r[v].groups.short);if(!hasG)dd.grp='all';
+  const nS=hasG?r[vs[0]].groups.short.n_notes:0,nL=hasG?r[vs[0]].groups.long.n_notes:0;
+  const cell=(v,m,hi)=>{const x=metricsOf(v)[m];const b=bestOf(vs,m,hi);return `<td class="${typeof x==='number'&&x===b?'best':''}">${x===undefined?'—':x}</td>`};
+  const bestC=vs.reduce((a,v)=>(+metricsOf(v).constraints>+metricsOf(a).constraints?v:a),vs[0]);
+  const bestR=vs.reduce((a,v)=>(+metricsOf(v).term_recall>+metricsOf(a).term_recall?v:a),vs[0]);
+  let h=`<div class="kpis"><div class="kpi"><b>${nS+nL||'—'}</b><span>notes (${nS} short, ${nL} long)</span></div><div class="kpi"><b>${vs.length}</b><span>workflows compared</span></div><div class="kpi"><b>${bestC} · ${metricsOf(bestC).constraints}</b><span>best constraint compliance</span></div><div class="kpi"><b>${bestR} · ${metricsOf(bestR).term_recall}</b><span>highest term recall (v1 lists the most, with invented terms)</span></div><div class="kpi"><b>${metricsOf('v1').term_halluc}</b><span>v1 invented-term rate (v5: ${metricsOf('v5')?.term_halluc??'—'})</span></div><div class="kpi"><b>${r[vs[vs.length-1]].runs}</b><span>run per version</span></div></div>`;
+  if(hasG)h+=`<div class="toolbar"><span class="sub" style="margin:0">Show</span>${[['all','All notes'],['short','Short notes ('+nS+')'],['long','Long notes ('+nL+')']].map(([k,l])=>`<button class="btn ${dd.grp===k?'on':''}" data-g="${k}">${l}</button>`).join('')}</div>`;
+  h+=`<div style="overflow:auto"><table><thead><tr><th>Version</th>${MET.map(m=>`<th>${m[1]}</th>`).join('')}<th>Outside facts</th></tr></thead><tbody>${vs.map(v=>`<tr><td><b>${esc(VERS[v][0])}</b></td>${cell(v,'term_recall',true)}${cell(v,'coverage',true)}${cell(v,'constraints',true)}${cell(v,'answer_support',true)}${cell(v,'term_halluc',false)}${cell(v,'ungrounded_q',false)}${cell(v,'outside_know',false)}</tr>`).join('')}</tbody></table></div><p class="sub">Green = best value in the column. n/a = not measurable (v1 does not request source quotes).</p>`;
+  const bars=(list,low)=>list.map(m=>`<div><b>${m[1]}</b><div class="bars">${vs.map(v=>{const x=metricsOf(v)[m[0]];const n=typeof x==='number'?x:0;return `<div class="bar"><span>${v}</span><div class="t"><i ${low?'class="lowbad"':''} data-w="${Math.min(100,n*100)}"></i></div><span>${x}</span></div>`}).join('')}</div></div>`).join('');
+  h+=`<h3>Higher is better</h3><div class="mgrid">${bars(MET.filter(m=>m[2]),false)}</div><h3>Lower is better</h3><div class="mgrid">${bars(MET.filter(m=>!m[2]),true)}</div>`;
+  h+=`<h3>Workflow cost and checks</h3><div style="overflow:auto"><table><thead><tr><th>Version</th><th>Model calls per pack</th><th>Code checks</th><th>What it adds</th></tr></thead><tbody>${COST.map(c=>`<tr><td><b>${c[0]}</b></td><td>${esc(c[1])}</td><td>${esc(c[2])}</td><td>${esc(c[3])}</td></tr>`).join('')}</tbody></table></div><p class="sub">Token counts and cost were not recorded in the replay runs.</p>`;
+  h+=`<div class="notice"><b>Read with care.</b> One run per version, one model (Gemini 3.1 Flash-Lite, live runs of 22 November 2026). Short notes: 165 to 199 words; long notes: 528 to 1,037 words (one as slide text). v0 is “perfectly grounded” only because it copies sentences. v4 → v5 differ only by the word-limit guard. Source files: ${vs.map(v=>esc(dd.res[v].file)).join(', ')}.</div>`;
+  return h}
+const HM=[['term_recall','Term recall (found / gold)',r=>r.terms_gold?r.terms_found/r.terms_gold:0,r=>`${r.terms_found}/${r.terms_gold}`,true],['coverage','Coverage (ideas covered)',r=>r.cov_gold?r.cov/r.cov_gold:0,r=>`${r.cov}/${r.cov_gold}`,true],['summary_words','Summary words (limit 100)',r=>r.summary_words<=100?1:Math.max(0,1-(r.summary_words-100)/60),r=>r.summary_words,true],['constraints_ok','Constraints met',r=>r.constraints_ok,r=>r.constraints_ok?'✓':'✗',true],['halluc','Invented terms',r=>r.n_terms?1-Math.min(1,r.halluc/r.n_terms*4):1,r=>r.halluc,true],['n_q','Questions produced (target 5)',r=>r.n_q===5?1:Math.max(0,1-Math.abs(r.n_q-5)/10),r=>r.n_q,true]];
+async function dNotes(vs){
+  dd.matrix=await getJ('/api/matrix');const mx=dd.matrix,cases=(mx[vs[0]]||[]).map(r=>r.case);
+  const hm=HM.find(x=>x[0]===dd.metric)||HM[0];
+  let h=`<div class="toolbar"><span class="sub" style="margin:0">Metric</span><select id="hmsel" style="width:auto">${HM.map(x=>`<option value="${x[0]}" ${x[0]===hm[0]?'selected':''}>${x[1]}</option>`).join('')}</select></div>`;
+  h+=`<div class="legend"><span>worse</span><i></i><span>better</span></div><div style="overflow:auto"><table class="heat"><thead><tr><th></th>${vs.map(v=>`<th>${v}</th>`).join('')}</tr></thead><tbody>${cases.map((c,ci)=>`<tr><td class="rowh">${esc(c.replace(/^\d+_/,'').replace(/_/g,' '))}${ci>=6?' <span class="chip">long</span>':''}</td>${vs.map((v,vi)=>{const r=mx[v][ci];const q=hm[2](r);const hue=Math.round(q*140);return `<td style="background:hsl(${hue} ${60}% ${dd.dark?32:86}%);color:${dd.dark?'#fff':'#14182c'};animation-delay:${(ci*vs.length+vi)*12}ms" title="${esc(v+' · '+c)}">${hm[3](r)}</td>`}).join('')}</tr>`).join('')}</tbody></table></div>`;
+  h+=`<p class="sub">Each cell is one note and one workflow. The last three rows are the long notes. Use it to see where a version fails, for example v4 over the word limit on short notes, or v2 listing too few terms on long notes.</p>`;
+  const sel=dd.mver,rows=mx[sel]||[];
+  h+=`<h3>Details for one workflow</h3><div class="toolbar"><select id="mvsel" style="width:auto">${vs.map(v=>`<option value="${v}" ${v===sel?'selected':''}>${esc(VERS[v][0])}</option>`).join('')}</select></div><div style="overflow:auto"><table><thead><tr><th>Note</th><th>Terms found</th><th>Ideas covered</th><th>Terms listed</th><th>Invented</th><th>Questions</th><th>Q types</th><th>Summary words</th><th>Constraints</th><th>Dropped by checks</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.case.replace(/^\d+_/,'').replace(/_/g,' '))}</td><td>${r.terms_found}/${r.terms_gold}</td><td>${r.cov}/${r.cov_gold}</td><td>${r.n_terms}</td><td>${r.halluc}</td><td>${r.n_q}</td><td>${r.q_types}</td><td>${r.summary_words}</td><td>${r.constraints_ok?'✓':'✗'}</td><td>${r.dropped}</td></tr>`).join('')}</tbody></table></div>`;
+  return h}
+async function dTestset(){
+  dd.testset=await getJ('/api/testset');
+  return `<p class="sub">Each note has a gold file written before scoring: key terms (with accepted synonyms), must-cover ideas, and out-of-scope terms (true but deliberately not taught, to detect leakage of outside knowledge).</p><div style="overflow:auto"><table><thead><tr><th>Lecture notes</th><th>Group</th><th>Words</th><th>Gold terms</th><th>Must-cover ideas</th><th>Out-of-scope terms</th></tr></thead><tbody>${dd.testset.map(t=>`<tr><td><b>${esc(t.id.replace(/^\d+_/,'').replace(/_/g,' '))}</b></td><td><span class="chip">${t.group}</span></td><td>${t.words}</td><td>${t.gold_terms.length}</td><td>${t.must_cover.length}</td><td>${t.out_of_scope.map(esc).join(', ')}</td></tr>`).join('')}</tbody></table></div>
+  <h3>Gold key terms</h3>${dd.testset.map(t=>`<details class="pf"><summary>${esc(t.id.replace(/^\d+_/,'').replace(/_/g,' '))} · ${t.gold_terms.length} terms</summary><div class="chips">${t.gold_terms.map(g=>`<span class="chip">${esc(g.split('|')[0])}</span>`).join('')}</div></details>`).join('')}`}
+async function dPrompts(vs){
+  dd.prompts=await getJ('/api/prompts');const v=dd.pv,base=v==='v5'?['v4_','v5_']:[v+'_'];
+  const files=dd.prompts.files.filter(f=>base.some(b=>f.name.startsWith(b)));
+  let h=`<div class="toolbar"><span class="sub" style="margin:0">Workflow</span><div class="pills">${['v1','v2','v3','v4','v5'].map(x=>`<button class="pill ${x===v?'on':''}" data-pv="${x}">${x}</button>`).join('')}</div></div><p class="sub"><b>${esc(VERS[v][0])}</b>: ${esc(VERS[v][1])}${v==='v5'?' (v5 reuses the v4 prompts for stages 1 to 4 and adds the two v5 files.)':''}</p>`;
+  h+=files.length?files.map(f=>`<details class="pf" ${f.name.endsWith('system.txt')&&f.name.startsWith(v)?'open':''}><summary>${esc(f.name)} · ${f.text.split(/\s+/).length} words</summary><pre class="trace">${esc(f.text)}</pre></details>`).join(''):'<p class="sub">v1 has an empty system prompt; see v1_user.txt.</p>';
+  h+=`<h3>Version history</h3>`+mdToHtml(dd.prompts.changelog);return h}
+async function dLog(){const d=await getJ('/api/doc?name=experiment_log');return mdToHtml(d.text)}
+async function dDocs(){
+  const names=[['test_table','Milestone 2 test table'],['technical_report','Technical report'],['design','Design and diagrams'],['reel_script','Reel script'],['setup','Setup guide'],['readme','README']];
+  const d=await getJ('/api/doc?name='+dd.doc);
+  return `<div class="toolbar"><span class="sub" style="margin:0">Document</span><select id="docsel" style="width:auto">${names.map(([k,l])=>`<option value="${k}" ${k===dd.doc?'selected':''}>${l}</option>`).join('')}</select><span class="chip">${esc(d.path)}</span></div>`+(d.path.endsWith('.txt')?`<pre class="trace" style="max-height:none">${esc(d.text)}</pre>`:mdToHtml(d.text))}
+const VCOL={v0:'#94a3b8',v1:'#ef4444',v2:'#f59e0b',v3:'#10b981',v4:'#3b82f6',v5:'#8b5cf6'};
+function groupBar(vs){const r=dd.res;if(!vs.every(v=>r[v].groups&&r[v].groups.long&&r[v].groups.short)){dd.grp='all';return ''}
+  return `<div class="toolbar"><span class="sub" style="margin:0">Show</span>${[['all','All notes'],['short','Short notes'],['long','Long notes']].map(([k,l])=>`<button class="btn ${dd.grp===k?'on':''}" data-g="${k}">${l}</button>`).join('')}</div>`}
+function dCharts(vs){
+  const AX=[['Term recall',m=>m.term_recall],['Coverage',m=>m.coverage],['Constraints met',m=>m.constraints],['Answer support',m=>m.answer_support],['Faithfulness (1 − invented terms)',m=>1-m.term_halluc]];
+  const cx=200,cy=200,R=140,n=AX.length,pt=(i,f)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+R*f*Math.cos(a),cy+R*f*Math.sin(a)]};
+  const grid=[.25,.5,.75,1].map(f=>`<polygon points="${AX.map((_,i)=>pt(i,f).join(',')).join(' ')}" fill="none" stroke="var(--line)" stroke-width="1"/>`).join('');
+  const axes=AX.map((a,i)=>{const [x,y]=pt(i,1),[lx,ly]=pt(i,1.17);return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)"/><text x="${lx}" y="${ly}" text-anchor="${lx<cx-5?'end':lx>cx+5?'start':'middle'}" dominant-baseline="middle">${esc(a[0].split(' (')[0])}</text>`}).join('');
+  const polys=dd.rv.filter(v=>vs.includes(v)).map((v,k)=>{const m=metricsOf(v);const pts=AX.map((a,i)=>pt(i,Math.max(0,Math.min(1,a[1](m)))).join(',')).join(' ');return `<polygon class="rpoly" style="animation-delay:${k*160}ms" points="${pts}" fill="${VCOL[v]}" fill-opacity=".18" stroke="${VCOL[v]}" stroke-width="2.5" stroke-linejoin="round"/>`}).join('');
+  const pills=vs.map(v=>`<button class="pill vchip ${dd.rv.includes(v)?'on':''}" data-rv="${v}"><i style="background:${VCOL[v]}"></i>${v}</button>`).join('');
+  const radar=`<svg viewBox="-70 0 540 400" role="img" aria-label="Radar chart comparing workflows" style="width:100%;max-width:480px;height:auto;display:block;margin:auto">${grid}${axes}${polys}</svg>`;
+  // scatter: invented-term rate (x) vs term recall (y); bubble = constraints met
+  const X0=64,X1=500,Y0=290,Y1=20,xmax=Math.max(.05,...vs.map(v=>metricsOf(v).term_halluc))*1.25,sx=x=>X0+(x/xmax)*(X1-X0),sy=y=>Y0-y*(Y0-Y1);
+  const sg=[0,.25,.5,.75,1].map(y=>`<line x1="${X0}" y1="${sy(y)}" x2="${X1}" y2="${sy(y)}" stroke="var(--line)"/><text x="${X0-8}" y="${sy(y)}" text-anchor="end" dominant-baseline="middle">${y}</text>`).join('')+[0,.25,.5,.75,1].map(f=>{const x=xmax*f;return `<text x="${sx(x)}" y="${Y0+18}" text-anchor="middle">${x.toFixed(2)}</text>`}).join('');
+  const seen={};const dots=[...vs].sort((a,b)=>(+metricsOf(b).constraints||0)-(+metricsOf(a).constraints||0)).map((v,i)=>{const m=metricsOf(v),x=sx(m.term_halluc),y=sy(m.term_recall),r=8+14*(+m.constraints||0),key=x.toFixed(1)+'_'+y.toFixed(1),dup=seen[key]=(seen[key]||0)+1,ty=dup>1?y-r-9:y;return `<g class="pt" style="animation-delay:${i*120}ms"><circle cx="${x}" cy="${y}" r="${r}" fill="${VCOL[v]}" fill-opacity=".35" stroke="${VCOL[v]}" stroke-width="2"/><text x="${x}" y="${ty}" text-anchor="middle" dominant-baseline="middle" style="fill:var(--ink);font-weight:700">${v}</text><title>${v}: recall ${m.term_recall}, invented ${m.term_halluc}, constraints ${m.constraints}</title></g>`}).join('');
+  const scat=`<svg viewBox="0 0 520 330" role="img" aria-label="Trade-off scatter plot" style="width:100%;max-width:640px;height:auto;display:block">${sg}<text x="${(X0+X1)/2}" y="322" text-anchor="middle">Invented-term rate (lower is better) →</text><text x="14" y="${(Y0+Y1)/2}" transform="rotate(-90 14 ${(Y0+Y1)/2})" text-anchor="middle">Term recall (higher is better) →</text>${dots}</svg>`;
+  return groupBar(vs)+`<h3>Quality profile</h3><div class="radar-wrap"><div>${radar}</div><div><p class="sub">Each axis is a score from 0 to 1 (outer edge = best). Pick the workflows to overlay.</p><div class="pills">${pills}</div><p class="sub" style="margin-top:12px">Read it as a shape: v1 reaches far on recall but is pulled in on faithfulness and constraints; v5 is the most balanced.</p></div></div>
+  <h3>Trade-off: completeness against invented terms</h3><p class="sub">Bubble size = share of notes meeting every constraint. The best workflow sits top-left with a large bubble.</p>${scat}`}
+const HYPS=[['H1','v2 beats v1','Partly supported','st-part','Constraints 0 to 0.667 and invented terms 0.138 to 0, but term recall fell (0.763 to 0.566) on the short notes.'],['H2','v3 beats v2','Inconclusive','st-inc','Small gains in recall and coverage; within what one run on six short notes can show. On long notes v3 met every constraint (1.0 vs 0.333).'],['H3','v4 beats v3 on groundedness','Not supported','st-no','The quote guard and moderator rejected nothing; groundedness equal. Recall and coverage improved.'],['H4','v4 may break constraints','Confirmed','st-ok','Summary over 100 words in four of six short notes (constraints 0.333).'],['H5','v5 repairs the length failure','Supported','st-ok','Constraints 0.333 to 0.833 on short notes; other metrics identical. Designed after seeing v4 fail on the same notes.'],['H6','Chain advantage grows with note length','Supported on recall (3 notes)','st-part','Recall gap v4 minus v3: 0.079 on short notes, 0.248 on long notes.']];
+function dHyp(){return `<p class="sub">Hypotheses H1 to H4 were written before running; H5 after seeing v4 fail; H6 after the short-note results and before the long-note runs. Full wording is in the experiment log.</p><div style="overflow:auto"><table><thead><tr><th>#</th><th>Hypothesis</th><th>Outcome</th><th>Evidence</th></tr></thead><tbody>${HYPS.map((h,i)=>`<tr style="animation:fadeUp .4s ${i*70}ms var(--ease) both"><td><b>${h[0]}</b></td><td>${esc(h[1])}</td><td><span class="chip ${h[3]}">${esc(h[2])}</span></td><td style="text-align:left">${esc(h[4])}</td></tr>`).join('')}</tbody></table></div><p class="sub">Every outcome rests on one run per version, so treat small differences as inconclusive.</p>`}
+function dGuide(){return `<p class="sub">How each score is computed (the same rubric was defined before the experiments). A human rubric (faithfulness, coverage, question quality, clarity, usefulness; two raters) is defined in the project docs and is planned for Milestone 3.</p><div style="overflow:auto"><table><thead><tr><th>Metric</th><th>Meaning</th><th>Better</th></tr></thead><tbody>${GUIDE.map(g=>`<tr><td><code>${g[0]}</code></td><td>${esc(g[1])}</td><td>${g[2]}</td></tr>`).join('')}</tbody></table></div><h3>Method in brief</h3><ul><li>Same notes, same settings (5 questions, 100-word summary), same scorer for every version.</li><li>Gold labels are written by the team; a unit test checks every gold term is in its notes and no out-of-scope term is.</li><li>v1 to v5 answers were produced by Claude Haiku through Claude Code helper agents and saved so anyone can re-score them (<code>--provider replay</code>).</li><li>Limits: one run per version, nine notes, lenient term matching, answer support is a proxy.</li></ul>`}
+function wireDash(){
+  const b=$('resbody');
+  b.querySelectorAll('[data-g]').forEach(x=>x.onclick=()=>{dd.grp=x.dataset.g;drawDash()});
+  b.querySelectorAll('[data-rv]').forEach(x=>x.onclick=()=>{const v=x.dataset.rv;dd.rv=dd.rv.includes(v)?dd.rv.filter(y=>y!==v):[...dd.rv,v];if(!dd.rv.length)dd.rv=[v];drawDash()});
+  b.querySelectorAll('[data-pv]').forEach(x=>x.onclick=()=>{dd.pv=x.dataset.pv;drawDash()});
+  const hs=$('hmsel');if(hs)hs.onchange=()=>{dd.metric=hs.value;drawDash()};
+  const ms=$('mvsel');if(ms)ms.onchange=()=>{dd.mver=ms.value;drawDash()};
+  const ds=$('docsel');if(ds)ds.onchange=()=>{dd.doc=ds.value;drawDash()}}
+$('csv').onclick=()=>{if(!dd.res)return;const vs=Object.keys(dd.res),cols=['term_recall','coverage','term_halluc','ungrounded_q','answer_support','outside_know','constraints','json_fail'];
+  const rows=[['group','version',...cols]];['all','short','long'].forEach(g=>vs.forEach(v=>{const m=g==='all'?dd.res[v].metrics:(dd.res[v].groups[g]||{}).metrics;if(m)rows.push([g,v,...cols.map(c=>m[c])])}));
+  dl('smartstudy-results.csv',rows.map(r=>r.join(',')).join('\n'),'text/csv')};
+dd.dark=document.documentElement.getAttribute('data-theme')==='dark'||(!document.documentElement.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+new MutationObserver(()=>{dd.dark=document.documentElement.getAttribute('data-theme')==='dark'}).observe(document.documentElement,{attributes:true});
+
+/* ---------- accent colour, scroll progress ---------- */
+const ACC={indigo:null,teal:['#0d9488','#0ea5e9'],rose:['#e11d48','#f97316'],emerald:['#059669','#65a30d']};
+function applyAccent(n){const r=document.documentElement.style,c=ACC[n];if(!c){['--brand','--brand2','--brand-ink'].forEach(k=>r.removeProperty(k))}else{r.setProperty('--brand',c[0]);r.setProperty('--brand2',c[1]);r.setProperty('--brand-ink','#ffffff')}
+  store.set('ic-accent',n);$('accents').innerHTML=Object.keys(ACC).map(k=>`<button class="${k===n?'on':''}" data-ac="${k}" aria-label="${k} accent" title="${k}" style="background:${ACC[k]?`linear-gradient(135deg,${ACC[k][0]},${ACC[k][1]})`:'linear-gradient(135deg,#4f46e5,#7c3aed)'}"></button>`).join('');
+  $('accents').querySelectorAll('[data-ac]').forEach(b=>b.onclick=()=>applyAccent(b.dataset.ac))}
+addEventListener('scroll',()=>{const h=document.documentElement,p=h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight);$('scrollbar').style.width=(p*100)+'%';$('totop').classList.toggle('on',h.scrollTop>500)},{passive:true});
+$('totop').onclick=()=>scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+
+/* ---------- boot ---------- */
+(async()=>{
+  renderVers();render();applyAccent(store.get('ic-accent','indigo'));
+  try{const s=await (await fetch('/api/samples')).json();s.forEach(x=>{const o=new Option(x.name.replace(/^\d+_/,'').replace(/_/g,' '),x.name);o.dataset.t=x.text;$('sample').add(o)})}catch{}
+  /* deep link for screenshots/demos: /#demo=<sample index>,<tab> or /#results */
+  const hm=/^#demo=(\d+),(\w+)/.exec(location.hash);
+  if(hm){$('sample').selectedIndex=+hm[1];$('sample').dispatchEvent(new Event('change'));await new Promise(r=>setTimeout(r,300));await run();st.tab=hm[2];
+    if(hm[2]==='compare'){st.cmpB='v0';st.cmp=await generate('v0')}
+    if(hm[2]==='quiz'){st.quiz={i:2,score:2,streak:2,best:2,done:false,picked:null,log:[],t0:Date.now()-14000,t1:null}}
+    if(hm[2]==='plan'){const t=new Date();t.setDate(t.getDate()+21);st.exam=dstr(new Date(t.getFullYear(),t.getMonth(),t.getDate()))}
+    if(hm[2]==='terms'){st.cardMode=true;st.cards={i:2,known:{0:true,1:true}}}
+    render();if(hm[2]==='terms'&&$('flash'))setTimeout(flip,50)}
+  if(location.hash==='#about'){document.querySelector('nav [data-page=about]').click()}
+  const dm=/^#results(?:=(\w+))?/.exec(location.hash);if(dm){if(dm[1])dd.tab=dm[1];document.querySelector('nav [data-page=res]').click()}
+  try{st.status=await (await fetch('/api/status')).json();const m=$('mode');m.textContent=st.status.llm_available?'LLM workflows ready':'Offline: v0 only';m.classList.toggle('live',st.status.llm_available)}catch{$('mode').textContent='server unreachable'}
+})();
+</script>
+</body>
+</html>

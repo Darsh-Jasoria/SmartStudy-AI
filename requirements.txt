@@ -1,0 +1,1 @@
+# SmartStudy uses the Python standard library only; nothing to install.

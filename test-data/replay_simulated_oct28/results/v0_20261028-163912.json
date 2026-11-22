@@ -1,0 +1,1017 @@
+{
+ "version": "v0",
+ "runs": 1,
+ "metrics": {
+  "term_recall": 0.191,
+  "coverage": 0.568,
+  "term_halluc": 0.0,
+  "ungrounded_q": 0.0,
+  "answer_support": 1.0,
+  "outside_know": 0,
+  "constraints": 0.0,
+  "json_fail": 0
+ },
+ "groups": {
+  "short": {
+   "n_notes": 6,
+   "metrics": {
+    "term_recall": 0.276,
+    "coverage": 0.789,
+    "term_halluc": 0.0,
+    "ungrounded_q": 0.0,
+    "answer_support": 1.0,
+    "outside_know": 0,
+    "constraints": 0.0,
+    "json_fail": 0
+   }
+  },
+  "long": {
+   "n_notes": 3,
+   "metrics": {
+    "term_recall": 0.124,
+    "coverage": 0.333,
+    "term_halluc": 0.0,
+    "ungrounded_q": 0.0,
+    "answer_support": 1.0,
+    "outside_know": 0,
+    "constraints": 0.0,
+    "json_fail": 0
+   }
+  }
+ },
+ "metrics_per_run": [
+  {
+   "term_recall": 0.191,
+   "coverage": 0.568,
+   "term_halluc": 0.0,
+   "ungrounded_q": 0.0,
+   "answer_support": 1.0,
+   "outside_know": 0,
+   "constraints": 0.0,
+   "json_fail": 0
+  }
+ ],
+ "detail": [
+  {
+   "run": 0,
+   "case": "01_cpu_scheduling",
+   "score": {
+    "terms_found": 0,
+    "terms_gold": 15,
+    "cov": 4,
+    "cov_gold": 7,
+    "n_terms": 1,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "Metrics: turnaround time = completion time - arrival time; waiting time = turnaround time - burst time; response time = first run time - arrival time. Priority scheduling: runs the highest-priority process first. It gives the minimum average waiting time but needs a prediction of burst length and can starve long processes. Round Robin (RR): each process gets a fixed time quantum and then goes to the back of the ready queue. Shortest Job First (SJF): runs the process with the smallest next CPU burst. The CPU scheduler picks which process in the ready queue runs next.",
+    "key_terms": [
+     {
+      "term": "If the quantum",
+      "definition": "If the quantum is very large, RR behaves like FCFS; if it is very small, context-switch overhead dominates.",
+      "evidence": "If the quantum is very large, RR behaves like FCFS; if it is very small, context-switch overhead dominates.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "The CPU _____ picks which process in the ready queue runs next.",
+      "options": null,
+      "answer": "scheduler",
+      "evidence": "The CPU scheduler picks which process in the ready queue runs next.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "The _____ then hands the CPU to that process through a context switch.",
+      "options": null,
+      "answer": "dispatcher",
+      "evidence": "The dispatcher then hands the CPU to that process through a context switch.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ scheduling can take the CPU away from a running process; non-preemptive scheduling lets it run until it blocks or finishes.",
+      "options": null,
+      "answer": "Preemptive",
+      "evidence": "Preemptive scheduling can take the CPU away from a running process; non-preemptive scheduling lets it run until it blocks or finishes.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ First-Served (FCFS): processes run in arrival order.",
+      "options": null,
+      "answer": "First-Come",
+      "evidence": "First-Come First-Served (FCFS): processes run in arrival order.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "It is _____ but suffers from the convoy effect, where short processes wait behind one long process.",
+      "options": null,
+      "answer": "simple",
+      "evidence": "It is simple but suffers from the convoy effect, where short processes wait behind one long process.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "02_big_o",
+   "score": {
+    "terms_found": 7,
+    "terms_gold": 13,
+    "cov": 6,
+    "cov_gold": 6,
+    "n_terms": 7,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "Big-Omega gives a lower bound and Big-Theta gives a tight bound, meaning both upper and lower. Binary search on a sorted array is O(log n) because each step halves the search range. Time complexity describes how running time grows with input size n, not the exact number of seconds. Insertion sort is O(n^2) in the worst case but O(n) when the array is already sorted. Big-O gives an upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0. Linear search is O(n).",
+    "key_terms": [
+     {
+      "term": "Big-O",
+      "definition": "Big-O gives an upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0.",
+      "evidence": "Big-O gives an upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0.",
+      "grounded": true
+     },
+     {
+      "term": "Binary search on a sorted array",
+      "definition": "Binary search on a sorted array is O(log n) because each step halves the search range.",
+      "evidence": "Binary search on a sorted array is O(log n) because each step halves the search range.",
+      "grounded": true
+     },
+     {
+      "term": "Linear search",
+      "definition": "Linear search is O(n).",
+      "evidence": "Linear search is O(n).",
+      "grounded": true
+     },
+     {
+      "term": "Merge sort",
+      "definition": "Merge sort is O(n log n) in the worst case.",
+      "evidence": "Merge sort is O(n log n) in the worst case.",
+      "grounded": true
+     },
+     {
+      "term": "Insertion sort",
+      "definition": "Insertion sort is O(n^2) in the worst case but O(n) when the array is already sorted.",
+      "evidence": "Insertion sort is O(n^2) in the worst case but O(n) when the array is already sorted.",
+      "grounded": true
+     },
+     {
+      "term": "Big-Omega",
+      "definition": "Big-Omega gives a lower bound and Big-Theta gives a tight bound, meaning both upper and lower.",
+      "evidence": "Big-Omega gives a lower bound and Big-Theta gives a tight bound, meaning both upper and lower.",
+      "grounded": true
+     },
+     {
+      "term": "Space complexity",
+      "definition": "Space complexity measures the extra memory used as a function of n.",
+      "evidence": "Space complexity measures the extra memory used as a function of n.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "Time complexity _____ how running time grows with input size n, not the exact number of seconds.",
+      "options": null,
+      "answer": "describes",
+      "evidence": "Time complexity describes how running time grows with input size n, not the exact number of seconds.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Big-O gives an upper bound on _____: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0.",
+      "options": null,
+      "answer": "growth",
+      "evidence": "Big-O gives an upper bound on growth: f(n) = O(g(n)) if there are constants c and n0 such that f(n) <= c*g(n) for all n >= n0.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ classes in increasing order of growth: O(1) constant, O(log n) logarithmic, O(n) linear, O(n log n), O(n^2) quadratic, O(2^n) exponential.",
+      "options": null,
+      "answer": "Common",
+      "evidence": "Common classes in increasing order of growth: O(1) constant, O(log n) logarithmic, O(n) linear, O(n log n), O(n^2) quadratic, O(2^n) exponential.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Drop constants and _____ terms: 3n^2 + 5n + 7 is O(n^2).",
+      "options": null,
+      "answer": "lower-order",
+      "evidence": "Drop constants and lower-order terms: 3n^2 + 5n + 7 is O(n^2).",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ search on a sorted array is O(log n) because each step halves the search range.",
+      "options": null,
+      "answer": "Binary",
+      "evidence": "Binary search on a sorted array is O(log n) because each step halves the search range.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "03_normalization",
+   "score": {
+    "terms_found": 1,
+    "terms_gold": 13,
+    "cov": 4,
+    "cov_gold": 6,
+    "n_terms": 1,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "Third Normal Form (3NF): the table is in 2NF and no non-key attribute depends on another non-key attribute, so there is no transitive dependency. Second Normal Form (2NF): the table is in 1NF and no non-key attribute depends on only part of a composite primary key, so there is no partial dependency. First Normal Form (1NF): every column holds atomic (indivisible) values and there are no repeating groups. DeptName depends on DeptID, which is not the key, so this is a transitive dependency; split the data into Student and Department tables. Example: Student(StudentID, Name, DeptID, DeptName).",
+    "key_terms": [
+     {
+      "term": "BCNF",
+      "definition": "BCNF is stricter: for every functional dependency X -> Y, X must be a superkey.",
+      "evidence": "BCNF is stricter: for every functional dependency X -> Y, X must be a superkey.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "_____ organizes tables to reduce redundancy and to avoid update, insertion and deletion anomalies.",
+      "options": null,
+      "answer": "Normalization",
+      "evidence": "Normalization organizes tables to reduce redundancy and to avoid update, insertion and deletion anomalies.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "A functional dependency X -> Y means each value of X _____ exactly one value of Y.",
+      "options": null,
+      "answer": "determines",
+      "evidence": "A functional dependency X -> Y means each value of X determines exactly one value of Y.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "First Normal Form (1NF): every _____ holds atomic (indivisible) values and there are no repeating groups.",
+      "options": null,
+      "answer": "column",
+      "evidence": "First Normal Form (1NF): every column holds atomic (indivisible) values and there are no repeating groups.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ Normal Form (2NF): the table is in 1NF and no non-key attribute depends on only part of a composite primary key, so there is no partial dependency.",
+      "options": null,
+      "answer": "Second",
+      "evidence": "Second Normal Form (2NF): the table is in 1NF and no non-key attribute depends on only part of a composite primary key, so there is no partial dependency.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Third Normal Form (3NF): the table is in 2NF and no non-key attribute depends on _____ non-key attribute, so there is no transitive dependency.",
+      "options": null,
+      "answer": "another",
+      "evidence": "Third Normal Form (3NF): the table is in 2NF and no non-key attribute depends on another non-key attribute, so there is no transitive dependency.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "04_tcp",
+   "score": {
+    "terms_found": 2,
+    "terms_gold": 14,
+    "cov": 7,
+    "cov_gold": 7,
+    "n_terms": 5,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "Slow start begins with a small congestion window (cwnd) and roughly doubles it every round trip until it reaches the slow-start threshold (ssthresh); then congestion avoidance increases cwnd by about one segment per round trip. Sequence numbers label bytes so the receiver can reorder segments and detect loss; acknowledgements (ACKs) tell the sender what has been received. Flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer. When a packet loss is detected by a timeout, TCP sets ssthresh to half of cwnd and restarts slow start. Congestion control protects the network.",
+    "key_terms": [
+     {
+      "term": "TCP",
+      "definition": "TCP is a connection-oriented, reliable, byte-stream transport protocol.",
+      "evidence": "TCP is a connection-oriented, reliable, byte-stream transport protocol.",
+      "grounded": true
+     },
+     {
+      "term": "A connection",
+      "definition": "A connection is established with a three-way handshake: the client sends SYN, the server replies SYN-ACK, and the client replies ACK.",
+      "evidence": "A connection is established with a three-way handshake: the client sends SYN, the server replies SYN-ACK, and the client replies ACK.",
+      "grounded": true
+     },
+     {
+      "term": "Flow control",
+      "definition": "Flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer.",
+      "evidence": "Flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer.",
+      "grounded": true
+     },
+     {
+      "term": "When a packet loss",
+      "definition": "When a packet loss is detected by a timeout, TCP sets ssthresh to half of cwnd and restarts slow start.",
+      "evidence": "When a packet loss is detected by a timeout, TCP sets ssthresh to half of cwnd and restarts slow start.",
+      "grounded": true
+     },
+     {
+      "term": "A connection",
+      "definition": "A connection is closed with FIN and ACK segments exchanged in each direction (four-way teardown).",
+      "evidence": "A connection is closed with FIN and ACK segments exchanged in each direction (four-way teardown).",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "TCP is a _____, reliable, byte-stream transport protocol.",
+      "options": null,
+      "answer": "connection-oriented",
+      "evidence": "TCP is a connection-oriented, reliable, byte-stream transport protocol.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "It _____ ordered delivery and retransmits lost segments.",
+      "options": null,
+      "answer": "provides",
+      "evidence": "It provides ordered delivery and retransmits lost segments.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "A connection is _____ with a three-way handshake: the client sends SYN, the server replies SYN-ACK, and the client replies ACK.",
+      "options": null,
+      "answer": "established",
+      "evidence": "A connection is established with a three-way handshake: the client sends SYN, the server replies SYN-ACK, and the client replies ACK.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ numbers label bytes so the receiver can reorder segments and detect loss; acknowledgements (ACKs) tell the sender what has been received.",
+      "options": null,
+      "answer": "Sequence",
+      "evidence": "Sequence numbers label bytes so the receiver can reorder segments and detect loss; acknowledgements (ACKs) tell the sender what has been received.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Flow control uses the receiver's _____ window (rwnd) so the sender does not overwhelm the receiver's buffer.",
+      "options": null,
+      "answer": "advertised",
+      "evidence": "Flow control uses the receiver's advertised window (rwnd) so the sender does not overwhelm the receiver's buffer.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "05_gradient_descent",
+   "score": {
+    "terms_found": 7,
+    "terms_gold": 11,
+    "cov": 5,
+    "cov_gold": 6,
+    "n_terms": 5,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "Batch gradient descent computes the gradient on the whole training set at each step: it is stable but slow for large data. For a convex loss such as mean squared error in linear regression, gradient descent with a suitable learning rate reaches the global minimum. Gradient descent minimises a loss function L(w) by repeatedly moving the parameters w in the direction opposite to the gradient. Stochastic gradient descent (SGD) uses one example per update: it is fast and noisy, and the noise can help escape shallow local minima. An epoch is one full pass through the training data.",
+    "key_terms": [
+     {
+      "term": "If the learning rate",
+      "definition": "If the learning rate is too small, convergence is slow; if it is too large, the updates can overshoot the minimum and diverge.",
+      "evidence": "If the learning rate is too small, convergence is slow; if it is too large, the updates can overshoot the minimum and diverge.",
+      "grounded": true
+     },
+     {
+      "term": "Batch gradient descent",
+      "definition": "Batch gradient descent computes the gradient on the whole training set at each step: it is stable but slow for large data.",
+      "evidence": "Batch gradient descent computes the gradient on the whole training set at each step: it is stable but slow for large data.",
+      "grounded": true
+     },
+     {
+      "term": "Stochastic gradient descent (SGD)",
+      "definition": "Stochastic gradient descent (SGD) uses one example per update: it is fast and noisy, and the noise can help escape shallow local minima.",
+      "evidence": "Stochastic gradient descent (SGD) uses one example per update: it is fast and noisy, and the noise can help escape shallow local minima.",
+      "grounded": true
+     },
+     {
+      "term": "Mini-batch gradient descent",
+      "definition": "Mini-batch gradient descent uses a small batch (for example 32 or 64 examples) and is the usual choice in practice.",
+      "evidence": "Mini-batch gradient descent uses a small batch (for example 32 or 64 examples) and is the usual choice in practice.",
+      "grounded": true
+     },
+     {
+      "term": "An epoch",
+      "definition": "An epoch is one full pass through the training data.",
+      "evidence": "An epoch is one full pass through the training data.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "Gradient descent _____ a loss function L(w) by repeatedly moving the parameters w in the direction opposite to the gradient.",
+      "options": null,
+      "answer": "minimises",
+      "evidence": "Gradient descent minimises a loss function L(w) by repeatedly moving the parameters w in the direction opposite to the gradient.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ rule: w_new = w_old - alpha * dL/dw, where alpha is the learning rate.",
+      "options": null,
+      "answer": "Update",
+      "evidence": "Update rule: w_new = w_old - alpha * dL/dw, where alpha is the learning rate.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "If the learning rate is too small, convergence is slow; if it is too large, the _____ can overshoot the minimum and diverge.",
+      "options": null,
+      "answer": "updates",
+      "evidence": "If the learning rate is too small, convergence is slow; if it is too large, the updates can overshoot the minimum and diverge.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Batch gradient descent _____ the gradient on the whole training set at each step: it is stable but slow for large data.",
+      "options": null,
+      "answer": "computes",
+      "evidence": "Batch gradient descent computes the gradient on the whole training set at each step: it is stable but slow for large data.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ gradient descent (SGD) uses one example per update: it is fast and noisy, and the noise can help escape shallow local minima.",
+      "options": null,
+      "answer": "Stochastic",
+      "evidence": "Stochastic gradient descent (SGD) uses one example per update: it is fast and noisy, and the noise can help escape shallow local minima.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "06_prompting_basics",
+   "score": {
+    "terms_found": 4,
+    "terms_gold": 10,
+    "cov": 4,
+    "cov_gold": 6,
+    "n_terms": 4,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "Temperature controls randomness: low temperature gives more deterministic output and high temperature gives more varied output. A prompt is the input given to a language model; the quality of the output depends strongly on how the prompt is written. Chain-of-thought prompting asks the model to reason step by step before answering, which often improves arithmetic and logic tasks. Few-shot prompting includes a few input-output examples in the prompt so the model can imitate the pattern and the format. A good prompt states the role, the task, the context, the constraints and the required output format.",
+    "key_terms": [
+     {
+      "term": "A prompt",
+      "definition": "A prompt is the input given to a language model; the quality of the output depends strongly on how the prompt is written.",
+      "evidence": "A prompt is the input given to a language model; the quality of the output depends strongly on how the prompt is written.",
+      "grounded": true
+     },
+     {
+      "term": "Zero-shot prompting",
+      "definition": "Zero-shot prompting gives an instruction with no examples.",
+      "evidence": "Zero-shot prompting gives an instruction with no examples.",
+      "grounded": true
+     },
+     {
+      "term": "Hallucination",
+      "definition": "Hallucination is when a model produces fluent but unsupported or false content.",
+      "evidence": "Hallucination is when a model produces fluent but unsupported or false content.",
+      "grounded": true
+     },
+     {
+      "term": "Prompt injection",
+      "definition": "Prompt injection is when untrusted text in the input tries to override the developer's instructions.",
+      "evidence": "Prompt injection is when untrusted text in the input tries to override the developer's instructions.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "A prompt is the input given to a _____ model; the quality of the output depends strongly on how the prompt is written.",
+      "options": null,
+      "answer": "language",
+      "evidence": "A prompt is the input given to a language model; the quality of the output depends strongly on how the prompt is written.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ prompting gives an instruction with no examples.",
+      "options": null,
+      "answer": "Zero-shot",
+      "evidence": "Zero-shot prompting gives an instruction with no examples.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ prompting includes a few input-output examples in the prompt so the model can imitate the pattern and the format.",
+      "options": null,
+      "answer": "Few-shot",
+      "evidence": "Few-shot prompting includes a few input-output examples in the prompt so the model can imitate the pattern and the format.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "A good prompt _____ the role, the task, the context, the constraints and the required output format.",
+      "options": null,
+      "answer": "states",
+      "evidence": "A good prompt states the role, the task, the context, the constraints and the required output format.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ prompting asks the model to reason step by step before answering, which often improves arithmetic and logic tasks.",
+      "options": null,
+      "answer": "Chain-of-thought",
+      "evidence": "Chain-of-thought prompting asks the model to reason step by step before answering, which often improves arithmetic and logic tasks.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "07_memory_management",
+   "score": {
+    "terms_found": 6,
+    "terms_gold": 30,
+    "cov": 6,
+    "cov_gold": 12,
+    "n_terms": 12,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "A page table maps each page number to a frame number. The page table is kept in main memory, so each memory reference would need two accesses, one for the page table and one for the data. A page fault happens when a process references a page that is not in memory. The average waste is about half a page per process, so a smaller page size wastes less but makes the page table larger. A multi-level page table (hierarchical paging) pages the page table itself, so only the parts that are in use need to be kept in memory.",
+    "key_terms": [
+     {
+      "term": "Execution-time binding",
+      "definition": "Execution-time binding is needed if a process can be moved in memory while it runs.",
+      "evidence": "Execution-time binding is needed if a process can be moved in memory while it runs.",
+      "grounded": true
+     },
+     {
+      "term": "Protection",
+      "definition": "Protection is enforced with a base register and a limit register: every address generated by a process is checked against them, and an illegal access causes a trap to the operating system.",
+      "evidence": "Protection is enforced with a base register and a limit register: every address generated by a process is checked against them, and an illegal access causes a trap to the operating system.",
+      "grounded": true
+     },
+     {
+      "term": "Free blocks",
+      "definition": "Free blocks are called holes.",
+      "evidence": "Free blocks are called holes.",
+      "grounded": true
+     },
+     {
+      "term": "First-fit allocates the first hole that",
+      "definition": "First-fit allocates the first hole that is large enough.",
+      "evidence": "First-fit allocates the first hole that is large enough.",
+      "grounded": true
+     },
+     {
+      "term": "Best-fit allocates the smallest hole that",
+      "definition": "Best-fit allocates the smallest hole that is large enough.",
+      "evidence": "Best-fit allocates the smallest hole that is large enough.",
+      "grounded": true
+     },
+     {
+      "term": "First-fit and best-fit",
+      "definition": "First-fit and best-fit are usually better than worst-fit in speed and storage use.",
+      "evidence": "First-fit and best-fit are usually better than worst-fit in speed and storage use.",
+      "grounded": true
+     },
+     {
+      "term": "External fragmentation",
+      "definition": "External fragmentation means there is enough total free memory for a request, but it is split into holes that are too small.",
+      "evidence": "External fragmentation means there is enough total free memory for a request, but it is split into holes that are too small.",
+      "grounded": true
+     },
+     {
+      "term": "Internal fragmentation",
+      "definition": "Internal fragmentation means memory allocated to a process is larger than requested, so the unused space inside the block is wasted.",
+      "evidence": "Internal fragmentation means memory allocated to a process is larger than requested, so the unused space inside the block is wasted.",
+      "grounded": true
+     },
+     {
+      "term": "Physical memory",
+      "definition": "Physical memory is divided into fixed-size blocks called frames, and logical memory is divided into blocks of the same size called pages.",
+      "evidence": "Physical memory is divided into fixed-size blocks called frames, and logical memory is divided into blocks of the same size called pages.",
+      "grounded": true
+     },
+     {
+      "term": "A logical address",
+      "definition": "A logical address is split into a page number and a page offset.",
+      "evidence": "A logical address is split into a page number and a page offset.",
+      "grounded": true
+     },
+     {
+      "term": "The average waste",
+      "definition": "The average waste is about half a page per process, so a smaller page size wastes less but makes the page table larger.",
+      "evidence": "The average waste is about half a page per process, so a smaller page size wastes less but makes the page table larger.",
+      "grounded": true
+     },
+     {
+      "term": "The page table",
+      "definition": "The page table is kept in main memory, so each memory reference would need two accesses, one for the page table and one for the data.",
+      "evidence": "The page table is kept in main memory, so each memory reference would need two accesses, one for the page table and one for the data.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "Part 1: Addresses and _____",
+      "options": null,
+      "answer": "protection",
+      "evidence": "Part 1: Addresses and protection",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "A _____ generates logical addresses (also called virtual addresses).",
+      "options": null,
+      "answer": "program",
+      "evidence": "A program generates logical addresses (also called virtual addresses).",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "The hardware that _____ them into physical addresses in main memory is the memory management unit (MMU).",
+      "options": null,
+      "answer": "translates",
+      "evidence": "The hardware that translates them into physical addresses in main memory is the memory management unit (MMU).",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Address binding can _____ at compile time, load time or execution time.",
+      "options": null,
+      "answer": "happen",
+      "evidence": "Address binding can happen at compile time, load time or execution time.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "_____ binding is needed if a process can be moved in memory while it runs.",
+      "options": null,
+      "answer": "Execution-time",
+      "evidence": "Execution-time binding is needed if a process can be moved in memory while it runs.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "08_model_evaluation",
+   "score": {
+    "terms_found": 6,
+    "terms_gold": 31,
+    "cov": 5,
+    "cov_gold": 12,
+    "n_terms": 12,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "A true positive (TP) is a positive example predicted positive. A false positive (FP) is a negative example predicted positive. A false negative (FN) is a positive example predicted negative. Overfitting means the model fits the noise in the training data. The ROC curve plots the true positive rate against the false positive rate for every threshold. Using the test set repeatedly to tune the model makes its score optimistic, because the test data has indirectly influenced the model. A true negative (TN) is a negative example predicted negative. Making a model more complex usually lowers bias and raises variance.",
+    "key_terms": [
+     {
+      "term": "The data",
+      "definition": "The data is therefore divided into a training set, a validation set and a test set.",
+      "evidence": "The data is therefore divided into a training set, a validation set and a test set.",
+      "grounded": true
+     },
+     {
+      "term": "The training set",
+      "definition": "The training set is used to fit the model parameters.",
+      "evidence": "The training set is used to fit the model parameters.",
+      "grounded": true
+     },
+     {
+      "term": "The validation set",
+      "definition": "The validation set is used to choose hyperparameters and to compare models.",
+      "evidence": "The validation set is used to choose hyperparameters and to compare models.",
+      "grounded": true
+     },
+     {
+      "term": "The test set",
+      "definition": "The test set is used once at the end to estimate how the final model will perform on new data.",
+      "evidence": "The test set is used once at the end to estimate how the final model will perform on new data.",
+      "grounded": true
+     },
+     {
+      "term": "Underfitting",
+      "definition": "Underfitting means the model is too simple to capture the pattern in the data.",
+      "evidence": "Underfitting means the model is too simple to capture the pattern in the data.",
+      "grounded": true
+     },
+     {
+      "term": "Overfitting",
+      "definition": "Overfitting means the model fits the noise in the training data.",
+      "evidence": "Overfitting means the model fits the noise in the training data.",
+      "grounded": true
+     },
+     {
+      "term": "High bias",
+      "definition": "High bias means strong simplifying assumptions and leads to underfitting.",
+      "evidence": "High bias means strong simplifying assumptions and leads to underfitting.",
+      "grounded": true
+     },
+     {
+      "term": "High variance",
+      "definition": "High variance means the model is very sensitive to the particular training sample and leads to overfitting.",
+      "evidence": "High variance means the model is very sensitive to the particular training sample and leads to overfitting.",
+      "grounded": true
+     },
+     {
+      "term": "In k-fold cross-validation the data",
+      "definition": "In k-fold cross-validation the data is divided into k equal folds.",
+      "evidence": "In k-fold cross-validation the data is divided into k equal folds.",
+      "grounded": true
+     },
+     {
+      "term": "The model",
+      "definition": "The model is trained k times, each time holding out one fold for validation and training on the other k minus 1 folds.",
+      "evidence": "The model is trained k times, each time holding out one fold for validation and training on the other k minus 1 folds.",
+      "grounded": true
+     },
+     {
+      "term": "The k scores",
+      "definition": "The k scores are averaged.",
+      "evidence": "The k scores are averaged.",
+      "grounded": true
+     },
+     {
+      "term": "Cross-validation",
+      "definition": "Cross-validation gives a more stable estimate than a single split and is useful when data is limited, but it costs k times more training.",
+      "evidence": "Cross-validation gives a more stable estimate than a single split and is useful when data is limited, but it costs k times more training.",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "A model must be _____ on data it has not seen during training.",
+      "options": null,
+      "answer": "judged",
+      "evidence": "A model must be judged on data it has not seen during training.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "The data is _____ divided into a training set, a validation set and a test set.",
+      "options": null,
+      "answer": "therefore",
+      "evidence": "The data is therefore divided into a training set, a validation set and a test set.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "The training set is used to fit the model _____.",
+      "options": null,
+      "answer": "parameters",
+      "evidence": "The training set is used to fit the model parameters.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "The validation set is used to choose _____ and to compare models.",
+      "options": null,
+      "answer": "hyperparameters",
+      "evidence": "The validation set is used to choose hyperparameters and to compare models.",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "The test set is used once at the end to estimate how the final model will _____ on new data.",
+      "options": null,
+      "answer": "perform",
+      "evidence": "The test set is used once at the end to estimate how the final model will perform on new data.",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  },
+  {
+   "run": 0,
+   "case": "09_software_engineering_slides",
+   "score": {
+    "terms_found": 0,
+    "terms_gold": 36,
+    "cov": 1,
+    "cov_gold": 12,
+    "n_terms": 2,
+    "halluc": 0,
+    "n_q": 5,
+    "n_q_checkable": 5,
+    "ungrounded": 0,
+    "supported": 5,
+    "leaked": 0,
+    "constraints_ok": 0,
+    "json_fail": 0
+   },
+   "result": {
+    "version": "v0",
+    "summary": "Software Engineering: Process, Agile and Testing (slide text) System testing: tests the complete system against the requirements Slide 8: Testing techniques Slide 3: Agile software development Slide 7: Levels of testing Phases: requirements, design, implementation, testing, deployment, maintenance Slide 9: Version control and code review Integration testing: tests that components work together Slide 4: Scrum roles Slide 5: Scrum artifacts Slide 6: Scrum events Slide 1: Software development life cycle (SDLC) White-box testing: tests are designed from the internal structure of the code, for example to cover every branch Slide 10: Continuous integration and delivery Slide 11: Technical debt",
+    "key_terms": [
+     {
+      "term": "The customer",
+      "definition": "The customer gives feedback after every iteration",
+      "evidence": "The customer gives feedback after every iteration",
+      "grounded": true
+     },
+     {
+      "term": "Plans",
+      "definition": "Plans are adjusted as requirements change",
+      "evidence": "Plans are adjusted as requirements change",
+      "grounded": true
+     }
+    ],
+    "questions": [
+     {
+      "type": "short",
+      "question": "Software _____: Process, Agile and Testing (slide text)",
+      "options": null,
+      "answer": "Engineering",
+      "evidence": "Software Engineering: Process, Agile and Testing (slide text)",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Slide 1: _____ development life cycle (SDLC)",
+      "options": null,
+      "answer": "Software",
+      "evidence": "Slide 1: Software development life cycle (SDLC)",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Phases: requirements, design, _____, testing, deployment, maintenance",
+      "options": null,
+      "answer": "implementation",
+      "evidence": "Phases: requirements, design, implementation, testing, deployment, maintenance",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Requirements: what the system must do (_____) and how well (non-functional)",
+      "options": null,
+      "answer": "functional",
+      "evidence": "Requirements: what the system must do (functional) and how well (non-functional)",
+      "grounded": true
+     },
+     {
+      "type": "short",
+      "question": "Design: _____ and detailed design of components",
+      "options": null,
+      "answer": "architecture",
+      "evidence": "Design: architecture and detailed design of components",
+      "grounded": true
+     }
+    ],
+    "warnings": [],
+    "trace": {
+     "stages": [
+      "extractive rules"
+     ]
+    },
+    "errors": []
+   }
+  }
+ ],
+ "model": null
+}

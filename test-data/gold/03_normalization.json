@@ -1,0 +1,3 @@
+{"key_terms": ["normalization", "anomaly|anomalies", "functional dependency", "1NF|first normal form", "2NF|second normal form", "3NF|third normal form", "BCNF", "atomic", "partial dependency", "transitive dependency", "superkey", "denormalization", "composite primary key"],
+ "must_cover": [["atomic"], ["partial"], ["transitive"], ["superkey"], ["denormaliz"], ["redundancy"]],
+ "out_of_scope": ["4nf", "fourth normal form", "5nf", "multivalued dependency", "olap", "star schema"]}
