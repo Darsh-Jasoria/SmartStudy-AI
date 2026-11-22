@@ -19,7 +19,7 @@
       "enrollment": "S24CSEU0844",
       "role": "Team leader, experiments and deployment",
       "tasks": "Ran the live Gemini experiments (v0 to v5 on 9 notes) and the 13-input test table; set up the GitHub repository and the online deployment; coordinated and submitted the milestone.",
-      "evidence": "test-data/live_runs/, code/smartstudy/m2_tests.py, api/index.py, vercel.json, CHANGELOG.md",
+      "evidence": "test-data/results/, test-data/live_runs/, code/smartstudy/m2_tests.py, api/index.py, vercel.json, CHANGELOG.md",
       "percent": 25
     },
     {
@@ -43,7 +43,7 @@
       "enrollment": "S24CSEU1770",
       "role": "Diagrams, documentation and reel",
       "tasks": "Prepared the four diagrams (workflow, task decomposition, input-output flow, architecture), captured the real-run screenshots, wrote the technical report (supporting document) and recorded the reel.",
-      "evidence": "docs/diagrams/, docs/figures/, docs/IntelliCore_TechnicalReport.pdf, reel link on the cover page",
+      "evidence": "docs/diagrams/, docs/figures/, docs/IntelliCore_TechnicalReport.md, reel link on the cover page",
       "percent": 25
     }
   ]

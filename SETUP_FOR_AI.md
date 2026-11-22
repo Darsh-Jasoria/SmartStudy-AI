@@ -48,8 +48,8 @@ bash run.sh live
 
 ## 5. Reproduce the Milestone 2 results
 ```bash
-bash run.sh m2tests          # the 12-input test table, live model, writes test-data/live_runs/
-cd code && python3 -m smartstudy.evaluate --provider gemini --versions v0 v1 v2 v3 v4 v5 --out ../test-data/live_runs
+bash run.sh m2tests          # the 13-input test table, live model, writes test-data/live_runs/
+cd code && python3 -m smartstudy.evaluate --provider gemini --versions v0 v1 v2 v3 v4 v5
 bash run.sh eval             # offline: re-scores the saved simulated (Claude Haiku replay) results
 ```
 Real runs vary a little from run to run, so your numbers will differ slightly from the report.

@@ -1,4 +1,4 @@
-"""Milestone 2 test table: 12 inputs (6 normal, 4 edge, 2 invalid) run through the final workflow (v5).
+"""Milestone 2 test table: 13 inputs (7 normal, 4 edge, 2 invalid) run through the final workflow (v5).
 Pass/Fail comes from the checks below, never from hand edits.
 
   python3 -m smartstudy.m2_tests --provider gemini      # real run, writes test-data/live_runs/m2_*.json + .md

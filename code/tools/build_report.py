@@ -4,7 +4,7 @@
 
 Reads  docs/submission_config.json, test-data/results/v*.json (live scoring), test-data/live_runs/m2_tests_*.json
        (latest test table), prompts/, docs/figures/m2_*.png
-Writes docs/M2_<TeamID>_SmartStudy.pdf, docs/IntelliCore_TechnicalReport.pdf (+ the .md sources).
+Writes the two PDFs into the submission folder (1_PDFs_to_upload/) or, in a standalone clone, ../SUBMISSION_READY/.
 Every number in the PDFs comes from those files; nothing is typed in by hand."""
 from __future__ import annotations
 import glob
@@ -22,8 +22,12 @@ from smartstudy.pipeline import load_prompt, OLDER  # noqa: E402
 
 DOCS = ROOT / "docs"
 CFG = json.loads((DOCS / "submission_config.json").read_text())
-OUT = ROOT.parent / "SUBMISSION_READY"        # final PDFs go here, outside the repository
-_LINKS = OUT / "links.json"                   # optional, not in the repository: prototype, repository, reel, reel_seconds
+_FINAL = ROOT.parent.parent                      # IntelliCore_M2_Final/ when the project sits in its submission folder
+if (_FINAL / "1_PDFs_to_upload").is_dir():
+    OUT, _LINKS = _FINAL / "1_PDFs_to_upload", _FINAL / "2_Form_answers_and_prep" / "links.json"
+else:                                           # standalone clone: write next to the repo, outside it
+    OUT, _LINKS = ROOT.parent / "SUBMISSION_READY", ROOT.parent / "SUBMISSION_READY" / "links.json"
+# links.json (optional, not in the repository): prototype, repository, reel, reel_seconds
 if _LINKS.exists():
     _l = json.loads(_LINKS.read_text())
     CFG["links"].update({k: _l.get(k, "") for k in ("prototype", "repository", "reel")})
@@ -479,7 +483,7 @@ Repository link: {CFG['links']['repository'] or '(link to be added)'}
 **What changed since Milestone 1:**
 
 - Rebuilt the repository to the required layout: `prompts/v1, v2, v3, v4, final`, `code/`, `test-data/`, `docs/`, `CHANGELOG.md`.
-- Added the Gemini provider and ran the first real experiments: workflows v0 to v5 on 9 notes and a 13-input test table (`test-data/live_runs/`).
+- Added the Gemini provider and ran the first real experiments: workflows v0 to v5 on 9 notes (`test-data/results/`) and a 13-input test table (`test-data/live_runs/`).
 - Added edge and invalid test inputs (`test-data/m2_inputs/`), a new test runner, and the Vercel deployment (`api/index.py`, `vercel.json`).
 - Added `SETUP_FOR_AI.md` (step-by-step setup for a person or an AI assistant) and a dated `CHANGELOG.md`; no API keys are stored anywhere in the repository.
 """
@@ -489,7 +493,7 @@ def sec6(tech_md):
     return f"""<div class="pb"></div>
 
 ## 6. Supporting document
-Technical report (also uploaded as `IntelliCore_TechnicalReport.pdf`).
+Technical report (also uploaded separately as `IntelliCore_TechnicalReport.pdf`; its source is `docs/IntelliCore_TechnicalReport.md`).
 
 {tech_md}
 """
@@ -543,7 +547,7 @@ def experiment_log():
     return f"""# Experiment log (live runs, 22 November 2026)
 
 ## How the results were produced
-Real runs of the workflows on **{META['model']}** through the Gemini API (temperature 0.0, thinking level minimal), one run per version, on the 9 notes in `test-data/notes/` scored against `test-data/gold/` by `code/smartstudy/evaluate.py`. Raw outputs: `test-data/live_runs/` (copied to `test-data/results/` for the dashboard). Free-tier request limits differ by model (one model we tried allowed only 20 requests per day), which limited repeated runs, so each version was run once. The earlier simulated answers (Claude Haiku via helper agents, October) are in `test-data/replay_simulated_oct28/` and are **not** used for any claim.
+Real runs of the workflows on **{META['model']}** through the Gemini API (temperature 0.0, thinking level minimal), one run per version, on the 9 notes in `test-data/notes/` scored against `test-data/gold/` by `code/smartstudy/evaluate.py`. Raw outputs: `test-data/results/` (workflow scores, read by the dashboard) and `test-data/live_runs/` (test table). Free-tier request limits differ by model (one model we tried allowed only 20 requests per day), which limited repeated runs, so each version was run once. The earlier simulated answers (Claude Haiku via helper agents, October) are in `test-data/replay_simulated_oct28/` and are **not** used for any claim.
 
 ## Hypotheses (written in October, before any run; re-tested here on live data)
 | # | Hypothesis | Result on live data |
@@ -573,7 +577,7 @@ Real runs of the workflows on **{META['model']}** through the Gemini API (temper
 | Test 8 and 12 | 5 questions from a 3-sentence note and from casual chat, no warning | Model ignores the "return fewer and warn" rule | **Open.** Cap N by note length in code; add an "is this lecture content?" check |
 
 ## Validity caveats
-One run per version, one model, nine computer-science notes. Differences of a few points are not strong evidence. term_recall uses lenient containment matching and rewards long term lists. answer_support is a word-overlap proxy, not a correctness check. There is no human scoring yet (planned for Milestone 3, rubric in `docs/human_eval_rubric.md`). Prompts v1 to v5 were written before the live runs. Test inputs 8 to 12 were designed to probe known risks (thin input, injection, missing information, non-lecture text), so failures there are informative rather than surprising.
+One run per version, one model, nine computer-science notes. Differences of a few points are not strong evidence. term_recall uses lenient containment matching and rewards long term lists. answer_support is a word-overlap proxy, not a correctness check. There is no human scoring yet (planned for Milestone 3, rubric in `docs/human_eval_rubric.md`). An earlier run of the test table had 12 inputs; its test 7 required the length guard to fire, but the model kept the summary within the limit by itself, so we replaced it with a component test (a real over-long summary sent to P4) and re-ran the whole table. The earlier run is not kept. Prompts v1 to v5 were written before the live runs. Test inputs 8 to 12 were designed to probe known risks (thin input, injection, missing information, non-lecture text), so failures there are informative rather than surprising.
 
 Keep failures and losing versions in this log; do not delete them.
 """
@@ -597,10 +601,9 @@ def main():
     tools = Path(__file__).resolve().parent / "md_to_pdf.py"
     tr_md = DOCS / "IntelliCore_TechnicalReport.md"
     for src, out, title in ((md, OUT / name, CFG["project_title"] + " Milestone 2"),
-                            (tr_md, DOCS / "IntelliCore_TechnicalReport.pdf", "Technical report")):
+                            (tr_md, OUT / "IntelliCore_TechnicalReport.pdf", "Technical report")):
         subprocess.run([sys.executable, str(tools), str(src), str(out), "--title", title], check=True)
     md.unlink()
-    (OUT / "IntelliCore_TechnicalReport.pdf").write_bytes((DOCS / "IntelliCore_TechnicalReport.pdf").read_bytes())
     print("done:", name)
 
 

@@ -5,7 +5,7 @@
 #   live     web app with the real Gemini model (needs GEMINI_API_KEY in .env or the environment)
 #   test     run the unit tests
 #   eval     re-score the saved simulated results (offline)
-#   m2tests  run the 12-input Milestone 2 test table with the live model (needs a key)
+#   m2tests  run the 13-input Milestone 2 test table with the live model (needs a key)
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/code" || exit 1
 PY=$(command -v python3) || { echo "Python 3.9+ not found. Install it from https://www.python.org/downloads/"; exit 1; }
 PORT=${PORT:-8000}

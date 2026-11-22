@@ -1,7 +1,7 @@
 # Experiment log (live runs, 22 November 2026)
 
 ## How the results were produced
-Real runs of the workflows on **gemini-3.1-flash-lite** through the Gemini API (temperature 0.0, thinking level minimal), one run per version, on the 9 notes in `test-data/notes/` scored against `test-data/gold/` by `code/smartstudy/evaluate.py`. Raw outputs: `test-data/live_runs/` (copied to `test-data/results/` for the dashboard). Free-tier request limits differ by model (one model we tried allowed only 20 requests per day), which limited repeated runs, so each version was run once. The earlier simulated answers (Claude Haiku via helper agents, October) are in `test-data/replay_simulated_oct28/` and are **not** used for any claim.
+Real runs of the workflows on **gemini-3.1-flash-lite** through the Gemini API (temperature 0.0, thinking level minimal), one run per version, on the 9 notes in `test-data/notes/` scored against `test-data/gold/` by `code/smartstudy/evaluate.py`. Raw outputs: `test-data/results/` (workflow scores, read by the dashboard) and `test-data/live_runs/` (test table). Free-tier request limits differ by model (one model we tried allowed only 20 requests per day), which limited repeated runs, so each version was run once. The earlier simulated answers (Claude Haiku via helper agents, October) are in `test-data/replay_simulated_oct28/` and are **not** used for any claim.
 
 ## Hypotheses (written in October, before any run; re-tested here on live data)
 | # | Hypothesis | Result on live data |
@@ -52,6 +52,6 @@ Real runs of the workflows on **gemini-3.1-flash-lite** through the Gemini API (
 | Test 8 and 12 | 5 questions from a 3-sentence note and from casual chat, no warning | Model ignores the "return fewer and warn" rule | **Open.** Cap N by note length in code; add an "is this lecture content?" check |
 
 ## Validity caveats
-One run per version, one model, nine computer-science notes. Differences of a few points are not strong evidence. term_recall uses lenient containment matching and rewards long term lists. answer_support is a word-overlap proxy, not a correctness check. There is no human scoring yet (planned for Milestone 3, rubric in `docs/human_eval_rubric.md`). Prompts v1 to v5 were written before the live runs. Test inputs 8 to 12 were designed to probe known risks (thin input, injection, missing information, non-lecture text), so failures there are informative rather than surprising.
+One run per version, one model, nine computer-science notes. Differences of a few points are not strong evidence. term_recall uses lenient containment matching and rewards long term lists. answer_support is a word-overlap proxy, not a correctness check. There is no human scoring yet (planned for Milestone 3, rubric in `docs/human_eval_rubric.md`). An earlier run of the test table had 12 inputs; its test 7 required the length guard to fire, but the model kept the summary within the limit by itself, so we replaced it with a component test (a real over-long summary sent to P4) and re-ran the whole table. The earlier run is not kept. Prompts v1 to v5 were written before the live runs. Test inputs 8 to 12 were designed to probe known risks (thin input, injection, missing information, non-lecture text), so failures there are informative rather than surprising.
 
 Keep failures and losing versions in this log; do not delete them.
