@@ -8,6 +8,7 @@ A prompt-engineering project that converts university lecture notes into a conci
 |---|---|
 | Team | IntelliCore (Team ID **PE-B37-17**, batch B37-48) |
 | Faculty | Pawan Kumar |
+| Live prototype | https://smartstudy-ai-swart.vercel.app |
 | Model | Gemini 3.1 Flash-Lite via the Gemini API (switchable: Gemini, Anthropic, Ollama) |
 
 ![Study pack generated from the TCP notes](docs/figures/m2_run_test3_tcp.png)

@@ -66,8 +66,9 @@ Real runs vary a little from run to run, so your numbers will differ slightly fr
 | `SMARTSTUDY_MODEL` | `gemini-3.1-flash-lite` |
 | `SMARTSTUDY_MAX_CHARS` | `6000` |
 | `SMARTSTUDY_MAX_QUESTIONS` | `8` |
+| `SMARTSTUDY_FALLBACK_MODELS` | `gemini-3.5-flash-lite` (optional: used only if the main model is busy or over quota) |
 
-4. Deploy, then open the Vercel URL. **Check:** `https://<your-app>.vercel.app/api/health` returns `{"ok": true}`.
+4. Deploy, then open the Vercel URL. **Check:** `https://<your-app>.vercel.app/api/health` returns `{"ok": true}`, and `/api/diag` makes one tiny model call and shows how many seconds it took (a pack takes about 4 calls).
 5. Without a key on the server the app still loads and the dashboard works; generation then shows an error message.
 Anyone with the link can spend your free quota, so delete the key at https://aistudio.google.com/apikey once grading is over.
 

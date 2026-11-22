@@ -10,6 +10,7 @@ Team IntelliCore · Team ID PE-B37-17 · SmartStudy (Problem Pool C2). Dates are
 - Test table result: 10 of 12 pass. Two honest failures: test 7 (3-sentence note) and test 11 (casual chat) both produced 5 questions with no warning, i.e. the workflow padded instead of refusing. Logged in `docs/experiment_log.md`.
 - Added edge and invalid inputs in `test-data/m2_inputs/` (thin note, Hinglish, prompt injection, missing slide, chat text, 5-character input).
 - Added Vercel deployment (`api/index.py`, `vercel.json`), `.env` loading, input limits for a public deployment, `run.sh`, `.env.example`, and `SETUP_FOR_AI.md`.
+- Hardened the Gemini client for the online deployment: faster retries (2 s, 4 s), a 40 s per-call timeout, an optional fallback model chain, per-call timing in the API response, and a `/api/diag` check.
 - Added Team Member 4 (Arnav Singh) to all team documents. Removed enrollment numbers from the public web page.
 
 ## 2026-10-28 · Prototype and experiments (before the live runs)

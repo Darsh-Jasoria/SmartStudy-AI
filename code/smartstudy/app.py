@@ -151,6 +151,15 @@ class Handler(BaseHTTPRequestHandler):
                                  "llm_available": bool(os.environ.get("ANTHROPIC_API_KEY")) or provider in ("ollama", "replay") or (provider == "gemini" and bool(__import__("smartstudy.llm", fromlist=["x"]).gemini_key()))})
             elif route == "/api/health":
                 self._json(200, {"ok": True})
+            elif route == "/api/diag":      # one tiny model call: shows whether the model answers quickly from this server
+                import time as _t
+                t0 = _t.time()
+                try:
+                    llm = get_llm()
+                    out = llm.complete("Reply with the single word ok.", "ok?", 20)
+                    self._json(200, {"ok": True, "seconds": round(_t.time() - t0, 1), "model": getattr(llm, "model", "?"), "reply": out.strip()[:20]})
+                except Exception as e:
+                    self._json(200, {"ok": False, "seconds": round(_t.time() - t0, 1), "error": str(e)[:300]})
             else:
                 self._json(404, {"error": "not found"})
         except FileNotFoundError as e:
@@ -170,10 +179,13 @@ class Handler(BaseHTTPRequestHandler):
         if not NOTES_MIN <= len(notes) <= NOTES_MAX:
             return self._json(400, {"error": f"Notes must be between {NOTES_MIN} and {NOTES_MAX:,} characters."})
         try:
-            res = run(notes, version, None if version == "v0" else get_llm(),
+            llm = None if version == "v0" else get_llm()
+            n_before = len(getattr(llm, "calls_log", []))
+            res = run(notes, version, llm,
                       _clamp(req.get("n_questions"), 1, MAX_QUESTIONS, 5), _clamp(req.get("max_words"), 30, 300, 100),
                       str(req.get("subject", ""))[:80], str(req.get("difficulty", "")))
             res["markdown"] = to_markdown(res)
+            res["timing"] = [{"model": m, "seconds_since_start": sec, "attempts": att} for m, sec, att, _ in getattr(llm, "calls_log", [])[n_before:]]
             self._json(200, res)
         except Missing:
             self._json(409, {"error": "Demo (replay) mode only has saved answers for the nine sample notes with 5 questions, "
